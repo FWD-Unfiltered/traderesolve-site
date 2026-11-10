@@ -1,0 +1,2115 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>TradeResolve</title>
+<meta name="description" content="TradeResolve: one Unified Agreement for customer and tradesperson before work starts, and an impartial Master Assessor if anything needs sorting. Fair to the customer. Fair to the tradesperson.">
+<meta name="theme-color" content="#012169">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TradeResolve">
+<meta property="og:title" content="TradeResolve: It&rsquo;s got to be right">
+<meta property="og:description" content="Start every building job on the same page. One agreement for both sides, and an impartial expert if it&rsquo;s ever needed.">
+<meta property="og:image" content="https://traderesolve.co.uk/img/handshake.jpg">
+<meta property="og:url" content="https://traderesolve.co.uk/">
+<link rel="canonical" href="https://traderesolve.co.uk/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='14 6 72 100'%3E%3Cdefs%3E%3Cmask id='m'%3E%3Crect width='100' height='112' fill='%23fff'/%3E%3Cg transform='translate(44 78) rotate(-45)'%3E%3Crect x='-6.5' y='-3.5' width='100' height='7'/%3E%3Crect x='-6.5' y='-70' width='13' height='73.5'/%3E%3C/g%3E%3C/mask%3E%3CclipPath id='c'%3E%3Cpolygon points='-10,24 44,78 120,2 120,130 -10,130'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg mask='url(%23m)'%3E%3Cpath d='M14 11Q14 6 19 6H81Q86 6 86 11V52C86 78 70 96 50 106C30 96 14 78 14 52Z' fill='%23012169'/%3E%3Cpath d='M14 11Q14 6 19 6H81Q86 6 86 11V52C86 78 70 96 50 106C30 96 14 78 14 52Z' fill='%23C8102E' clip-path='url(%23c)'/%3E%3C/g%3E%3C/svg%3E">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: phone-first app shell. Sticky header, audience switch, stacked sections; "Start a job" is a second view on #start */
+:root{
+  /* TradeResolve brand: Union Blue #012169, Union Red #C8102E; Barlow display, Manrope text */
+  --paper:#f4f5f8; --card:#ffffff; --ink:#012169; --muted:#4a5878; --line:#d8dce6;
+  --amber:#C8102E; --amber-ink:#ffffff; --slate:#012169; --slate-2:#012169; --ok:#1f7a4d; --warn:#C8102E; color-scheme:light;
+  --brand-blue:#012169; --brand-red:#C8102E; --on-brand:#ffffff; --mark-a:#012169;
+  --display:"Barlow","Arial Narrow",system-ui,sans-serif;
+  --body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:17px/1.55 var(--body)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--card)}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);line-height:1.1;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.7rem,3.4vw,2.3rem);font-weight:800;letter-spacing:-.01em}
+h3{font-size:1.2rem;font-weight:700}
+p{margin:0}
+.eyebrow{font:600 .75rem/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--mono);font-size:.82rem;font-variant-numeric:tabular-nums}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--card);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px}
+.logo{display:flex;align-items:center;gap:10px;color:var(--slate);text-decoration:none}
+.logo .lmark{width:28px;height:auto;display:block}
+.word{font:500 1.5rem/1 var(--display);letter-spacing:-.02em;color:var(--ink);display:inline-flex;align-items:baseline;white-space:nowrap}
+.word b{font-weight:800}
+.wtick{width:.56em;height:.54em;margin:0 .005em;overflow:visible;fill:none;stroke:var(--brand-red);stroke-width:9;stroke-linejoin:miter}
+.on-blue .wtick{filter:drop-shadow(0 0 0 #fff) drop-shadow(0.6px 0 0 #fff) drop-shadow(-0.6px 0 0 #fff) drop-shadow(0 0.6px 0 #fff) drop-shadow(0 -0.6px 0 #fff)}
+/* the ebony try square, set at the tick angle, is the brand's bullet point */
+ul.sq{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+ul.sq>li{position:relative;padding-left:34px}
+ul.sq>li::before{content:"";position:absolute;left:0;top:.1em;width:24px;height:24px;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22w%22%20x1%3D%220%22%20x2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%230b0908%22/%3E%3Cstop%20offset%3D%22.45%22%20stop-color%3D%22%234a403a%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%230b0908%22/%3E%3C/linearGradient%3E%3ClinearGradient%20id%3D%22c%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238e979f%22/%3E%3Cstop%20offset%3D%22.3%22%20stop-color%3D%22%23f7f9fa%22/%3E%3Cstop%20offset%3D%22.6%22%20stop-color%3D%22%237a838b%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23d7dce0%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg%20transform%3D%22translate%288.6%2017.4%29%20rotate%28-45%29%22%3E%3Crect%20x%3D%22-1.2%22%20y%3D%22-1.4%22%20width%3D%2217%22%20height%3D%222.8%22%20fill%3D%22url%28%23c%29%22%20stroke%3D%22%235f676e%22%20stroke-width%3D%22.3%22/%3E%3Crect%20x%3D%22-2.4%22%20y%3D%22-9.5%22%20width%3D%224.8%22%20height%3D%2211%22%20rx%3D%22.5%22%20fill%3D%22url%28%23w%29%22%20stroke%3D%22%23000%22%20stroke-width%3D%22.3%22/%3E%3Crect%20x%3D%221.8%22%20y%3D%22-9.5%22%20width%3D%22.6%22%20height%3D%2211%22%20fill%3D%22%23d9a93c%22/%3E%3Ccircle%20cx%3D%220%22%20cy%3D%22-3%22%20r%3D%22.9%22%20fill%3D%22%23e2b54a%22/%3E%3Ccircle%20cx%3D%220%22%20cy%3D%22-6.8%22%20r%3D%22.9%22%20fill%3D%22%23e2b54a%22/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:10px;padding:12px 18px;font-weight:700;cursor:pointer;text-decoration:none;min-height:46px}
+.btn-amber{background:var(--amber);color:var(--amber-ink)}
+.btn-amber:hover{filter:brightness(1.05)}
+.btn-ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.btn-sm{padding:8px 14px;min-height:38px;font-size:.92rem}
+
+/* ruler divider: the tape-measure motif */
+.ruler{height:14px;background:
+  repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px 10px),
+  repeating-linear-gradient(90deg,var(--muted) 0 1.5px,transparent 1.5px 50px);
+  background-size:100% 6px,100% 12px;background-repeat:no-repeat;background-position:0 0,0 0;opacity:.7}
+
+section{padding-block:36px}
+.hero{padding-block:30px 34px}
+/* ---- video hero: still -> plays once, bright -> freezes darkened with the two audience buttons ---- */
+.hero-video{position:relative;overflow:hidden;height:calc(100svh - 61px);min-height:520px;max-height:1100px;background:#0b1430;isolation:isolate}
+.hv-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%;display:block;z-index:-2}
+.hv-dim{position:absolute;inset:0;z-index:-1;pointer-events:none;background:#010e30;opacity:.6;transition:opacity 1.2s ease}
+.hero-video.hv-idle .hv-dim{opacity:.94}
+.hero-video.hv-logo .hv-dim{opacity:.7}
+.hero-video.hv-play .hv-dim{opacity:0;transition-duration:.9s}
+.hero-video.hv-end .hv-dim{opacity:.6;transition-duration:1.6s}
+.hv-buttons{position:absolute;left:0;right:0;bottom:clamp(26px,8vh,80px);display:flex;justify-content:space-between;gap:16px;padding-inline:clamp(16px,5vw,72px);pointer-events:none}
+.hv-side{pointer-events:auto;display:inline-flex;align-items:center;gap:.5em;padding:.62em 1.05em .62em 1.15em;border-radius:999px;background:#fff;color:#012169;text-decoration:none;
+  font:800 clamp(1.1rem,2.3vw,1.7rem)/1 var(--display);letter-spacing:-.005em;box-shadow:0 10px 30px rgba(0,8,30,.35);
+  opacity:0;visibility:hidden;transition:opacity 1s ease,transform 1s cubic-bezier(.2,.7,.2,1),visibility 0s 1s,box-shadow .2s}
+.hv-left{transform:translateX(-30px)}
+.hv-right{transform:translateX(30px)}
+.hero-video.hv-end .hv-side{opacity:1;visibility:visible;transform:none;transition:opacity 1s ease .9s,transform 1s cubic-bezier(.2,.7,.2,1) .9s,visibility 0s,box-shadow .2s}
+.hero-video.hv-end .hv-right{transition-delay:1.25s,1.25s,0s,0s}
+.hv-side:hover{box-shadow:0 14px 36px rgba(0,8,30,.5)}
+.hv-arrow{width:.5em;height:.5em;flex:none;border-top:.15em solid #C8102E;border-right:.15em solid #C8102E;transform:rotate(45deg);margin-left:-.1em;transition:transform .25s}
+.hv-side:hover .hv-arrow,.hv-side:focus-visible .hv-arrow{transform:translateX(4px) rotate(45deg)}
+.hv-side:focus-visible{outline:3px solid #fff;outline-offset:4px}
+@media (max-width:639px){.hero-video{height:calc(100svh - 57px);min-height:480px}.hv-media{object-position:49% 40%}
+  .hv-buttons{flex-direction:column;align-items:stretch;gap:12px}.hv-side{justify-content:center;font-size:1.2rem}}
+@media (prefers-reduced-motion:reduce){.hv-side,.hv-dim{transition:none}}
+.hv-sound{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.55);background:rgba(1,14,48,.38);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#fff;display:grid;place-items:center;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .6s ease,background .2s}
+.hv-sound svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.hv-sound .spk{fill:currentColor;stroke:none}
+.hv-sound[aria-pressed="true"] .off,.hv-sound[aria-pressed="false"] .on{display:none}
+.hv-sound:hover{background:rgba(1,14,48,.6)}
+.hv-sound:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.hero-video.hv-play .hv-sound{opacity:1;pointer-events:auto}
+
+.hero>div{max-width:46rem}
+@media (min-width:900px){.hero{padding-block:46px 40px}}
+.duo{display:grid;gap:28px;align-items:start}
+@media (min-width:860px){.duo{grid-template-columns:1.15fr .85fr}}
+[hidden]{display:none!important}
+.photo{margin:0;border-radius:6px;overflow:hidden;background:var(--line);max-width:100%}
+.photo img{width:100%;height:auto;display:block}
+.photo figcaption{font-size:.85rem;color:var(--muted);padding:10px 2px 0}
+.hero h1{font-size:clamp(2.3rem,5.4vw,3.6rem);font-weight:800;letter-spacing:-.015em}
+.hero h1 span{color:var(--amber)}
+.hero p.lede+p.lede{margin-top:12px}
+.hero p.lede.lede-strong{font:800 clamp(1.3rem,2.4vw,1.6rem)/1.2 var(--display);color:var(--ink);letter-spacing:-.005em;margin-top:18px}
+.hero p.lede.lede-strong+p.lede{margin-top:6px}
+.hero p.lede.lede-end{color:var(--ink);font-weight:700}
+.stage .body p.motto,.motto{margin:16px 0 0;padding:4px 0 4px 16px;border-left:4px solid var(--brand-red,#C8102E);font:800 clamp(1.25rem,2.4vw,1.6rem)/1.2 var(--display);color:var(--ink);letter-spacing:-.005em}
+.hero p.lede{margin-top:14px;font-size:1.12rem;color:var(--muted);max-width:34em}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+
+/* ---- audience-led sections ---- */
+.problem h2{margin-top:8px}
+.stats{display:grid;gap:12px;margin-top:22px}
+@media (min-width:760px){.stats{grid-template-columns:repeat(3,1fr)}}
+.stats div{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--aud);border-radius:8px;padding:18px}
+.stats b{display:block;font:800 clamp(2.2rem,5vw,2.9rem)/1 var(--display);color:var(--aud);letter-spacing:-.02em}
+.stats span{display:block;margin-top:8px;color:var(--ink);line-height:1.45}
+.src{font-size:.78rem;color:var(--muted);margin-top:10px;line-height:1.5}
+.src a{color:var(--muted)}
+.pain-duo,.win{display:grid;gap:22px;align-items:center;margin-top:30px}
+@media (min-width:860px){.pain-duo{grid-template-columns:1fr 1fr}.win{grid-template-columns:1.1fr .9fr}}
+.pain-duo h3,.win h3{font-size:1.4rem;margin-bottom:12px}
+.win p{color:var(--muted);margin-bottom:16px}
+.compare{display:grid;gap:12px;margin-top:30px}
+@media (min-width:760px){.compare{grid-template-columns:1fr 1fr}}
+.compare .col{border-radius:8px;padding:20px}
+.compare .without{background:var(--card);border:1px solid var(--line)}
+.compare .with{background:var(--aud);color:#fff}
+.compare h3{font-size:1.15rem;margin-bottom:12px}
+.compare .without h3{color:var(--muted)}
+.compare ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.compare li{display:flex;gap:10px;align-items:flex-start;line-height:1.45}
+.compare li svg{flex:none;width:20px;height:20px;margin-top:2px;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.compare .without li{color:var(--muted)}
+.compare .without svg{stroke:#9aa3b5}
+.compare .with svg{stroke:#fff}
+.foryou{margin-top:2px;padding:8px 12px;border-left:3px solid var(--aud);background:var(--aud-tint);border-radius:0 6px 6px 0;color:var(--ink)!important;font-size:.95rem}
+.foryou b{color:var(--aud)}
+.foryou-a{color:var(--ink);font-weight:600;margin-bottom:6px}
+.value{grid-column:1/-1;font-size:.9rem;color:var(--ink);background:var(--aud-tint);border-radius:6px;padding:8px 10px}
+.result .value b{display:inline;font:inherit;font-weight:800;color:var(--aud)}
+/* audience switch: customer = Union Blue, tradesperson = Union Red */
+body{--aud:#012169;--aud-tint:#eef2fb;--aud-line:#c9d4ef}
+body[data-aud="t"]{--aud:#C8102E;--aud-tint:#fcf0f2;--aud-line:#f2c6cf}
+body[data-aud="c"] [data-for="t"],body[data-aud="t"] [data-for="c"]{display:none!important}
+.aud-band{background:var(--aud-tint);border-block:1px solid var(--aud-line);transition:background .4s ease,border-color .4s ease}
+.aud-band #who{border-top:6px solid var(--aud);margin-top:-1px}
+.switch button{display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.switch button svg{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#tab-c[aria-selected="true"]{background:#012169!important;color:#fff!important}
+#tab-t[aria-selected="true"]{background:#C8102E!important;color:#fff!important}
+.aud-band .aud{background:var(--card);border:1px solid var(--aud-line);border-left:5px solid var(--aud);border-radius:10px;padding:18px 18px 20px}
+.aud-band .aud h3{color:var(--aud)}
+.aud-band .quote{border-left-color:var(--aud)}
+.aud-photo img{animation:aud-in .45s ease both}
+@keyframes aud-in{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.aud-photo img{animation:none}}
+.aud-viewing{font-size:.88rem;color:var(--muted);margin:10px 0 0}
+.aud-viewing span{font-weight:700;color:var(--aud)}
+@media (prefers-reduced-motion:reduce){.aud-band{transition:none}}
+/* audience switch */
+.switch{display:grid;grid-template-columns:1fr 1fr;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:4px;gap:4px}
+.switch button{border:0;background:transparent;border-radius:9px;padding:11px 8px;font-weight:700;cursor:pointer;color:var(--muted)}
+.switch button[aria-selected="true"]{background:var(--slate);color:var(--card)}
+.aud{margin-top:18px;display:grid;gap:12px}
+.aud h3{font-size:1.35rem}
+.pain{display:grid;gap:10px;margin-top:4px}
+.pain{padding:0;margin:0;display:grid;gap:12px}
+.pain li{list-style:none;position:relative;padding-left:36px}
+.pain li::before{content:"";position:absolute;left:0;top:.05em;width:26px;height:26px;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22w%22%20x1%3D%220%22%20x2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%230b0908%22/%3E%3Cstop%20offset%3D%22.45%22%20stop-color%3D%22%234a403a%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%230b0908%22/%3E%3C/linearGradient%3E%3ClinearGradient%20id%3D%22c%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238e979f%22/%3E%3Cstop%20offset%3D%22.3%22%20stop-color%3D%22%23f7f9fa%22/%3E%3Cstop%20offset%3D%22.6%22%20stop-color%3D%22%237a838b%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23d7dce0%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg%20transform%3D%22translate%288.6%2017.4%29%20rotate%28-45%29%22%3E%3Crect%20x%3D%22-1.2%22%20y%3D%22-1.4%22%20width%3D%2217%22%20height%3D%222.8%22%20fill%3D%22url%28%23c%29%22%20stroke%3D%22%235f676e%22%20stroke-width%3D%22.3%22/%3E%3Crect%20x%3D%22-2.4%22%20y%3D%22-9.5%22%20width%3D%224.8%22%20height%3D%2211%22%20rx%3D%22.5%22%20fill%3D%22url%28%23w%29%22%20stroke%3D%22%23000%22%20stroke-width%3D%22.3%22/%3E%3Crect%20x%3D%221.8%22%20y%3D%22-9.5%22%20width%3D%22.6%22%20height%3D%2211%22%20fill%3D%22%23d9a93c%22/%3E%3Ccircle%20cx%3D%220%22%20cy%3D%22-3%22%20r%3D%22.9%22%20fill%3D%22%23e2b54a%22/%3E%3Ccircle%20cx%3D%220%22%20cy%3D%22-6.8%22%20r%3D%22.9%22%20fill%3D%22%23e2b54a%22/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat}
+.pain ul{padding:0;margin:0;display:grid;gap:10px}
+.tick{width:22px;height:22px;border-radius:50%;background:var(--amber);color:var(--amber-ink);display:grid;place-items:center;font-weight:900;font-size:.8rem;margin-top:2px}
+.quote{border-left:4px solid var(--amber);padding:6px 0 6px 14px;color:var(--muted);font-style:italic}
+
+/* stages: a real sequence, so numbered */
+.stages{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:0;counter-reset:s}
+.stage{display:grid;grid-template-columns:44px 1fr;gap:14px;position:relative;padding-bottom:22px}
+.stage:not(:last-child)::before{content:"";position:absolute;left:21px;top:44px;bottom:0;width:2px;background:var(--line)}
+.num{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font:900 1.1rem var(--display);background:var(--card);border:2px solid var(--slate);color:var(--slate)}
+.stage.hot .num{background:var(--amber);border-color:var(--amber);color:var(--amber-ink)}
+.stage .body{min-width:0;padding-top:6px;display:grid;gap:6px}
+.who{display:inline-block;font:600 .72rem var(--body);letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--line);color:var(--ink);justify-self:start}
+.stage p{color:var(--muted)}
+
+/* calculator */
+.calc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-top:20px;display:grid;gap:18px}
+.field{display:grid;gap:6px}
+.field label{font-weight:700;font-size:.95rem}
+.money{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);padding-left:12px}
+.money span{font-weight:700;color:var(--muted)}
+.money input{border:0;background:transparent;padding:12px 10px;width:100%;min-width:0;font-size:1.2rem;font-weight:700;font-variant-numeric:tabular-nums}
+.money input:focus{outline:none}
+.money:focus-within{border-color:var(--amber)}
+input[type=range]{width:100%;accent-color:var(--amber)}
+.split{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.split label{border:1.5px solid var(--line);border-radius:10px;padding:10px 6px;text-align:center;font-weight:600;font-size:.9rem;cursor:pointer}
+.split input{position:absolute;opacity:0;pointer-events:none}
+.split input:checked+label{border-color:var(--slate);background:var(--slate);color:var(--card)}
+.split input:focus-visible+label{outline:3px solid var(--amber)}
+.result{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px dashed var(--line);padding-top:16px}
+.result div{display:grid;gap:2px}
+.result b{font:900 1.6rem var(--display);font-variant-numeric:tabular-nums}
+.result small{color:var(--muted)}
+.minflag{grid-column:1/-1;font-size:.88rem;color:var(--warn)}
+.note{font-size:.85rem;color:var(--muted)}
+.bands{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}
+.bands div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 10px;text-align:center;transition:border-color .2s,background .2s}
+.bands div.on{border-color:var(--aud);background:var(--aud-tint)}
+.bands small{display:block;color:var(--muted);font-size:.8rem}
+.bands b{font:900 1.5rem var(--display);color:var(--ink)}
+.visit-fee{margin-top:14px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--aud);border-radius:12px;padding:14px 16px;font-size:.95rem}
+.visit-fee b{color:var(--ink)}
+@media (max-width:640px){.bands{grid-template-columns:repeat(2,1fr)}}
+
+/* trade badge */
+.badge-demo{display:flex;align-items:center;gap:14px;background:var(--brand-blue);color:var(--on-brand);border-radius:14px;padding:16px;margin-top:16px}
+.badge-demo .shield{flex:none;width:40px;height:56px}
+.badge-demo b{font-family:var(--display);font-size:1.1rem;display:block}
+.badge-demo small{opacity:.8}
+
+/* faq */
+.band{background:var(--brand-blue);color:var(--on-brand);padding-block:48px}
+.band-in{display:grid;gap:28px;align-items:center}
+@media (min-width:860px){.band-in{grid-template-columns:1fr 1.1fr}}
+.band-copy{display:grid;gap:14px}
+.band-copy p{color:#dfe5f5;max-width:36em}
+.band .sq li{color:#fff;font-weight:600}
+details{border-bottom:1px solid var(--line);padding:14px 0}
+summary{font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::after{content:"+";font:900 1.3rem var(--display);color:var(--amber)}
+details[open] summary::after{content:"–"}
+details p{margin-top:8px;color:var(--muted)}
+
+footer .lmark{width:22px;height:auto}
+footer{padding-block:28px 40px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line)}
+
+/* ---- start a job view ---- */
+.steps-bar{display:flex;gap:6px;margin:18px 0 6px}
+.steps-bar i{flex:1;height:5px;border-radius:3px;background:var(--line)}
+.steps-bar i.on{background:var(--amber)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;display:grid;gap:16px;margin-top:14px}
+.panel input[type=text],.panel input[type=email],.panel input[type=date],.panel textarea,.panel select{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;background:var(--paper)}
+.panel textarea{min-height:84px;resize:vertical;font:inherit}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row2>*{min-width:0}
+.pair{display:grid;gap:12px}
+.party{border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;gap:10px}
+.party h3{display:flex;align-items:center;gap:8px}
+.terms{max-height:220px;overflow:auto;border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--paper);font-size:.92rem}
+.terms ol{margin:0;padding-left:18px;display:grid;gap:6px}
+.sig{display:grid;gap:6px}
+.sigpad{width:100%;height:120px;border:1.5px dashed var(--muted);border-radius:10px;background:var(--paper);touch-action:none;cursor:crosshair;display:block}
+.sig .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:.95rem}
+.check input{margin-top:4px;width:18px;height:18px;accent-color:var(--amber)}
+.nav{display:flex;justify-content:space-between;gap:10px}
+.err{color:var(--warn);font-size:.9rem;font-weight:600}
+.cert{border:2px solid var(--brand-blue);border-radius:14px;padding:18px;display:grid;gap:12px;background:var(--card)}
+.cert .head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.cert dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:.95rem}
+.cert dt{color:var(--muted)}
+.cert dd{margin:0;font-weight:600;min-width:0;overflow-wrap:anywhere}
+.sigs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sigs figure{margin:0;border-top:1px solid var(--line);padding-top:6px}
+.sigs img{height:60px;width:100%;object-fit:contain;background:var(--paper);border-radius:6px}
+.sigs figcaption{font-size:.8rem;color:var(--muted)}
+.status{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--ok);font-size:.9rem}
+.status::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--ok)}
+.timeline{display:grid;gap:8px;font-size:.92rem}
+.timeline div{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center}
+.dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--line)}
+.dot.on{background:var(--ok);border-color:var(--ok)}
+
+@media (max-width:460px){.row2,.result{grid-template-columns:1fr}.sigs{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:no-preference){.btn{transition:filter .15s}}
+
+/* ---------- header actions + share popup ---------- */
+.hdr-actions{display:flex;align-items:center;gap:8px}
+.hdr-actions .btn{white-space:nowrap}
+.acct-link{background:var(--card)}
+.acct-link svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+@media (max-width:560px){.acct-link span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.acct-link{padding-inline:10px}}
+.share-btn{background:var(--card)}
+.share-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+.share-btn:hover{border-color:var(--ink)}
+@media (max-width:380px){.hide-xs{display:none}}
+@media (max-width:440px){header .wrap{gap:8px}.logo{gap:7px}.logo .word{font-size:1.16rem}.logo .lmark{width:24px}.hdr-actions{gap:6px}.hdr-actions .btn-sm{padding-inline:10px;font-size:.86rem}}
+@media (max-width:480px){.share-btn span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.share-btn{padding-inline:10px}}
+.share-dlg{border:0;padding:22px 22px 18px;border-radius:20px;width:min(460px,calc(100vw - 32px));background:var(--card);color:var(--ink);box-shadow:0 30px 80px rgba(1,14,48,.35)}
+.share-dlg::backdrop{background:rgba(1,14,48,.55);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.share-dlg[open]{animation:share-in .28s cubic-bezier(.2,.7,.2,1)}
+@keyframes share-in{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
+.share-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.share-head h2{font-size:1.45rem;font-weight:800}
+.share-x{all:unset;cursor:pointer;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:var(--muted)}
+.share-x:hover{background:var(--paper);color:var(--ink)}
+.share-x:focus-visible{outline:3px solid var(--brand-red,#C8102E);outline-offset:2px}
+.share-x svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.share-sub{margin:6px 0 16px;color:var(--muted);font-size:.95rem;line-height:1.45}
+.share-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 8px}
+.share-opt{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:7px;font:600 .78rem/1.2 var(--body);color:var(--ink);text-align:center;padding:6px 2px;border-radius:12px}
+.share-opt[hidden]{display:none}
+.share-opt:hover .share-ico{transform:translateY(-2px);box-shadow:0 8px 18px rgba(1,14,48,.18)}
+.share-opt:focus-visible{outline:3px solid var(--brand-red,#C8102E);outline-offset:2px}
+.share-ico{width:52px;height:52px;border-radius:16px;background:var(--c);display:grid;place-items:center;transition:transform .2s,box-shadow .2s}
+.share-ico svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.share-ico svg .fill{fill:#fff;stroke:none}
+.share-note{margin:16px 0 0;padding-top:12px;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted);line-height:1.45}
+@media (max-width:520px){
+  .share-dlg{margin:auto auto 0;width:100vw;max-width:100vw;border-radius:20px 20px 0 0;padding-bottom:calc(18px + env(safe-area-inset-bottom,0px))}
+  .share-dlg[open]{animation:share-up .3s cubic-bezier(.2,.7,.2,1)}
+  @keyframes share-up{from{transform:translateY(100%)}to{transform:none}}
+}
+@media (prefers-reduced-motion:reduce){.share-dlg[open]{animation:none}}
+
+/* ================= build-out: sections, account, legal, footer, cookies ================= */
+mark.ph{background:#fff3b0;color:#4a3b00;padding:0 .2em;border-radius:3px;font-style:normal}
+.lead-muted{margin-top:8px;color:var(--muted);max-width:44em}
+/* trades gallery */
+.trades{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:20px}
+.trade{margin:0;position:relative;border-radius:6px;overflow:hidden;background:var(--line);aspect-ratio:16/10}
+.trade img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.trade:hover img{transform:scale(1.03)}
+.trade figcaption{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 11px;color:#fff;font:700 1rem/1.2 var(--display);
+  background:linear-gradient(to top,rgba(1,14,48,.82),rgba(1,14,48,0))}
+.trade figcaption span{display:block;font:500 .8rem/1.3 var(--body);opacity:.9;margin-top:2px}
+/* master assessors */
+.assessors{display:grid;gap:26px;align-items:center}
+@media (min-width:900px){.assessors{grid-template-columns:1.05fr 1fr}}
+.kit{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kit figure{margin:0;border-radius:6px;overflow:hidden;background:var(--line);aspect-ratio:3/4}
+.kit img{width:100%;height:100%;object-fit:cover;display:block}
+.vet{display:grid;gap:10px;margin-top:16px}
+/* testimonials */
+.quotes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:20px}
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:42px 20px 20px;display:flex;flex-direction:column;gap:12px;position:relative}
+.qcard blockquote{margin:0;font-size:1.02rem;line-height:1.55;color:var(--ink)}
+.qcard blockquote::before{content:"\201C";font:800 2.6rem/0 var(--display);color:var(--brand-red,#C8102E);vertical-align:-.45em;margin-right:4px}
+.qwho{display:flex;align-items:center;gap:10px;margin-top:auto}
+.qav{width:38px;height:38px;border-radius:50%;background:var(--paper);border:1px solid var(--line);display:grid;place-items:center;font:800 .9rem var(--display);color:var(--muted)}
+.qwho b{display:block;font-size:.92rem}.qwho small{color:var(--muted)}
+.qtag{position:absolute;top:12px;right:12px;font:700 .66rem/1 var(--body);letter-spacing:.06em;text-transform:uppercase;background:#fff3b0;color:#4a3b00;padding:4px 7px;border-radius:999px}
+/* contact strip */
+.cta-strip{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:24px;display:grid;gap:16px;align-items:center}
+@media (min-width:800px){.cta-strip{grid-template-columns:1fr auto}}
+.cta-strip h2{font-size:1.6rem}
+.cta-actions{display:flex;flex-wrap:wrap;gap:10px}
+/* tally option on the start page */
+.tally-opt{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1.5px dashed var(--line);border-radius:8px;padding:14px 16px;margin:14px 0 6px}
+.tally-opt svg{flex:none;width:26px;height:26px;fill:none;stroke:var(--ink);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;margin-top:2px}
+.tally-opt p{margin:2px 0 0;color:var(--muted);font-size:.92rem}
+.tally-opt a{font-weight:700;color:var(--ink)}
+/* footer */
+.site-foot{background:#010e30;color:#c9d3ef;margin-top:40px;padding-block:40px 28px;font-size:.92rem}
+.site-foot a{color:#fff;text-decoration:none}.site-foot a:hover{text-decoration:underline}
+.foot-grid{display:grid;gap:26px}
+@media (min-width:820px){.foot-grid{grid-template-columns:1.4fr 1fr 1fr 1fr}}
+.foot-grid h3{font:700 .78rem/1 var(--body);letter-spacing:.1em;text-transform:uppercase;color:#8fa0cf;margin:0 0 12px}
+.foot-grid ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.foot-brand .word{color:#fff;font-size:1.5rem}
+.foot-brand p{margin:12px 0 0;max-width:30em;line-height:1.55}
+.foot-legal{border-top:1px solid rgba(255,255,255,.14);margin-top:28px;padding-top:18px;font-size:.8rem;line-height:1.6;color:#8fa0cf}
+.foot-legal mark.ph{background:rgba(255,243,176,.18);color:#ffe9a8}
+/* legal pages */
+.legal{max-width:760px;padding-block:24px 56px}
+.legal h1{font-size:clamp(2rem,4.5vw,2.8rem);font-weight:800;margin-top:10px}
+.legal .updated{color:var(--muted);margin-top:6px}
+.legal h2{font-size:1.35rem;margin-top:30px}
+.legal h3{font-size:1.08rem;margin-top:18px}
+.legal p,.legal li{line-height:1.65}
+.legal ul,.legal ol{padding-left:1.25em}
+.legal table{width:100%;border-collapse:collapse;margin-top:12px;font-size:.92rem}
+.legal th,.legal td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+.legal th{background:var(--paper)}
+.draft-note{background:#fff8d6;border:1px solid #f0dc8a;color:#4a3b00;border-radius:8px;padding:12px 14px;margin-top:16px;font-size:.92rem}
+.cancel-form{border:1.5px dashed var(--muted);border-radius:8px;padding:14px 16px;margin-top:12px;background:var(--card);display:grid;gap:8px}
+.issue,.guided{scroll-margin-top:80px;border-top:1px dashed var(--line);padding-top:16px;display:grid;gap:14px}
+.issue select,.issue textarea{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;background:var(--paper);font:inherit}
+.issue input[type=file]{max-width:100%;font-size:.9rem}
+.gsteps{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:g}
+.gsteps li{counter-increment:g;display:grid;grid-template-columns:32px 1fr;gap:2px 12px;align-items:start}
+.gsteps li::before{content:counter(g);grid-row:span 2;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font:800 .95rem var(--display);border:2px solid var(--line);color:var(--muted);background:var(--card)}
+.gsteps li.done::before{content:"\2713";background:var(--ok);border-color:var(--ok);color:#fff}
+.gsteps li.now::before{background:var(--amber);border-color:var(--amber);color:#fff}
+.gsteps span{color:var(--muted);font-size:.93rem}
+.back-link{display:inline-block;color:var(--muted);text-decoration:none;font-size:.92rem}
+/* cookie banner */
+.cookie{position:fixed;left:16px;right:16px;bottom:16px;z-index:120;max-width:560px;margin-inline:auto;background:var(--card);color:var(--ink);border:1px solid var(--line);
+  border-radius:12px;box-shadow:0 18px 50px rgba(1,14,48,.28);padding:16px 18px;display:grid;gap:12px;font-size:.92rem}
+.cookie[hidden]{display:none}
+.cookie p{margin:0;line-height:1.5}
+.cookie .row{display:flex;flex-wrap:wrap;gap:8px}
+/* ---------- account area (demo) ---------- */
+.acct{padding-block:24px 56px}
+.acct h1{font-size:clamp(1.9rem,4.2vw,2.6rem);font-weight:800;margin-top:8px}
+.demo-flag{display:flex;gap:10px;align-items:flex-start;background:#fff8d6;border:1px solid #f0dc8a;color:#4a3b00;border-radius:8px;padding:10px 12px;font-size:.86rem;margin-top:14px}
+.acct-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px;margin-top:16px}
+.acct-grid{display:grid;gap:16px}
+@media (min-width:900px){.acct-grid{grid-template-columns:1fr 1.25fr}}
+.acct label{display:block;font-weight:700;font-size:.9rem;margin:12px 0 6px}
+.acct input[type=email],.acct input[type=text],.acct textarea{width:100%;box-sizing:border-box;border:1.5px solid var(--line);border-radius:8px;padding:11px 12px;font:inherit;background:#fff;color:var(--ink)}
+.acct textarea{min-height:96px;resize:vertical}
+.acct input:focus,.acct textarea:focus{outline:3px solid rgba(200,16,46,.25);border-color:var(--ink)}
+.role-badge{display:inline-flex;align-items:center;gap:6px;font:700 .74rem/1 var(--body);letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border-radius:999px}
+.role-c{background:#e6ecfb;color:#012169}.role-t{background:#fde8ec;color:#9b0c24}.role-s{background:#eceef3;color:#4a5878}
+.jobs{display:grid;gap:10px;margin-top:10px}
+.job{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;border:1px solid var(--line);border-radius:8px;padding:14px;background:#fff}
+.job:hover,.job:focus-visible{border-color:var(--ink)}
+.job b{font-size:1rem}.job small{color:var(--muted)}
+.status{font:700 .72rem/1 var(--body);padding:5px 8px;border-radius:999px;background:#e3f4e8;color:#1d6b35}
+.status.arch{background:#eceef3;color:#4a5878}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:.92rem;margin-top:8px}
+.kv dt{color:var(--muted)}.kv dd{margin:0}
+.timeline{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:12px}
+.entry{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:#fff}
+.entry-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:.82rem;color:var(--muted)}
+.entry p{margin:8px 0 0;white-space:pre-wrap}
+.thumbs{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.thumbs img{width:96px;height:72px;object-fit:cover;border-radius:5px;border:1px solid var(--line);cursor:zoom-in}
+.drop{border:1.5px dashed var(--line);border-radius:8px;padding:12px;font-size:.9rem;color:var(--muted)}
+.lock-note{font-size:.82rem;color:var(--muted);margin-top:8px}
+.lightbox{position:fixed;inset:0;z-index:130;background:rgba(1,10,30,.86);display:grid;place-items:center;padding:20px}
+.lightbox[hidden]{display:none}
+.lightbox img{max-width:100%;max-height:88vh;border-radius:6px}
+
+.acct-grid>*,.acct-card{min-width:0}
+.kv dd{overflow-wrap:anywhere}
+.drop input[type=file]{max-width:100%;width:100%;box-sizing:border-box;font-size:.86rem}
+.hv-side{box-sizing:border-box;max-width:100%}
+@media (max-width:345px){.logo .word{font-size:1rem}.logo .lmark{width:21px}.hdr-actions .btn-sm{padding-inline:8px}}
+
+/* founding trades page */
+.join-hero{display:grid;gap:26px;align-items:center;padding-block:22px 10px}
+@media (min-width:900px){.join-hero{grid-template-columns:1.05fr .95fr}}
+.join-hero h1{font-size:clamp(2.2rem,5vw,3.3rem);font-weight:800;line-height:1.04;margin-top:10px}
+.join-hero h1 span{color:var(--red,#C8102E)}
+.join-hero .lede{font-size:1.12rem;line-height:1.6;margin-top:14px;max-width:34em}
+.join-hero .photo img{border-radius:6px}
+.join-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.offer{background:var(--brand-blue);color:var(--on-brand);border-radius:8px;padding:26px;margin-top:34px;display:grid;gap:20px}
+@media (min-width:860px){.offer{grid-template-columns:auto 1fr;align-items:center}}
+.offer h2{color:#fff;font-size:1.6rem}
+.offer .badge-big{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:16px 18px}
+.offer .badge-big svg{width:46px;height:64px;flex:none}
+.offer .badge-big b{display:block;font:800 1.15rem/1.15 var(--display);color:#fff}
+.offer .badge-big small{opacity:.8}
+.offer ul{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:9px}
+.offer li{display:flex;gap:10px;line-height:1.45}
+.offer li::before{content:"";flex:none;width:18px;height:18px;margin-top:2px;background:no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 54'%3E%3Cpolyline points='3,27 19,46 54,4' fill='none' stroke='%23ffffff' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.offer .small{font-size:.85rem;opacity:.75;margin-top:12px}
+.join-sec{margin-top:46px}
+.join-sec h2{font-size:clamp(1.5rem,3vw,2rem)}
+.gain{display:grid;gap:14px;margin-top:18px}
+@media (min-width:700px){.gain{grid-template-columns:1fr 1fr}}
+.gain div{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px}
+.gain b{display:block;font:700 1.05rem/1.3 var(--display);color:var(--ink)}
+.gain p{margin:6px 0 0;color:var(--muted);line-height:1.55}
+.tsteps{counter-reset:ts;list-style:none;padding:0;margin:18px 0 0;display:grid;gap:12px}
+@media (min-width:900px){.tsteps{grid-template-columns:repeat(4,1fr)}}
+.tsteps li{counter-increment:ts;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px;line-height:1.5}
+.tsteps li::before{content:counter(ts);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--red,#C8102E);color:#fff;font:800 .95rem var(--display);margin-bottom:10px}
+.tsteps b{display:block;color:var(--ink)}
+.tsteps span{color:var(--muted);font-size:.95rem}
+.fairline{border-left:4px solid var(--red,#C8102E);background:var(--card);padding:16px 18px;border-radius:0 8px 8px 0;margin-top:18px;line-height:1.6}
+.trade-strip{display:grid;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:22px 24px}
+@media (min-width:800px){.trade-strip{grid-template-columns:auto 1fr auto}}
+.trade-strip svg{width:40px;height:56px}
+.trade-strip h2{font-size:1.4rem}
+.trade-strip p{margin:4px 0 0;color:var(--muted)}
+.aud-join{display:inline-block;margin-top:14px;font-weight:700;color:var(--ink)}
+
+/* ---------- splash: tap the square to open ---------- */
+#splash{position:absolute;inset:0;z-index:100;background:transparent;display:flex;align-items:center;justify-content:center;
+  padding:env(safe-area-inset-top,0px) max(16px,env(safe-area-inset-right,0px)) env(safe-area-inset-bottom,0px) max(16px,env(safe-area-inset-left,0px));
+  --a:#ffffff;--b:#C8102E;--tick:#C8102E;--ink:#ffffff}
+#splash.sp-done{pointer-events:none}
+.sp-lock{transition:opacity .7s ease;--mw:clamp(84px,12vw,160px);display:flex;align-items:center;gap:calc(var(--mw)*.1);transform-origin:0 0;will-change:transform,opacity}
+#sp-wtick{filter:drop-shadow(0.6px 0 0 #fff) drop-shadow(-0.6px 0 0 #fff) drop-shadow(0 0.6px 0 #fff) drop-shadow(0 -0.6px 0 #fff)}
+header .wrap{transition:opacity .7s ease}
+.sp-mw{flex:none;width:var(--mw)}
+.sp-mw svg{display:block;width:100%;height:auto;overflow:visible}
+.sp-open{all:unset;display:block;cursor:pointer;border-radius:14px;-webkit-tap-highlight-color:transparent}
+.sp-open:focus-visible{outline:3px solid #C8102E;outline-offset:6px}
+.sp-word{position:relative;top:-.04em;display:inline-flex;align-items:baseline;font-family:"Barlow","Arial Narrow",Arial,sans-serif;
+  font-size:calc(var(--mw)*.59);line-height:1.1;letter-spacing:-.02em;color:var(--ink);white-space:nowrap}
+.sp-word .b{font-weight:800}.sp-word .m{font-weight:500}
+.sp-word span,.sp-word svg{display:inline-block}
+.sp-word svg{width:.56em;height:.54em;margin:0 .005em;overflow:visible}
+#sp-tickline{fill:none;stroke:#C8102E;stroke-width:9;stroke-linejoin:miter}
+#sp-blade,#sp-stock{transform-box:view-box;transform-origin:0 0}
+/* idle: only the square shows, breathing gently, until it is tapped */
+#splash.sp-idle #sp-topf,#splash.sp-idle #sp-botf,#splash.sp-idle .sp-word,#splash.sp-idle #sp-outline{opacity:0}
+.sp-word{pointer-events:none}
+#splash.sp-idle .sp-open{animation:sp-breathe 2.6s ease-in-out infinite}
+@keyframes sp-breathe{0%,100%{transform:scale(1);filter:drop-shadow(0 0 0 rgba(255,255,255,0))}50%{transform:scale(1.045);filter:drop-shadow(0 0 16px rgba(255,255,255,.35))}}
+.sp-hint{position:absolute;left:0;right:0;bottom:calc(14vh + env(safe-area-inset-bottom,0px));text-align:center;font:600 15px/1.3 "Manrope",system-ui,sans-serif;color:#fff;letter-spacing:.02em;transition:opacity .4s;text-shadow:0 1px 10px rgba(0,10,40,.6)}
+.sp-hint small{display:block;font-weight:500;font-size:13px;color:rgba(255,255,255,.82);margin-top:4px}
+#splash:not(.sp-idle) .sp-hint{opacity:0}
+.sp-slogan{position:absolute;left:16px;right:16px;top:clamp(30px,10vh,120px);margin:0;text-align:center;color:#fff;font:800 clamp(3rem,8.4vw,7.2rem)/.98 "Barlow","Arial Narrow",Arial,sans-serif;
+  letter-spacing:-.015em;text-wrap:balance;text-shadow:0 2px 24px rgba(0,8,30,.5);transition:opacity .5s ease,transform .5s ease;animation:sp-slogan-in 1.1s cubic-bezier(.2,.7,.2,1) .2s both}
+.sp-slogan em{font-style:normal;color:#fff}
+.sp-slogan .q{display:inline-block;margin:0 .03em}
+#splash:not(.sp-idle) .sp-slogan{opacity:0;transform:translateY(-10px);animation:none}
+@keyframes sp-slogan-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media (max-width:640px){.sp-slogan{font-size:clamp(3rem,15vw,4.4rem);top:clamp(24px,7vh,70px)}}
+@media (prefers-reduced-motion:reduce){.sp-slogan{animation:none}}
+@media (max-width:640px){.sp-lock{flex-direction:column;gap:calc(var(--mw)*.16)}.sp-word{top:0}}
+@media (prefers-reduced-motion:reduce){#splash.sp-idle .sp-open{animation:none}}
+</style>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#home" aria-label="TradeResolve home">
+      <svg class="lmark" viewBox="14 6 72 100" role="img" aria-label=""><defs><mask id="mh"><rect x="0" y="0" width="100" height="112" fill="#fff"/><g transform="translate(44 78) rotate(-45)" fill="#000"><rect x="-6.5" y="-3.5" width="100" height="7"/><rect x="-6.5" y="-70" width="13" height="73.5"/></g></mask><clipPath id="ch"><polygon points="-10,24 44,78 120,2 120,130 -10,130"/></clipPath></defs><g mask="url(#mh)"><path d="M14 11 Q14 6 19 6 H81 Q86 6 86 11 V52 C86 78 70 96 50 106 C30 96 14 78 14 52 Z" style="fill:var(--mark-a)"/><path d="M14 11 Q14 6 19 6 H81 Q86 6 86 11 V52 C86 78 70 96 50 106 C30 96 14 78 14 52 Z" fill="#C8102E" clip-path="url(#ch)"/></g></svg>
+      <span class="word" aria-hidden="true"><b>trade</b>resol<svg class="wtick" viewBox="0 0 56 54" aria-hidden="true"><polyline points="3,27 19,46 54,4"/></svg>e</span>
+    </a>
+    <div class="hdr-actions">
+      <button class="btn btn-ghost btn-sm share-btn" id="share-open" type="button" aria-haspopup="dialog">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.4M8.3 13.2l7.4 4.4"/></svg>
+        <span>Share</span>
+      </button>
+      <a class="btn btn-ghost btn-sm acct-link" href="#account" aria-label="My account"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="3.6"/><path d="M4.8 20c.9-3.6 3.8-5.6 7.2-5.6s6.3 2 7.2 5.6"/></svg><span>My account</span></a>
+      <a class="btn btn-amber btn-sm" href="#start" aria-label="Protect a job">Protect<span class="hide-xs"> a job</span></a>
+    </div>
+  </div>
+</header>
+
+<dialog class="share-dlg" id="share-dlg" aria-labelledby="share-h">
+  <div class="share-head">
+    <h2 id="share-h">Share TradeResolve</h2>
+    <button class="share-x" type="button" id="share-close" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <p class="share-sub">Know someone having work done, or a tradesperson who does it right? Send them this.</p>
+  <div class="share-grid">
+    <a class="share-opt" data-net="whatsapp" target="_blank" rel="noopener" style="--c:#25D366"><span class="share-ico"><svg viewBox="0 0 24 24"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9.2 9.3c.4 2.1 1.9 3.8 4 4.6l1.1-1.1 1.8.8-.4 1.6c-3.6.2-7-3.2-6.9-6.8l1.6-.4.8 1.8z" class="fill"/></svg></span>WhatsApp</a>
+    <a class="share-opt" data-net="facebook" target="_blank" rel="noopener" style="--c:#1877F2"><span class="share-ico"><svg viewBox="0 0 24 24"><path d="M7.5 10.5v9H4.5v-9z"/><path d="M7.5 10.5l3.6-6.2c1.6 0 2.4 1.1 2 2.8l-.7 2.9h5.2a1.8 1.8 0 0 1 1.8 2.1l-1.2 6.3a2 2 0 0 1-2 1.6H7.5"/></svg></span>Facebook</a>
+    <a class="share-opt" data-net="x" target="_blank" rel="noopener" style="--c:#111111"><span class="share-ico"><svg viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></svg></span>X</a>
+    <a class="share-opt" data-net="linkedin" target="_blank" rel="noopener" style="--c:#0A66C2"><span class="share-ico"><svg viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="M9 7.5V5.5a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 5.5v2M3.5 12.5h17"/></svg></span>LinkedIn</a>
+    <button class="share-opt" type="button" data-net="instagram" style="--c:#D62976"><span class="share-ico"><svg viewBox="0 0 24 24"><path d="M3.5 8.5a2 2 0 0 1 2-2h2.2L9.2 4.5h5.6l1.5 2h2.2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3.6"/></svg></span><span class="ig-lab">Instagram</span></button>
+    <a class="share-opt" data-net="email" style="--c:#012169"><span class="share-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 6.5L12 13l8.5-6.5"/></svg></span>Email</a>
+    <a class="share-opt" data-net="sms" style="--c:#2e9e4f"><span class="share-ico"><svg viewBox="0 0 24 24"><path d="M4 5.5h16a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H10l-4 3.5V16.5H4a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1z"/></svg></span>Text message</a>
+    <button class="share-opt" type="button" data-net="copy" style="--c:#4a5878"><span class="share-ico"><svg viewBox="0 0 24 24"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1.2 1.2"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1.2-1.2"/></svg></span><span class="copy-lab">Copy link</span></button>
+    <button class="share-opt share-more" type="button" data-net="more" style="--c:#C8102E" hidden><span class="share-ico"><svg viewBox="0 0 24 24"><circle cx="5.5" cy="12" r="1.6" class="fill"/><circle cx="12" cy="12" r="1.6" class="fill"/><circle cx="18.5" cy="12" r="1.6" class="fill"/></svg></span>More apps</button>
+  </div>
+  <p class="share-note">Instagram and TikTok don&rsquo;t take links straight from websites, so the Instagram button copies the link for you to paste into a story, bio or message. For TikTok, use Copy link.</p>
+</dialog>
+
+<!-- ============ HOME VIEW ============ -->
+<main id="view-home">
+  <section class="hero-video" id="top" aria-label="TradeResolve: fair to the customer, fair to the tradesperson">
+<div id="splash" class="sp-idle" role="dialog" aria-label="Welcome to TradeResolve">
+  <div class="sp-lock" id="sp-lock">
+    <div class="sp-mw" id="sp-mw">
+      <button class="sp-open" id="sp-open" type="button" aria-label="Tap the square to open TradeResolve">
+      <svg viewBox="0 0 100 112" role="img" aria-label="TradeResolve logo">
+        <defs>
+          <mask id="cut">
+            <rect x="-20" y="-20" width="140" height="160" fill="#fff"/>
+            <g transform="translate(44 78) rotate(-45)" fill="#000">
+              <rect x="-6.5" y="-3.5" width="100" height="7"/>
+              <rect x="-6.5" y="-70" width="13" height="73.5"/>
+            </g>
+          </mask>
+          <clipPath id="lower"><polygon points="-10,24 44,78 120,2 120,130 -10,130"/></clipPath>
+          <clipPath id="shieldclip"><path d="M14 11 Q14 6 19 6 H81 Q86 6 86 11 V52 C86 78 70 96 50 106 C30 96 14 78 14 52 Z"/></clipPath>
+          <linearGradient id="chrome" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#8E979F"/><stop offset=".18" stop-color="#F7F9FA"/><stop offset=".38" stop-color="#C3CAD0"/>
+            <stop offset=".55" stop-color="#6F7880"/><stop offset=".72" stop-color="#E4E8EB"/><stop offset="1" stop-color="#9AA3AA"/>
+          </linearGradient>
+          <linearGradient id="wood" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#0B0908"/><stop offset=".22" stop-color="#2A231F"/><stop offset=".42" stop-color="#4A403A"/>
+            <stop offset=".6" stop-color="#1E1916"/><stop offset=".85" stop-color="#2F2824"/><stop offset="1" stop-color="#090706"/>
+          </linearGradient>
+          <pattern id="grain" patternUnits="userSpaceOnUse" width="13" height="18">
+            <path d="M2.2 0 C1.6 5 3 9 2.4 18 M5.4 0 C6.2 6 4.6 11 5.6 18 M8.6 0 C8 4 9.4 12 8.4 18 M11.2 0 C11.8 7 10.6 10 11.4 18" fill="none" stroke="#6B5E55" stroke-width=".4" opacity=".35"/>
+          </pattern>
+          <radialGradient id="brass" cx=".35" cy=".35" r=".75">
+            <stop offset="0" stop-color="#FFF0B8"/><stop offset=".45" stop-color="#D9A93C"/><stop offset="1" stop-color="#8A6212"/>
+          </radialGradient>
+          <filter id="lift" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx=".5" dy=".9" stdDeviation=".9" flood-color="#000" flood-opacity=".35"/></filter>
+        </defs>
+        <g mask="url(#cut)">
+          <path id="sp-topf" d="M14 11 Q14 6 19 6 H81 Q86 6 86 11 V52 C86 78 70 96 50 106 C30 96 14 78 14 52 Z" style="fill:var(--a)"/>
+          <path id="sp-botf" d="M14 11 Q14 6 19 6 H81 Q86 6 86 11 V52 C86 78 70 96 50 106 C30 96 14 78 14 52 Z" clip-path="url(#lower)" style="fill:var(--b)"/>
+          <path id="sp-outline" pathLength="1" d="M50 6 H81 Q86 6 86 11 V52 C86 78 70 96 50 106 C30 96 14 78 14 52 V11 Q14 6 19 6 Z" style="fill:none;stroke:var(--a);stroke-width:2.6;stroke-dasharray:1;stroke-dashoffset:1;opacity:0"/>
+        </g>
+        <g id="sp-sq" transform="translate(44 78) rotate(-45)" filter="url(#lift)">
+          <g id="sp-blade"><rect x="-6.5" y="-3.5" width="72" height="7" fill="url(#chrome)"/>
+            <rect x="-6.5" y="-3.5" width="72" height="7" fill="none" stroke="#5F676E" stroke-width=".35"/>
+            <g id="sp-notches" style="fill:#2A2F34">
+              <rect x="12" y="-3.5" width="1.4" height="3"/><rect x="20" y="-3.5" width="1.4" height="2"/>
+              <rect x="28" y="-3.5" width="1.4" height="3"/><rect x="36" y="-3.5" width="1.4" height="2"/>
+              <rect x="44" y="-3.5" width="1.4" height="3"/><rect x="52" y="-3.5" width="1.4" height="2"/>
+              <rect x="60" y="-3.5" width="1.4" height="3"/>
+            </g>
+          </g>
+          <g id="sp-stock"><rect x="-6.5" y="-44" width="13" height="47.5" rx=".8" fill="url(#wood)"/>
+            <rect x="-6.5" y="-44" width="13" height="47.5" rx=".8" fill="url(#grain)"/>
+            <rect x="5" y="-44" width="1.5" height="47.5" fill="#D9A93C" opacity=".9"/>
+            <rect x="-6.5" y="-44" width="13" height="47.5" rx=".8" fill="none" stroke="#000000" stroke-width=".4"/>
+            <circle cx="0" cy="-13" r="1.9" fill="url(#brass)" stroke="#6E4D0E" stroke-width=".3"/><circle cx="0" cy="-29" r="1.9" fill="url(#brass)" stroke="#6E4D0E" stroke-width=".3"/></g>
+        </g>
+        <polyline id="sp-stick" pathLength="1" points="24.9,58.9 44,78 86.4,35.6" clip-path="url(#shieldclip)" style="fill:none;stroke:var(--tick);stroke-width:5;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:1;stroke-dashoffset:1"/>
+      </svg>
+      </button>
+    </div>
+    <div class="sp-word" id="sp-word" aria-hidden="true">
+      <span class="b">t</span><span class="b">r</span><span class="b">a</span><span class="b">d</span><span class="b">e</span><span class="m">r</span><span class="m">e</span><span class="m">s</span><span class="m">o</span><span class="m">l</span><svg id="sp-wtick" viewBox="0 0 56 54"><polyline id="sp-tickline" pathLength="1" points="3,27 19,46 54,4" style="stroke-dasharray:1;stroke-dashoffset:0"/></svg><span class="m">e</span>
+    </div>
+  </div>
+  <p class="sp-slogan"><span class="q" aria-hidden="true">&ldquo;</span>It&rsquo;s got to be <em>right</em><span class="q" aria-hidden="true">&rdquo;</span></p>
+  <p class="sp-hint" aria-hidden="true">Tap the square to open<small>Sound on for the full experience</small></p>
+</div>
+
+    <video class="hv-media" muted playsinline preload="auto" poster="img/hero-poster.jpg" aria-hidden="true"><source src="img/hero.mp4" type="video/mp4"></video>
+    <div class="hv-dim" aria-hidden="true"></div>
+    <div class="hv-buttons">
+      <a class="hv-side hv-left" href="#who" data-aud="tab-c">For Customers<span class="hv-arrow" aria-hidden="true"></span></a>
+      <a class="hv-side hv-right" href="#who" data-aud="tab-t">For Tradespeople<span class="hv-arrow" aria-hidden="true"></span></a>
+    </div>
+    <button class="hv-sound" id="hv-sound" type="button" aria-pressed="true" aria-label="Video sound on. Tap to mute">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk" d="M4 9h4l5-4v14l-5-4H4z"/><path class="on" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/><path class="off" d="M16.5 9.5l5 5M21.5 9.5l-5 5"/></svg>
+    </button>
+  </section>
+  <div class="wrap">
+    <section class="hero">
+      <div>
+      <p class="eyebrow">Fair to the customer. Fair to the tradesperson.</p>
+      <h1 style="margin-top:10px">Start every job on <span>the same page</span>.</h1>
+      <p class="lede">One Unified Agreement before any work begins, so everyone knows where they stand from day one in the event of a dispute.</p>
+      <p class="lede lede-strong">We don&rsquo;t take sides.</p>
+      <p class="lede">TradeResolve works for neither the customer nor the tradesperson; we work for what&rsquo;s right in the event of a dispute. We offer a clear, unbiased resolution pathway that both parties agree to follow. Where required, this can include an impartial TradeResolve Master Assessor who visits to inspect the work and/or resolve any dispute over payments owed.</p>
+      <p class="lede lede-end">No more worry of poor workmanship for customers, and no more worry of late or non-payment for tradespeople.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="aud-band"><div class="wrap">
+    <section id="who" aria-labelledby="who-h">
+      <h2 id="who-h">Which applies to you?</h2>
+      <p style="margin-top:8px;color:var(--muted)">One agreement, two sides. Both get the same protection.</p>
+      <div class="duo" style="margin-top:18px"><div>
+      <div class="switch" role="tablist" aria-label="Show information for">
+        <button id="tab-c" role="tab" aria-selected="true" aria-controls="aud-c"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.5L12 4.5l8.5 7M6 10v9.5h12V10"/><path d="M10 19.5v-5h4v5"/></svg>I'm the customer</button>
+        <button id="tab-t" role="tab" aria-selected="false" aria-controls="aud-t"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6.5a4 4 0 0 0-5.3 5.3L4 17l3 3 5.2-5.2a4 4 0 0 0 5.3-5.3l-2.6 2.6-2.4-.6-.6-2.4z"/></svg>I'm the tradesperson</button>
+      </div>
+      <p class="aud-viewing" aria-live="polite"><span id="aud-now">Showing the site for customers.</span> The rest of the page follows your choice.</p>
+
+      <div id="aud-c" class="aud" role="tabpanel" aria-labelledby="tab-c">
+        <h3>Having work done on your home</h3>
+        <ul class="pain">
+          <li><span><b>Poor workmanship gets looked at properly.</b> An impartial Master Assessor who knows that trade inspects it, so it isn't your word against theirs.</span></li>
+          <li><span><b>Walk-offs and no-shows are on record.</b> Every step is dated and logged from day one.</span></li>
+          <li><span><b>You're not left to fight it alone.</b> If it ever goes further, the TradeResolve Evidence Document sets out the agreement, the steps both sides took, the relevant messages and our expert findings.</span></li>
+        </ul>
+        <p class="quote">Ask your tradesperson: "Will you work under TradeResolve?" A good one has nothing to lose.</p>
+      </div>
+
+      <div id="aud-t" class="aud" role="tabpanel" aria-labelledby="tab-t" hidden>
+        <h3>Doing the work, and wanting to get paid for it</h3>
+        <ul class="pain">
+          <li><span><b>Extras get paid for.</b> Work added on halfway through is flagged and judged by someone who knows what was in the quote.</span></li>
+          <li><span><b>Non-payment has a process.</b> Withheld money over made-up snags goes to an expert, not a row on the doorstep.</span></li>
+          <li><span><b>Win more work.</b> Show the TradeResolve badge on your van, quotes and socials. Customers pick the trader who's happy to be checked.</span></li>
+        </ul>
+        <div class="badge-demo">
+<svg class="shield" viewBox="14 6 72 100" role="img" aria-label=""><defs><mask id="mb"><rect x="0" y="0" width="100" height="112" fill="#fff"/><g transform="translate(44 78) rotate(-45)" fill="#000"><rect x="-6.5" y="-3.5" width="100" height="7"/><rect x="-6.5" y="-70" width="13" height="73.5"/></g></mask><clipPath id="cb"><polygon points="-10,24 44,78 120,2 120,130 -10,130"/></clipPath></defs><g mask="url(#mb)"><path d="M14 11 Q14 6 19 6 H81 Q86 6 86 11 V52 C86 78 70 96 50 106 C30 96 14 78 14 52 Z" fill="#ffffff"/><path d="M14 11 Q14 6 19 6 H81 Q86 6 86 11 V52 C86 78 70 96 50 106 C30 96 14 78 14 52 Z" fill="#C8102E" clip-path="url(#cb)"/></g></svg>
+          <div><b>Every job TradeResolve protected</b><small>Example badge for your quotes and van</small></div>
+        </div>
+        <a class="aud-join" href="#join">Become a Founding Trade &rarr;</a>
+      </div>
+      </div>
+      <figure class="photo aud-photo">
+        <img data-for="c" src="img/aud-customer.jpg" alt="A homeowner relaxes at her kitchen island with a cup of tea, reading her phone, while a tradesman measures a newly fitted cabinet behind her" width="1376" height="768">
+        <img data-for="t" src="img/aud-trade.jpg" alt="A tradesman beside his van on a homeowner's driveway shows her the job details on his phone, and she nods in agreement" width="1376" height="768">
+      </figure>
+      </div>
+    </section>
+  </div></div>
+
+  <div class="wrap">
+    <section id="problem" class="problem" aria-labelledby="pb-h-c pb-h-t">
+      <!-- customer -->
+      <div data-for="c">
+        <p class="eyebrow">The risk on every job</p>
+        <h2 id="pb-h-c">Building work shouldn&rsquo;t be a gamble.</h2>
+        <p class="lead-muted">Most jobs go fine. When one doesn&rsquo;t, you&rsquo;re on your own: money already paid, a half-finished house, and your word against theirs.</p>
+        <div class="stats">
+          <div><b>£8,729</b><span>average that UK homeowners say they&rsquo;ve paid to put botched work right</span></div>
+          <div><b>52%</b><span>of homeowners say they don&rsquo;t trust tradespeople</span></div>
+          <div><b>£14.3bn</b><span>estimated cost of rogue builders to UK households over five years</span></div>
+        </div>
+        <p class="src">Sources: <a href="https://fmb.org.uk/resource/gen-z-already-spent-4x-more-on-dodgy-home-renovations-than-their-grandparents.html" target="_blank" rel="noopener">FMB and TrustMark survey of 2,000 homeowners, Jan 2025</a>; <a href="https://www.fmb.org.uk/resource/want-to-beat-the-cowboys-14-3-billion-reasons-to-support-licensing-builders.html" target="_blank" rel="noopener">Federation of Master Builders, Jul 2025</a>.</p>
+        <div class="pain-duo">
+          <figure class="photo aud-photo"><img src="img/pain-customer.jpg" alt="A worried couple stand in their half-finished kitchen extension, looking at rough plasterwork and abandoned tools" width="1376" height="768" loading="lazy"></figure>
+          <div>
+            <h3>Sound familiar?</h3>
+            <ul class="pain">
+              <li><span><b>The deposit&rsquo;s paid, then they stop turning up.</b> Calls go unanswered and the job sits half done.</span></li>
+              <li><span><b>It doesn&rsquo;t look right, but you can&rsquo;t prove it.</b> You&rsquo;re not an expert, and they say it&rsquo;s fine.</span></li>
+              <li><span><b>&ldquo;That wasn&rsquo;t in the quote.&rdquo;</b> The price creeps up halfway through, and nothing was written down.</span></li>
+              <li><span><b>Nowhere fair to turn.</b> It&rsquo;s a solicitor, the small claims court, or giving up.</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="compare">
+          <div class="col without"><h3>Without TradeResolve</h3><ul>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Promises made on the doorstep</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Your word against theirs</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Arguing over what was agreed</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Paying to fix it, or living with it</li></ul></div>
+          <div class="col with"><h3>With TradeResolve</h3><ul>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5l5 5L20 6"/></svg>The job, price and stages signed by both of you before work starts</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5l5 5L20 6"/></svg>An impartial Master Assessor from that trade inspects the work</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5l5 5L20 6"/></svg>A dated record of every change, photo and message</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5l5 5L20 6"/></svg>A clear path to put it right, and evidence if you ever need it</li></ul></div>
+        </div>
+        <div class="win">
+          <figure class="photo aud-photo"><img src="img/win-customer.jpg" alt="A happy couple shake hands with their builder in their finished kitchen extension" width="1376" height="768" loading="lazy"></figure>
+          <div>
+            <h3>Have the work done with peace of mind.</h3>
+            <p>Ask your tradesperson: &ldquo;Will you work under TradeResolve?&rdquo; The good ones have nothing to hide, and the agreement protects you from the first day to the last payment.</p>
+            <a class="btn btn-amber" href="#start">Protect your next job</a>
+          </div>
+        </div>
+      </div>
+      <!-- tradesperson -->
+      <div data-for="t">
+        <p class="eyebrow">The risk on every job</p>
+        <h2 id="pb-h-t">You did the work. You should get paid for it.</h2>
+        <p class="lead-muted">Most customers are great. It only takes one to hold back the final payment over a snag, dispute an extra they asked for, or say the job isn&rsquo;t finished.</p>
+        <div class="stats">
+          <div><b>68%</b><span>of tradespeople are chasing at least one late payment</span></div>
+          <div><b>£2,023</b><span>average owed to a tradesperson in late payments</span></div>
+          <div><b>57%</b><span>wrote off at least £1,000 in a year from disputed or withheld payments</span></div>
+        </div>
+        <p class="src">Sources: <a href="https://www.scottishfinancialnews.com/articles/two-thirds-of-tradespeople-left-chasing-late-payments-research-finds" target="_blank" rel="noopener">Direct Line business insurance research, Jan 2026</a>; <a href="https://www.electricaltimes.co.uk/?p=33656" target="_blank" rel="noopener">metals4U tradespeople survey, Dec 2025</a>.</p>
+        <div class="pain-duo">
+          <figure class="photo aud-photo"><img src="img/pain-trade.jpg" alt="A tired tradesman sits in his van with an invoice on the dashboard, frowning at his phone" width="1376" height="768" loading="lazy"></figure>
+          <div>
+            <h3>Sound familiar?</h3>
+            <ul class="pain">
+              <li><span><b>The final payment held back over &ldquo;snags&rdquo;.</b> Ones that only appeared once the work was done.</span></li>
+              <li><span><b>&ldquo;While you&rsquo;re here&hellip;&rdquo;</b> Extras asked for on the day, then argued over at the end.</span></li>
+              <li><span><b>&ldquo;It isn&rsquo;t finished.&rdquo;</b> The most common reasons for withheld payment are rows over the final cost and claims the work isn&rsquo;t complete.</span></li>
+              <li><span><b>Evenings spent chasing invoices.</b> Time you could be earning, and money you need for staff and suppliers.</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="compare">
+          <div class="col without"><h3>Without TradeResolve</h3><ul>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>A quote and a handshake</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>The customer decides what &ldquo;finished&rdquo; means</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Extras argued over at the end</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Chasing, writing it off, or court on your own</li></ul></div>
+          <div class="col with"><h3>With TradeResolve</h3><ul>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5l5 5L20 6"/></svg>Your price, stages and payments signed by both of you before you start</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5l5 5L20 6"/></svg>&ldquo;Finished&rdquo; judged by an expert in your trade, against what was agreed</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5l5 5L20 6"/></svg>Extras logged and agreed in the job file as they happen</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5l5 5L20 6"/></svg>A fair process the customer signed up to, and evidence if it ever goes further</li></ul></div>
+        </div>
+        <div class="win">
+          <figure class="photo aud-photo"><img src="img/win-trade.jpg" alt="A smiling tradesman packs his tools into his van at the end of a job, checking his phone" width="1376" height="768" loading="lazy"></figure>
+          <div>
+            <h3>Finish the job. Get paid. Move on.</h3>
+            <p>Put TradeResolve on your quote and show customers you&rsquo;re happy for your work to be checked. It wins you the job, and protects you right through to the final payment.</p>
+            <a class="btn btn-amber" href="#join">Become a Founding Trade</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+  <div class="wrap">
+    <section id="how" aria-labelledby="how-h">
+      <h2 id="how-h">How it works</h2>
+      <p style="margin-top:8px;color:var(--muted)">Most jobs never get past stage 1. That's the point.</p>
+      <div class="duo">
+      <ol class="stages">
+        <li class="stage hot"><span class="num">1</span><div class="body">
+          <span class="who">Both sign · start of job</span>
+          <h3>Agree and sign</h3>
+          <p>Before work starts, both of you sign the TradeResolve agreement on your phone. It records the job, the price and the payment stages, and commits you both to the resolution process. A copy goes to both email addresses.</p>
+          <p class="foryou" data-for="c"><b>For you:</b> No surprises: the job and price are fixed in writing before anyone picks up a tool.</p><p class="foryou" data-for="t"><b>For you:</b> Your price, stages and payment terms are signed up front, so &ldquo;that wasn&rsquo;t agreed&rdquo; doesn&rsquo;t stand.</p>
+        </div></li>
+        <li class="stage"><span class="num">2</span><div class="body">
+          <span class="who">Either side can trigger</span>
+          <h3>Guided steps</h3>
+          <p>Something's wrong? Report it in the app with photos. You're both walked through set steps with deadlines to respond and put things right. Most issues are sorted here, between you.</p>
+          <p class="foryou" data-for="c"><b>For you:</b> Report a problem with photos the moment you see it. The tradesperson has a set time to respond.</p><p class="foryou" data-for="t"><b>For you:</b> A snag raised? You get a fair chance and a set time to put it right before anything escalates.</p>
+        </div></li>
+        <li class="stage"><span class="num">3</span><div class="body">
+          <span class="who">Escalated</span>
+          <h3>Master Assessor visit</h3>
+          <p>Still stuck? We send an impartial TradeResolve Master Assessor, an experienced tradesperson, to inspect the job. They report on the work and what was agreed, and guide both sides on how to put it right.</p>
+          <p class="foryou" data-for="c"><b>For you:</b> A straight answer about your job from someone who knows the trade, not from the person who did the work.</p><p class="foryou" data-for="t"><b>For you:</b> Judged by someone who&rsquo;s done your trade for decades, not by the customer&rsquo;s brother-in-law.</p>
+        </div></li>
+        <li class="stage"><span class="num">4</span><div class="body">
+          <span class="who">If it's still unresolved</span>
+          <h3>TradeResolve Evidence Document</h3>
+          <p>If a dispute can't be settled through our involvement and guidance, we prepare a full TradeResolve Evidence Document to support a small claims application or other legal proceedings. It's unbiased, factually accurate and a true record of how both parties conducted themselves under the agreement, including all relevant correspondence and communications. Both sides receive the same document.</p>
+          <p class="foryou" data-for="c"><b>For you:</b> If it goes to small claims, you go with an expert&rsquo;s findings and the full record.</p><p class="foryou" data-for="t"><b>For you:</b> If money&rsquo;s owed, you go to small claims with an expert&rsquo;s findings and a dated record of what was agreed.</p>
+          <p class="motto">&ldquo;You can&rsquo;t be strong if you&rsquo;re wrong.&rdquo;</p>
+        </div></li>
+      </ol>
+      <figure class="photo aud-photo" style="margin-top:22px"><img data-for="t" src="img/sc-electrical.jpg" alt="A TradeResolve Master Assessor checks an electrician's consumer unit while the electrician and the customer look on" width="1200" height="669" loading="lazy"><img data-for="c" src="img/sc-plumbing.jpg" alt="A TradeResolve Master Assessor checks a shower seal with a torch while the plumber points out the joint and the customer watches from the doorway" width="1200" height="669" loading="lazy"></figure>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <section id="trades" aria-labelledby="trades-h">
+      <p class="eyebrow">Every trade, one standard</p>
+      <h2 id="trades-h"><span data-for="c">Whatever the job, it's checked by someone who's done it</span><span data-for="t">Judged by someone who's done your trade</span></h2>
+      <p class="lead-muted" data-for="t">No amateurs, no internet experts. Each Master Assessor has spent a career in your trade, so they know what good work looks like and what a fair snag is.</p>
+      <p class="lead-muted" data-for="c">Each Master Assessor is matched to the trade in question, so the person looking at your roof has spent a career on roofs. Same process, same impartiality, whoever you are.</p>
+      <div class="trades">
+        <figure class="trade"><img src="img/sc-kitchen.jpg" alt="A TradeResolve Master Assessor on a kitchens job with the customer and the tradesperson" width="1200" height="669" loading="lazy"><figcaption>Kitchens<span>Worktops, units and fitting checked against the quote</span></figcaption></figure>
+        <figure class="trade"><img src="img/sc-roofing.jpg" alt="A TradeResolve Master Assessor on a roofing job with the customer and the tradesperson" width="1200" height="669" loading="lazy"><figcaption>Roofing<span>Tiles, flashing and guttering inspected from the ground and the ladder</span></figcaption></figure>
+        <figure class="trade"><img src="img/sc-electrical.jpg" alt="A TradeResolve Master Assessor on a electrical job with the customer and the tradesperson" width="1200" height="669" loading="lazy"><figcaption>Electrical<span>Consumer units and wiring tested to the regulations</span></figcaption></figure>
+        <figure class="trade"><img src="img/sc-extension.jpg" alt="A TradeResolve Master Assessor on a building and brickwork job with the customer and the tradesperson" width="1200" height="669" loading="lazy"><figcaption>Building and brickwork<span>Lines, levels and workmanship measured, not guessed</span></figcaption></figure>
+        <figure class="trade"><img src="img/sc-driveway.jpg" alt="A TradeResolve Master Assessor on a driveways and landscaping job with the customer and the tradesperson" width="1200" height="669" loading="lazy"><figcaption>Driveways and landscaping<span>Falls, drainage and finish tested on site</span></figcaption></figure>
+        <figure class="trade"><img src="img/sc-plastering.jpg" alt="A TradeResolve Master Assessor on a plastering and decorating job with the customer and the tradesperson" width="1200" height="669" loading="lazy"><figcaption>Plastering and decorating<span>Finish checked in raking light, the trade way</span></figcaption></figure>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <section id="price" aria-labelledby="price-h">
+      <h2 id="price-h">What it costs</h2>
+      <p style="margin-top:8px;color:var(--muted)" data-for="c">One flat fee for the whole job, far less than the cost of putting a bad job right. Pay it yourself, ask the tradesperson to, or split it 50/50.</p>
+      <p style="margin-top:8px;color:var(--muted)" data-for="t">One flat fee for the whole job. Build it into your quote, ask the customer to pay it, or split it 50/50. Either way it costs less than chasing one unpaid invoice.</p>
+      <div class="bands" id="bands" aria-label="TradeResolve fees by job value">
+        <div data-max="5000"><small>Jobs up to £5,000</small><b>£49</b></div>
+        <div data-max="15000"><small>£5,001 to £15,000</small><b>£99</b></div>
+        <div data-max="40000"><small>£15,001 to £40,000</small><b>£179</b></div>
+        <div data-max="100000"><small>£40,001 to £100,000</small><b>£299</b></div>
+      </div>
+      <div class="calc">
+        <div class="field">
+          <label for="job">Job value</label>
+          <div class="money"><span>£</span><input id="job" type="text" inputmode="numeric" value="12,500" aria-describedby="jobhelp"></div>
+          <input id="jobRange" type="range" min="250" max="100000" step="250" value="12500" aria-label="Job value slider">
+        </div>
+        <div class="field">
+          <span style="font-weight:700;font-size:.95rem">Who pays?</span>
+          <div class="split" role="radiogroup">
+            <input type="radio" name="pay" id="p-c" value="c"><label for="p-c">Customer</label>
+            <input type="radio" name="pay" id="p-s" value="s" checked><label for="p-s">Split 50/50</label>
+            <input type="radio" name="pay" id="p-t" value="t"><label for="p-t">Trade</label>
+          </div>
+        </div>
+        <div class="result" aria-live="polite">
+          <div><small>TradeResolve fee</small><b id="total">£99</b></div>
+          <div><small id="eachlabel">Each side pays</small><b id="each">£49.50</b></div>
+          <p class="value" id="valueline"></p>
+          <p class="minflag" id="minflag" hidden>Jobs over £100,000 are priced individually. Email <a href="mailto:hello@traderesolve.co.uk">hello@traderesolve.co.uk</a> for a quote.</p>
+        </div>
+        <p class="note" id="jobhelp">One fee per job, paid once when you both sign. Card payments are taken securely by Stripe.</p>
+      </div>
+      <div class="visit-fee"><b>Master Assessor visit, if it&rsquo;s ever needed: £265.</b> Paid by whoever asks for the visit. If the Master Assessor&rsquo;s findings go against the other party, they repay it. Most jobs never need one, so most people never pay it.</div>
+    </section>
+  </div>
+
+  <section class="band" aria-labelledby="fs-h">
+    <div class="wrap band-in">
+      <figure class="photo"><img src="img/square.jpg" alt="An ebony-handled try square with brass rivets and a chrome blade resting on oak" width="1200" height="900"></figure>
+      <div class="band-copy">
+        <p class="eyebrow" style="color:#c9d3ef">Why the square</p>
+        <h2 id="fs-h">Fair and square, for both sides</h2>
+        <p>Every trade marks out with a builder's square. It's how you prove a job is true. Look at our logo: the cut through the shield is a square, and it's also a tick. That's the promise. Work checked by someone who knows what square looks like, and a fair outcome for whoever is in the right.</p>
+        <ul class="sq">
+          <li>Impartial Master Assessors with decades on the tools</li>
+          <li>Judged against what you both agreed</li>
+          <li>The same rules for customer and trade</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section id="assessors" aria-labelledby="ass-h">
+      <div class="assessors">
+        <div class="kit">
+          <figure><img src="img/kit-shell.jpg" alt="A Master Assessor in the navy TradeResolve waterproof jacket and work trousers" width="720" height="964" loading="lazy"></figure>
+          <figure><img src="img/kit-polo.jpg" alt="A Master Assessor in the navy TradeResolve polo and cap checking tiles with a level" width="720" height="964" loading="lazy"></figure>
+          <figure><img src="img/kit-hivis.jpg" alt="A Master Assessor in the TradeResolve hi-vis vest on a building site" width="720" height="964" loading="lazy"></figure>
+        </div>
+        <div>
+          <p class="eyebrow">Meet the Master Assessors</p>
+          <h2 id="ass-h">Decades on the tools. No side to take.</h2>
+          <p class="lead-muted">Our Master Assessors are experienced tradespeople, many retired or semi-retired, who now use that knowledge to look at work fairly. You'll know them by the navy uniform and the photo ID they show at the door.</p>
+          <p class="lead-muted foryou-a" data-for="c">For you, that means a straight, expert answer about your job, from someone with nothing to gain either way.</p>
+          <p class="lead-muted foryou-a" data-for="t">For you, that means being judged by a peer who knows the trade, how long things take and what a fair snag is.</p>
+          <ul class="sq vet">
+            <li><b>Proven careers</b> of at least 20 years in their trade, checked before they join</li>
+            <li><b>Background checked</b> basic DBS and carrying TradeResolve photo ID</li>
+            <li><b>No conflicts of interest:</b> never assigned to a job involving anyone they know or have worked with</li>
+            <li><b>Trained in the TradeResolve Standard</b> and our impartiality policy, and insured for the work they do</li>
+          </ul>
+          <p style="margin-top:16px"><a href="#impartiality" style="font-weight:700;color:var(--ink)">Read our impartiality policy</a></p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <section id="testimonials" aria-labelledby="tst-h" hidden>
+      <p class="eyebrow">What people say</p>
+      <h2 id="tst-h">Trusted by both sides of the job</h2>
+      <p class="lead-muted">Placeholder testimonials for layout only. Replace each one with a genuine review, used with the person's permission, before the site goes live.</p>
+      <div class="quotes">
+        <figure class="qcard" data-for="c"><span class="qtag">Sample</span>
+          <blockquote>[Placeholder customer review: what it felt like to have the agreement in place before work started, and how any issue was handled.]</blockquote>
+          <figcaption class="qwho"><span class="qav" aria-hidden="true">C</span><span><b>[Customer name]</b><small>[Town] · [Kitchen fit]</small></span></figcaption></figure>
+        <figure class="qcard" data-for="t"><span class="qtag">Sample</span>
+          <blockquote>[Placeholder tradesperson review: why working under TradeResolve helped win the job, and how the impartial process protected them too.]</blockquote>
+          <figcaption class="qwho"><span class="qav" aria-hidden="true">T</span><span><b>[Tradesperson name]</b><small>[Business name] · [Roofer]</small></span></figcaption></figure>
+        <figure class="qcard" data-for="t"><span class="qtag">Sample</span>
+          <blockquote>[Placeholder tradesperson review: extra work or a held-back payment sorted fairly through the guided steps.]</blockquote>
+          <figcaption class="qwho"><span class="qav" aria-hidden="true">T</span><span><b>[Tradesperson name]</b><small>[Business name] · [Electrician]</small></span></figcaption></figure>
+        <figure class="qcard" data-for="c"><span class="qtag">Sample</span>
+          <blockquote>[Placeholder review: a dispute settled at the guided-steps stage, or a Master Assessor visit that got the job back on track.]</blockquote>
+          <figcaption class="qwho"><span class="qav" aria-hidden="true">C</span><span><b>[Customer name]</b><small>[Town] · [Extension]</small></span></figcaption></figure>
+      </div>
+    </section>
+  </div>
+  <div class="wrap">
+    <section id="for-trades" data-for="t" aria-labelledby="ft-h" style="padding-block:10px 0">
+      <div class="trade-strip">
+        <svg viewBox="14 6 72 100" aria-hidden="true"><defs><mask id="tsm"><rect x="0" y="0" width="100" height="112" fill="#fff"/><g transform="translate(44 78) rotate(-45)" fill="#000"><rect x="-6.5" y="-3.5" width="100" height="7"/><rect x="-6.5" y="-70" width="13" height="73.5"/></g></mask><clipPath id="tsc"><polygon points="-10,24 44,78 120,2 120,130 -10,130"/></clipPath></defs><g mask="url(#tsm)"><path d="M14 11 Q14 6 19 6 H81 Q86 6 86 11 V52 C86 78 70 96 50 106 C30 96 14 78 14 52 Z" fill="#012169"/><path d="M14 11 Q14 6 19 6 H81 Q86 6 86 11 V52 C86 78 70 96 50 106 C30 96 14 78 14 52 Z" fill="#C8102E" clip-path="url(#tsc)"/></g></svg>
+        <div><h2 id="ft-h">Be one of the first in your area</h2><p>Join the first tradespeople in your area to work under TradeResolve. No fee on your first 3 jobs.</p></div>
+        <a class="btn btn-amber" href="#join">Become a Founding Trade</a>
+      </div>
+    </section>
+  </div>
+  <div class="wrap">
+    <section id="faq" aria-labelledby="faq-h">
+      <h2 id="faq-h">Questions</h2>
+      <div style="margin-top:12px">
+        <details><summary>Who are the Master Assessors?</summary><p>Experienced tradespeople, many retired or semi-retired, with long, provable careers in their trade. They're impartial and independent of both parties, and judge the work against what was agreed and recognised trade standards.</p></details>
+        <details><summary>Do we have to accept the Master Assessor's findings?</summary><p>You both agree at the start to follow the process. If a dispute still can't be settled, we prepare a TradeResolve Evidence Document, an unbiased and factual record of the agreement, both parties' conduct and all relevant communications, for use in a small claims application or other legal proceedings.</p></details>
+        <details data-for="c"><summary>What if my tradesperson won't use it?</summary><p>That's up to you. Many customers ask for it before choosing who to hire. A tradesperson who's confident in their work has nothing to lose by agreeing.</p></details>
+        <details data-for="c"><summary>Can I get my money back if the work is poor?</summary><p>TradeResolve doesn't hold or refund money. What you get is an expert, impartial view of the work against what you agreed, guidance on putting it right, and, if needed, an Evidence Document to support a small claims application.</p></details>
+        <details data-for="t"><summary>Will the Master Assessor just side with the customer?</summary><p>No. We work for neither side. The Master Assessor is an experienced tradesperson who judges the work against what you both agreed and recognised trade standards, and both of you get the same report.</p></details>
+        <details data-for="t"><summary>Do I have to use it on every job?</summary><p>No. Use it where it helps: bigger jobs, new customers, or anyone who's nervous about having work done.</p></details>
+        <details><summary>Is this insurance?</summary><p>No. TradeResolve doesn't pay out compensation. It gives you a fair process, an expert assessment and the evidence to resolve a dispute.</p></details>
+        <details><summary>What if nothing goes wrong?</summary><p>Then you never hear from us. Most jobs run smoothly, and knowing an expert could be called keeps everyone straight.</p></details>
+        <details><summary>Can I add notes and photos as the job goes on?</summary><p>Yes. Once you're signed in to My account, you and the other party can add notes and photos to the shared job file at any time. Every entry is dated and can't be changed afterwards, so the file stays a true record of the job.</p></details>
+        <details><summary>What happens to my data?</summary><p>We only use it to run your agreement and resolve any dispute, and we never sell it. Job files are kept for 6 years after the job closes, then deleted. See our <a href="#privacy">privacy policy</a>.</p></details>
+        <details><summary>Can I keep it on my phone?</summary><p>Yes. Open TradeResolve in your phone's browser and choose "Add to Home Screen". It opens like an app, straight to your jobs.</p></details>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <section id="contact" aria-labelledby="ct-h">
+      <div class="cta-strip">
+        <div>
+          <h2 id="ct-h"><span data-for="c">Ready to start your next job on the same page?</span><span data-for="t">Ready to offer TradeResolve on your next quote?</span></h2>
+          <p style="margin-top:6px;color:var(--muted)">Questions first? Email <a href="mailto:hello@traderesolve.co.uk" style="color:var(--ink);font-weight:700">hello@traderesolve.co.uk</a>.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-amber" href="#start" data-for="c">Protect a job</a>
+          <a class="btn btn-ghost" href="https://tally.so/r/xVj1gG" target="_blank" rel="noopener" data-for="c">Fill in the agreement form</a>
+          <a class="btn btn-amber" href="#join" data-for="t">Become a Founding Trade</a>
+          <a class="btn btn-ghost" href="#start" data-for="t">Try a job agreement</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- ============ FOUNDING TRADES VIEW ============ -->
+<main id="view-join" class="view-page" hidden>
+  <div class="wrap">
+    <a href="#home" class="back-link" style="margin-top:20px">&larr; Back to TradeResolve</a>
+    <div class="join-hero">
+      <div>
+        <p class="eyebrow">For tradespeople</p>
+        <h1>Become a <span>Founding Trade</span></h1>
+        <p class="lede">Most of your jobs go fine. TradeResolve is for the odd one that doesn't. You and your customer sign one Unified Agreement before you start, so the job, the price and the stages are clear from day one, and if anything ever needs sorting, someone who knows your trade looks at it fairly.</p>
+        <div class="join-cta">
+          <a class="btn btn-amber" href="https://tally.so/r/RWd9y9" target="_blank" rel="noopener">Join as a Founding Trade</a>
+          <a class="btn btn-ghost" href="#join-how" data-scroll>How it works for you</a>
+        </div>
+      </div>
+      <figure class="photo"><img src="img/sc-extension.jpg" alt="A TradeResolve Master Assessor on a building and brickwork job with the customer and the tradesperson" width="1200" height="669" loading="lazy"></figure>
+    </div>
+
+    <div class="offer" aria-labelledby="offer-h">
+      <div class="badge-big">
+        <svg viewBox="14 6 72 100" aria-hidden="true"><defs><mask id="fbm"><rect x="0" y="0" width="100" height="112" fill="#fff"/><g transform="translate(44 78) rotate(-45)" fill="#000"><rect x="-6.5" y="-3.5" width="100" height="7"/><rect x="-6.5" y="-70" width="13" height="73.5"/></g></mask><clipPath id="fbc"><polygon points="-10,24 44,78 120,2 120,130 -10,130"/></clipPath></defs><g mask="url(#fbm)"><path d="M14 11 Q14 6 19 6 H81 Q86 6 86 11 V52 C86 78 70 96 50 106 C30 96 14 78 14 52 Z" fill="#ffffff"/><path d="M14 11 Q14 6 19 6 H81 Q86 6 86 11 V52 C86 78 70 96 50 106 C30 96 14 78 14 52 Z" fill="#C8102E" clip-path="url(#fbc)"/></g></svg>
+        <div><b>TradeResolve<br>Founding Trade</b><small>Badge for your quotes, van and socials</small></div>
+      </div>
+      <div>
+        <h2 id="offer-h">The founding offer</h2>
+        <ul>
+          <li><span>Open to the first 100 tradespeople in Hertfordshire, Bedfordshire and Buckinghamshire.</span></li>
+          <li><span><b>No TradeResolve fee on your first 3 jobs.</b></span></li>
+          <li><span>The Founding Trade badge to show customers you're happy for your work to be checked.</span></li>
+          <li><span>A real say in how TradeResolve works, through a short monthly call with the founder.</span></li>
+        </ul>
+        <p class="small">Founding terms are a placeholder until confirmed.</p>
+      </div>
+    </div>
+
+    <section class="join-sec" aria-labelledby="gain-h">
+      <p class="eyebrow">What's in it for you</p>
+      <h2 id="gain-h">Get paid for what you agreed, and judged fairly</h2>
+      <div class="gain">
+        <div><b>Extras get paid for</b><p>Anything added halfway through is logged against the original quote, so "while you're here" jobs don't turn into free work.</p></div>
+        <div><b>Non-payment has a process</b><p>If money is held back over snags, it goes to an impartial Master Assessor who knows your trade, not a row on the doorstep.</p></div>
+        <div><b>Win more work</b><p>Customers are nervous about builders. Offering TradeResolve on your quote shows you've nothing to hide, and that often wins the job.</p></div>
+        <div><b>A dated record of every job</b><p>Notes, photos and changes go into one shared job file that can't be edited afterwards, so the facts are always on record.</p></div>
+      </div>
+    </section>
+
+    <section class="join-sec" id="join-how" aria-labelledby="jh-h">
+      <p class="eyebrow">How it works</p>
+      <h2 id="jh-h">Four steps, and most jobs never need the last one</h2>
+      <ol class="tsteps">
+        <li><b>Sign up</b><span>Fill in the two-minute form. We'll call you to talk it through.</span></li>
+        <li><b>Add it to your quote</b><span>Offer TradeResolve with your price. We give you the wording and the badge.</span></li>
+        <li><b>Both sign the agreement</b><span>You and the customer sign one Unified Agreement before work starts.</span></li>
+        <li><b>Work as normal</b><span>If anything needs sorting, follow the resolution pathway. A Master Assessor visits only if it's needed.</span></li>
+      </ol>
+      <p class="fairline"><b>Joining doesn't buy favour.</b> Founding Trades are treated exactly the same as every other tradesperson and every customer. Master Assessors judge the work against the agreement and recognised trade standards, never against who signed up first. That's what makes the badge worth having. <a href="#impartiality" style="color:var(--ink);font-weight:700">Read our impartiality policy</a>.</p>
+    </section>
+
+    <section class="join-sec" aria-labelledby="who-j-h">
+      <p class="eyebrow">Who can join</p>
+      <h2 id="who-j-h">Any trade that works in people's homes</h2>
+      <ul class="sq" style="margin-top:14px">
+        <li>Builders, carpenters, plumbers, electricians, roofers, plasterers, decorators, tilers, landscapers, driveway and window fitters, and more</li>
+        <li>Limited companies, partnerships and sole traders</li>
+        <li>Holding the right insurance for your work, and any registrations your trade needs, such as Gas Safe</li>
+        <li>Happy for your work to be checked fairly if it ever comes to it</li>
+      </ul>
+    </section>
+
+    <section class="join-sec" aria-labelledby="jfaq-h">
+      <h2 id="jfaq-h">Questions from tradespeople</h2>
+      <div style="margin-top:12px">
+        <details><summary>What does it cost?</summary><p>Signing up as a Founding Trade is free. On a protected job the TradeResolve fee is one flat amount based on the job price: £49 up to £5,000, £99 up to £15,000, £179 up to £40,000 and £299 up to £100,000. You agree with your customer who pays it, or split it 50/50. A Master Assessor visit, if one is ever needed, is £265, paid by whoever asks for it and repaid by the other party if the findings go against them. As a Founding Trade there's no fee at all on your first 3 jobs.</p></details>
+        <details><summary>Do I have to use it on every job?</summary><p>No. Use it where it helps: bigger jobs, new customers, or anyone who's nervous about having work done.</p></details>
+        <details><summary>What if my customer says no?</summary><p>That's fine. Nothing changes and you do the job as normal. Most customers like being offered it, because it shows you're confident in your work.</p></details>
+        <details><summary>Will the Master Assessor just side with the customer?</summary><p>No. We work for neither side. The Master Assessor is an experienced tradesperson who judges the work against what you both agreed and recognised trade standards, and both of you get the same report.</p></details>
+        <details><summary>Is this insurance?</summary><p>No. TradeResolve doesn't pay out. Keep your own insurance. We give you a clear agreement, a fair process and, if it's ever needed, an expert's findings and an Evidence Document.</p></details>
+      </div>
+    </section>
+
+    <section class="join-sec" aria-labelledby="jcta-h" style="margin-bottom:10px">
+      <div class="cta-strip">
+        <div>
+          <h2 id="jcta-h">Fair to the customer. Fair to the tradesperson.</h2>
+          <p style="margin-top:6px;color:var(--muted)">Questions first? Email <a href="mailto:hello@traderesolve.co.uk" style="color:var(--ink);font-weight:700">hello@traderesolve.co.uk</a>.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-amber" href="https://tally.so/r/RWd9y9" target="_blank" rel="noopener">Join as a Founding Trade</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- ============ START A JOB VIEW ============ -->
+<main id="view-start" hidden>
+  <div class="wrap" style="padding-block:20px 48px">
+    <a href="#home" class="note" style="text-decoration:none">← Back</a>
+    <h2 style="margin-top:10px">Protect a job</h2>
+    <div class="steps-bar" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+    <div class="tally-opt">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M8.5 8h7M8.5 11.5h7M8.5 15h4"/></svg>
+      <div><b>Ready to protect a real job?</b><p>Complete the Unified Agreement together, both sign, and pay the fee securely by card. <a href="https://tally.so/r/xVj1gG" target="_blank" rel="noopener">Start the agreement</a></p><p>The steps below are a demo of how it works. Nothing you enter there is sent to TradeResolve.</p></div>
+    </div>
+    <p class="eyebrow" id="stepLabel">Step 1 of 4 · The job</p>
+
+    <!-- step 1 -->
+    <form class="panel step" data-step="1" novalidate>
+      <div class="field"><label for="j-desc">What's the job?</label><input id="j-desc" type="text" value="Rear kitchen extension, 3.5m × 4m, single storey"></div>
+      <div class="field"><label for="j-addr">Job address</label><input id="j-addr" type="text" value="14 Example Road, Bedford MK40"></div>
+      <div class="row2">
+        <div class="field"><label for="j-val">Agreed price (£)</label><input id="j-val" type="text" inputmode="numeric" value="28,000"></div>
+        <div class="field"><label for="j-date">Start date</label><input id="j-date" type="date" value="2026-11-23"></div>
+      </div>
+      <div class="field"><label for="j-stages">Payment stages</label><textarea id="j-stages">10% deposit · 30% foundations & slab · 30% shell & roof · 30% on completion</textarea></div>
+      <p class="note">Example details filled in to show how it works.</p>
+      <div class="nav"><span></span><button class="btn btn-amber" type="submit">Next: the parties</button></div>
+    </form>
+
+    <!-- step 2 -->
+    <form class="panel step" data-step="2" novalidate hidden>
+      <div class="pair">
+        <div class="party"><h3>Customer</h3>
+          <div class="field"><label for="c-name">Full name</label><input id="c-name" type="text" value="Sarah Example"></div>
+          <div class="field"><label for="c-email">Email</label><input id="c-email" type="email" value="sarah@example.com"></div>
+        </div>
+        <div class="party"><h3>Tradesperson</h3>
+          <div class="field"><label for="t-name">Name / business</label><input id="t-name" type="text" value="J. Example Building Ltd"></div>
+          <div class="field"><label for="t-email">Email</label><input id="t-email" type="email" value="jobs@examplebuild.co.uk"></div>
+        </div>
+      </div>
+      <div class="field"><span style="font-weight:700">Who pays for protection?</span>
+        <div class="split">
+          <input type="radio" name="pay2" id="q-c" value="c"><label for="q-c">Customer</label>
+          <input type="radio" name="pay2" id="q-s" value="s" checked><label for="q-s">Split</label>
+          <input type="radio" name="pay2" id="q-t" value="t"><label for="q-t">Trade</label>
+        </div>
+      </div>
+      <p class="err" id="err2" hidden></p>
+      <div class="nav"><button class="btn btn-ghost" type="button" data-back>Back</button><button class="btn btn-amber" type="submit">Next: the agreement</button></div>
+    </form>
+
+    <!-- step 3 -->
+    <form class="panel step" data-step="3" novalidate hidden>
+      <h3>The TradeResolve agreement</h3>
+      <div class="terms" tabindex="0" aria-label="Agreement terms">
+        <ol>
+          <li>Both parties agree the job, price and payment stages shown in this agreement.</li>
+          <li>Either party may report a problem through TradeResolve at any time during the job, with photos and a description.</li>
+          <li>Both parties agree to respond within the time set at each guided step, and to make a genuine attempt to resolve the issue.</li>
+          <li>If the issue is not resolved, either party may escalate to a site visit by an independent TradeResolve assessor. Both parties agree to give reasonable access to the site.</li>
+          <li>The assessor will report on the work against this agreement and recognised trade standards, and state where responsibility lies.</li>
+          <li>Both parties agree that the agreement, the record of steps taken and the assessor's report may be used as evidence in any court claim.</li>
+          <li>Changes to the job and its price should be agreed and logged in TradeResolve before the work is done.</li>
+        </ol>
+      </div>
+      <p class="note">Draft wording for the prototype. Final terms to be written with a solicitor.</p>
+      <div class="pair">
+        <div class="sig">
+          <div class="row"><b id="sigc-name">Customer signature</b><button class="btn btn-ghost btn-sm" type="button" data-clear="sig-c">Clear</button></div>
+          <canvas class="sigpad" id="sig-c" aria-label="Customer signature pad, draw to sign"></canvas>
+        </div>
+        <div class="sig">
+          <div class="row"><b id="sigt-name">Tradesperson signature</b><button class="btn btn-ghost btn-sm" type="button" data-clear="sig-t">Clear</button></div>
+          <canvas class="sigpad" id="sig-t" aria-label="Tradesperson signature pad, draw to sign"></canvas>
+        </div>
+      </div>
+      <label class="check"><input type="checkbox" id="agree">Both parties have read and agree to these terms.</label>
+      <p class="err" id="err3" hidden></p>
+      <div class="nav"><button class="btn btn-ghost" type="button" data-back>Back</button><button class="btn btn-amber" type="submit">Sign agreement</button></div>
+    </form>
+
+    <!-- step 4 -->
+    <div class="step" data-step="4" hidden>
+      <div class="cert" style="margin-top:14px">
+        <div class="head">
+          <div><p class="eyebrow">Agreement</p><p class="mono" id="ref" style="font-size:1.05rem;margin-top:4px">TR-2026-0000</p></div>
+          <span class="status">Protected</span>
+        </div>
+        <dl id="certdl"></dl>
+        <div class="sigs">
+          <figure><img id="img-c" alt="Customer signature"><figcaption id="cap-c"></figcaption></figure>
+          <figure><img id="img-t" alt="Tradesperson signature"><figcaption id="cap-t"></figcaption></figure>
+        </div>
+        <div>
+          <p class="eyebrow" style="margin-bottom:8px">Job record</p>
+          <div class="timeline">
+            <div><span class="dot on"></span><span>Agreement signed by both parties <span class="mono" id="signedAt"></span></span></div>
+            <div><span class="dot"></span><span>No issues reported</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <p><b>In the live app,</b> a PDF of this agreement is emailed to both parties at this point, and the job appears on both their home screens.</p>
+        <div class="nav" style="flex-wrap:wrap">
+          <button class="btn btn-ghost" type="button" id="report">Report a problem</button>
+          <a class="btn btn-amber" href="#home" id="done">Done</a>
+        </div>
+        <form id="issue" class="issue" hidden novalidate>
+          <h3>Report a problem</h3>
+          <p class="note">This starts stage 2, the guided steps. Both of you see the issue, and the other side has a set time to respond.</p>
+          <div class="field"><span style="font-weight:700;font-size:.95rem">Who's reporting it?</span>
+            <div class="split" style="grid-template-columns:1fr 1fr">
+              <input type="radio" name="iby" id="i-c" value="c" checked><label for="i-c">Customer</label>
+              <input type="radio" name="iby" id="i-t" value="t"><label for="i-t">Tradesperson</label>
+            </div></div>
+          <div class="field"><label for="i-what">What's wrong?</label>
+            <select id="i-what"><option>Quality of the work</option><option>Work not finished or delays</option><option>Extra work or a price change</option><option>Payment held back or late</option><option>Something else</option></select></div>
+          <div class="field"><label for="i-note">Describe it</label><textarea id="i-note">Gap between the worktop and the wall on the left side is wider than on the right.</textarea></div>
+          <div class="field"><label for="i-photo">Photos</label><input id="i-photo" type="file" accept="image/*" multiple></div>
+          <p class="err" id="i-err" hidden></p>
+          <div class="nav"><button class="btn btn-ghost" type="button" id="i-cancel">Cancel</button><button class="btn btn-amber" type="submit">Log the issue</button></div>
+        </form>
+        <div id="guided" class="guided" hidden>
+          <h3>Guided steps</h3>
+          <ol class="gsteps">
+            <li class="done"><b>Issue logged</b><span id="g-logged"></span></li>
+            <li class="now"><b>Response due</b><span id="g-due"></span></li>
+            <li><b>Put it right or agree a fix</b><span>Agree what will be done, and by when. Both sides confirm in the job file.</span></li>
+            <li><b>Still stuck?</b><span>Either side can ask for a Master Assessor visit once the response time has passed.</span></li>
+          </ol>
+          <p class="note">In the live app, both parties are emailed at each step and reminders go out before deadlines.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ============ MY ACCOUNT (DEMO) ============ -->
+<main id="view-account" class="view-page" hidden>
+  <div class="wrap acct">
+    <a href="#home" class="back-link">&larr; Back to TradeResolve</a>
+    <h1>My TradeResolve</h1>
+    <div class="demo-flag"><span aria-hidden="true">&#9888;</span><span><b>Demo only.</b> This shows how the account area will work. Anything you add here stays on this device and isn't sent to TradeResolve. Live accounts are coming soon.</span></div>
+
+    <!-- sign in -->
+    <section id="acct-signin" class="acct-grid" style="padding-block:0">
+      <div class="acct-card">
+        <h2 style="font-size:1.35rem">Sign in to your job file</h2>
+        <p style="color:var(--muted);margin-top:6px">Use the email address on your Unified Agreement. We'll recognise whether you're the customer or the tradesperson.</p>
+        <form id="acct-form" novalidate>
+          <label for="acct-email">Email address</label>
+          <input id="acct-email" type="email" autocomplete="email" placeholder="you@example.com" required>
+          <label for="acct-ref">Agreement reference</label>
+          <input id="acct-ref" type="text" placeholder="TR-2026-0142" required>
+          <p id="acct-err" role="alert" style="color:#9b0c24;font-size:.9rem;margin:8px 0 0" hidden></p>
+          <button class="btn btn-amber" type="submit" style="margin-top:14px;width:100%">Sign in</button>
+          <p class="lock-note">In the live service you'll get a secure one-time sign-in link by email. No passwords to remember.</p>
+        </form>
+      </div>
+      <div class="acct-card">
+        <h2 style="font-size:1.1rem">Try the demo</h2>
+        <p style="color:var(--muted);margin-top:6px">Demo agreement <b>TR-2026-0142</b>, a kitchen fit. Sign in as either party:</p>
+        <dl class="kv"><dt>Customer</dt><dd>sam.customer@example.com</dd><dt>Tradesperson</dt><dd>alex.builder@example.com</dd></dl>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
+          <button class="btn btn-ghost btn-sm" type="button" data-demo="c">Try as the customer</button>
+          <button class="btn btn-ghost btn-sm" type="button" data-demo="t">Try as the tradesperson</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- dashboard -->
+    <section id="acct-dash" hidden style="padding-block:0">
+      <div class="acct-card" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center">
+        <div><p class="eyebrow">Signed in as</p><p style="margin:6px 0 0;font-weight:700" id="acct-who"></p></div>
+        <div style="display:flex;gap:8px;align-items:center"><span id="acct-role" class="role-badge"></span><button class="btn btn-ghost btn-sm" type="button" id="acct-out">Sign out</button></div>
+      </div>
+      <div class="acct-grid">
+        <div class="acct-card">
+          <h2 style="font-size:1.2rem">Your jobs</h2>
+          <div class="jobs" id="acct-jobs"></div>
+          <p class="lock-note">Closed jobs move to your archive. Files are kept for 6 years after a job closes, then deleted.</p>
+        </div>
+        <div class="acct-card" id="acct-file">
+          <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center">
+            <h2 style="font-size:1.2rem" id="file-title">Job file</h2><span class="status" id="file-status"></span>
+          </div>
+          <dl class="kv" id="file-meta"></dl>
+          <form id="file-add" style="margin-top:16px" novalidate>
+            <h3 style="font-size:1rem">Add to the job file</h3>
+            <label for="file-note">Note</label>
+            <textarea id="file-note" placeholder="What happened, what was agreed, or what needs looking at"></textarea>
+            <label for="file-photos">Photos</label>
+            <div class="drop"><input id="file-photos" type="file" accept="image/*" multiple></div>
+            <button class="btn btn-amber" type="submit" style="margin-top:12px">Add to file</button>
+            <p class="lock-note">Entries are dated and can't be edited or deleted once added, so the file stays a true record. Both parties see everything in the file.</p>
+          </form>
+          <p id="file-archived" class="demo-flag" hidden style="background:#eceef3;border-color:#d8dce6;color:#4a5878">This job is closed and archived. You can view the file but not add to it.</p>
+          <h3 style="font-size:1rem;margin-top:18px">File history</h3>
+          <ol class="timeline" id="file-timeline"></ol>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="lightbox" id="lightbox" hidden><img alt=""></div>
+</main>
+
+<!-- ============ PRIVACY POLICY ============ -->
+<main id="view-privacy" class="view-page" hidden>
+  <div class="wrap legal">
+    <a href="#home" class="back-link">&larr; Back to TradeResolve</a>
+    <h1>Privacy policy</h1>
+    <p class="updated">Last updated: 10 November 2026</p>
+
+    <h2>1. Who we are</h2>
+    <p>TradeResolve is a trading name of COLCI Ltd ("TradeResolve", "we", "us"), a company registered in England and Wales under company number 16771539, registered office 128 City Road, London, EC1V 2NX. We are the controller of the personal data described in this policy.</p>
+    <p>For anything to do with your data, contact us at <a href="mailto:privacy@traderesolve.co.uk">privacy@traderesolve.co.uk</a> or write to the address above.</p>
+    <h2>2. The personal data we collect</h2>
+    <ul>
+      <li><b>Identity and contact details:</b> names, email addresses, phone numbers and postal addresses of customers and tradespeople.</li>
+      <li><b>Job details:</b> the job address, the description of the work, prices, payment stages, dates, quotes and any changes agreed.</li>
+      <li><b>Agreement records:</b> your electronic signature, the date and time you signed, and the version of the terms you agreed to.</li>
+      <li><b>Job file content:</b> notes, photos, documents and messages that you or the other party add to the job file, including photos of your property and the work.</li>
+      <li><b>Dispute records:</b> the steps taken in the resolution pathway, Master Assessor visit notes, measurements, photos and findings, and any TradeResolve Evidence Document.</li>
+      <li><b>Business details (tradespeople):</b> trading name, company number, insurance details and trade memberships you choose to give us.</li>
+      <li><b>Payment details:</b> payments are handled by Stripe. We see whether a payment succeeded and the amount, but we do not store full card details.</li>
+      <li><b>Technical data:</b> device and browser information, IP address and how you use our website, collected through essential storage and, only with your consent, analytics cookies (see our <a href="#cookies">cookie policy</a>).</li>
+    </ul>
+    <p>We do not intentionally collect special category data. Please don't include health or other sensitive information in notes or photos unless it's essential to the job.</p>
+    <h2>3. How and why we use it (our lawful bases)</h2>
+    <table>
+      <tr><th>Purpose</th><th>Lawful basis under UK GDPR</th></tr>
+      <tr><td>Setting up and running your Unified Agreement and job file</td><td>Contract: it's necessary to provide the service you've asked for</td></tr>
+      <tr><td>Running the resolution pathway, arranging a Master Assessor visit and preparing findings</td><td>Contract</td></tr>
+      <tr><td>Preparing a TradeResolve Evidence Document and sharing it with both parties</td><td>Contract, and our legitimate interest in giving both parties an accurate record for legal proceedings</td></tr>
+      <tr><td>Using the other party's details that appear in your job file</td><td>Legitimate interests: both parties need an accurate, shared record of the job</td></tr>
+      <tr><td>Taking payment and keeping financial records</td><td>Contract and legal obligation (tax and accounting law)</td></tr>
+      <tr><td>Responding to complaints and legal claims</td><td>Legitimate interests, and to establish, exercise or defend legal claims</td></tr>
+      <tr><td>Improving our website with analytics</td><td>Consent, which you can withdraw at any time</td></tr>
+      <tr><td>Sending marketing emails</td><td>Consent, or for existing customers, the "soft opt-in" with an unsubscribe link in every message</td></tr>
+    </table>
+    <h2>4. Who we share it with</h2>
+    <ul>
+      <li><b>The other party to your agreement:</b> the job file, findings and any Evidence Document are shared equally with both of you. That's central to our impartial process.</li>
+      <li><b>Master Assessors:</b> the assessor assigned to your job sees the job file and contact details they need to arrange and carry out the visit. They're bound by confidentiality.</li>
+      <li><b>Service providers acting for us:</b> website hosting (Cloudflare), forms and e-signature (Tally), payments (Stripe), email (Zoho Mail), and secure database and file storage (Supabase, UK region). Each processes data only on our instructions under a written contract.</li>
+      <li><b>Courts, legal advisers and authorities:</b> when either party uses an Evidence Document in proceedings, when we're legally required to, or to establish or defend legal claims.</li>
+      <li><b>A buyer of our business</b>, if TradeResolve is ever sold, under the same protections.</li>
+    </ul>
+    <p>We never sell your personal data.</p>
+    <h2>5. International transfers</h2>
+    <p>Some of our providers may process data outside the UK. Where they do, we make sure there's an adequacy decision or appropriate safeguards, such as the UK International Data Transfer Agreement or Addendum.</p>
+    <h2>6. How long we keep it</h2>
+    <p>We keep agreements, job files and dispute records for 6 years after the job closes, which reflects the time limit for most contract claims in England and Wales. Financial records are kept for 6 years as required by law. After that, data is securely deleted or anonymised.</p>
+    <h2>7. Your rights</h2>
+    <p>You have the right to: access a copy of your data; have inaccurate data corrected; ask us to delete it; restrict or object to how we use it; receive it in a portable format; and withdraw consent at any time where we rely on consent. Some rights are limited. For example, we can't delete an entry from a shared job file that the other party may need for legal proceedings, but we will explain why if that applies.</p>
+    <p>To use your rights, email <a href="mailto:privacy@traderesolve.co.uk">privacy@traderesolve.co.uk</a>. We'll respond within one month. It's free in most cases.</p>
+    <h2>8. Keeping it secure</h2>
+    <p>We use encryption in transit, access controls and reputable providers to protect your data, and job file entries are time-stamped and can't be edited once added.</p>
+    <h2>9. Complaints to the regulator</h2>
+    <p>If you're unhappy with how we've handled your data, please tell us first. You also have the right to complain to the Information Commissioner's Office: <a href="https://ico.org.uk/make-a-complaint/" target="_blank" rel="noopener">ico.org.uk/make-a-complaint</a>, telephone 0303 123 1113.</p>
+    <h2>10. Changes to this policy</h2>
+    <p>We'll post any changes here and update the date at the top. If a change materially affects how we use your data, we'll tell you directly.</p>
+
+  </div>
+</main>
+
+<!-- ============ COOKIE POLICY ============ -->
+<main id="view-cookies" class="view-page" hidden>
+  <div class="wrap legal">
+    <a href="#home" class="back-link">&larr; Back to TradeResolve</a>
+    <h1>Cookie policy</h1>
+    <p class="updated">Last updated: 10 November 2026</p>
+
+    <h2>What cookies and similar technologies are</h2>
+    <p>Cookies are small files stored on your device. We also use similar browser storage. Some are essential to make the site work. We don&rsquo;t use analytics, tracking or advertising cookies.</p>
+    <h2>The ones we use</h2>
+    <table>
+      <tr><th>Name</th><th>Type</th><th>Purpose</th><th>How long</th></tr>
+      <tr><td>tr_cookie_choice</td><td>Essential (browser storage)</td><td>Remembers your cookie choice so we don't ask on every visit</td><td>12 months</td></tr>
+      <tr><td>tr_aud</td><td>Essential (browser storage)</td><td>Remembers whether you chose to see the site as a customer or a tradesperson</td><td>Until you clear it</td></tr>
+      <tr><td>tr_demo_files</td><td>Essential (browser storage)</td><td>Holds demo job file entries on your own device in the account demo</td><td>Until you clear it</td></tr>
+      <tr><td>Stripe cookies</td><td>Essential, set by Stripe at checkout</td><td>Fraud prevention and secure payment</td><td>set by provider</td></tr>
+    </table>
+    <h2>Your choices</h2>
+    <p>We only use essential storage, which the site needs to work, so there is nothing to opt in to. You can block or delete cookies in your browser settings.</p>
+
+  </div>
+</main>
+
+<!-- ============ TERMS OF SERVICE ============ -->
+<main id="view-terms" class="view-page" hidden>
+  <div class="wrap legal">
+    <a href="#home" class="back-link">&larr; Back to TradeResolve</a>
+    <h1>Terms of service</h1>
+    <p class="updated">Last updated: 10 November 2026</p>
+
+    <h2>1. About these terms</h2>
+    <p>These terms apply when you use the TradeResolve website and services, including signing a Unified Agreement. TradeResolve is a trading name of COLCI Ltd, registered in England and Wales, company number 16771539, registered office 128 City Road, London, EC1V 2NX. Contact: <a href="mailto:hello@traderesolve.co.uk">hello@traderesolve.co.uk</a>.</p>
+    <h2>2. What TradeResolve is, and isn't</h2>
+    <p>TradeResolve provides a shared agreement, a job file and a structured, impartial resolution pathway for building work, including Master Assessor visits and TradeResolve Evidence Documents. We are <b>not</b> an insurer, a court, an ombudsman, a regulated alternative dispute resolution body or a law firm. We do not guarantee the work of any tradesperson and we do not pay compensation. Nothing in these terms affects your statutory rights.</p>
+    <h2>3. The Unified Agreement</h2>
+    <p>The Unified Agreement is between the customer and the tradesperson. It records the job they have agreed. TradeResolve is not a party to the building contract itself. By signing, both parties agree to follow the TradeResolve resolution pathway if an issue arises, to allow a Master Assessor reasonable access to inspect the work, and to consider TradeResolve's guidance in good faith.</p>
+    <h2>4. The resolution pathway</h2>
+    <ol>
+      <li><b>Guided steps:</b> either party raises an issue in their account. Both parties respond within 7 days and try to put it right.</li>
+      <li><b>Master Assessor visit:</b> if it's unresolved, either party can request a visit. The visit costs £265, paid by the party who requests it. If the Master Assessor's findings go against the other party, the other party repays the £265 to the party who paid. We'll aim to arrange a visit within 10 working days of payment.</li>
+      <li><b>Findings and guidance:</b> the Master Assessor's findings and our guidance are given to both parties at the same time.</li>
+      <li><b>Evidence Document:</b> if the dispute still can't be settled, we prepare a TradeResolve Evidence Document for either party to use in a small claims application or other proceedings. A court decides what weight to give it.</li>
+    </ol>
+    <h2>5. Fees and payment</h2>
+    <p>Our fee is a single flat fee per job, based on the agreed job price: £49 for jobs up to £5,000; £99 for £5,001 to £15,000; £179 for £15,001 to £40,000; and £299 for £40,001 to £100,000. Jobs over £100,000 are priced individually. The prices shown are the total you pay. The parties choose who pays the fee when they sign (the customer, the tradesperson, or split 50/50), and it is payable on signing. The agreement becomes active once the fee has been paid in full.</p>
+    <p>The fee covers the Unified Agreement, the job record and the guided steps of the resolution pathway. A Master Assessor visit costs £265 per visit, paid by the party who requests it. If the Master Assessor's findings go against the other party, the other party must repay the £265 to the party who paid within 14 days. Payments are processed securely by Stripe.</p>
+    <h2>6. Your right to cancel (customers)</h2>
+    <p>If you're a consumer, you can cancel within 14 days of signing without giving a reason, under the Consumer Contracts Regulations 2013. If you ask us to start providing the service within those 14 days, for example by arranging a visit, you'll pay for what we've provided up to the point you cancel. To cancel, email <a href="mailto:hello@traderesolve.co.uk">hello@traderesolve.co.uk</a> or use the <a href="#cancel-form">model cancellation form</a>. You don&rsquo;t have to use the form; any clear statement that you&rsquo;re cancelling is enough.</p>
+    <h2>7. Your responsibilities</h2>
+    <ul>
+      <li>Give accurate information and keep your contact details up to date.</li>
+      <li>Only upload notes and photos that are true, relevant to the job and that you have the right to share.</li>
+      <li>Don't upload anything unlawful, abusive or that includes other people's sensitive information.</li>
+      <li>Keep your account secure and don't share sign-in links.</li>
+    </ul>
+    <h2>8. Master Assessors and impartiality</h2>
+    <p>Master Assessors act impartially under our <a href="#impartiality">impartiality policy</a>. Their findings are an expert opinion on the work against what was agreed and recognised trade standards. They are not a legal judgment.</p>
+    <h2>9. Our liability</h2>
+    <p>We use reasonable care and skill in providing our services. We're not responsible for the building work, the tradesperson's or customer's conduct, or losses that weren't foreseeable. Our total liability to you is limited to the fee you paid for the job concerned. We don't exclude liability for death or personal injury caused by our negligence, fraud, or anything else that can't be excluded by law.</p>
+    <h2>10. Complaints</h2>
+    <p>If you're unhappy with TradeResolve's own service, please follow our <a href="#complaints">complaints procedure</a>.</p>
+    <h2>11. Changes, law and jurisdiction</h2>
+    <p>We may update these terms and will post changes here. The version you signed applies to your agreement. These terms are governed by the law of England and Wales. If you live in Scotland or Northern Ireland, you can also bring proceedings in your local courts.</p>
+
+  </div>
+</main>
+
+<!-- ============ COMPLAINTS PROCEDURE ============ -->
+<main id="view-complaints" class="view-page" hidden>
+  <div class="wrap legal">
+    <a href="#home" class="back-link">&larr; Back to TradeResolve</a>
+    <h1>Complaints procedure</h1>
+    <p class="updated">Last updated: 10 November 2026</p>
+
+    <p>This procedure is for complaints about TradeResolve's own service, for example how we handled your agreement, a Master Assessor's conduct, or how we treated your data. Disputes between a customer and a tradesperson about the building work go through the <a href="#how">resolution pathway</a> instead.</p>
+    <h2>How to complain</h2>
+    <p>Email <a href="mailto:complaints@traderesolve.co.uk">complaints@traderesolve.co.uk</a>. Tell us your agreement reference, what happened and what you'd like us to do.</p>
+    <h2>What happens next</h2>
+    <ol>
+      <li>We'll acknowledge your complaint within 3 working days.</li>
+      <li>Someone not involved in the original matter will look into it.</li>
+      <li>We'll give you a full written response within 15 working days. If we need longer, we'll explain why and give you a new date.</li>
+      <li>If you're not satisfied, you can ask for a review by a director, who will respond within 10 working days.</li>
+    </ol>
+    <h2>If you're still unhappy</h2>
+    <p>If you are still unhappy after our final response, Citizens Advice can explain your options, including the small claims court. For data protection complaints, you can contact the Information Commissioner's Office at <a href="https://ico.org.uk/make-a-complaint/" target="_blank" rel="noopener">ico.org.uk</a>. Consumers can get free advice from Citizens Advice on 0808 223 1133.</p>
+    <h2 id="cancel-form">Model cancellation form</h2>
+    <p>If you&rsquo;re a customer and want to cancel within 14 days of signing, you can copy and send this form. You don&rsquo;t have to use it.</p>
+    <div class="cancel-form">
+      <p>To: COLCI Ltd, trading as TradeResolve, 128 City Road, London, EC1V 2NX, <a href="mailto:hello@traderesolve.co.uk">hello@traderesolve.co.uk</a></p>
+      <p>I hereby give notice that I cancel my contract for the supply of the following service: TradeResolve Unified Agreement, reference ______________</p>
+      <p>Ordered on: ______________</p>
+      <p>Name of consumer: ______________</p>
+      <p>Address of consumer: ______________</p>
+      <p>Signature of consumer (only if this form is sent on paper): ______________</p>
+      <p>Date: ______________</p>
+    </div>
+    <p class="note" style="margin-top:10px">Wording follows the model form in Schedule 3 to the Consumer Contracts (Information, Cancellation and Additional Charges) Regulations 2013.</p>
+
+  </div>
+</main>
+
+<!-- ============ IMPARTIALITY POLICY ============ -->
+<main id="view-impartiality" class="view-page" hidden>
+  <div class="wrap legal">
+    <a href="#home" class="back-link">&larr; Back to TradeResolve</a>
+    <h1>Impartiality policy</h1>
+    <p class="updated">Last updated: 10 November 2026</p>
+
+    <p>Impartiality is the whole point of TradeResolve. This policy explains how we make sure neither the customer nor the tradesperson is ever favoured.</p>
+    <h2>Our commitments</h2>
+    <ul>
+      <li><b>We work for neither side.</b> Our role is to establish what was agreed and whether the work meets it.</li>
+      <li><b>Who pays doesn't change the outcome.</b> Who pays our fee is agreed at the start and has no bearing on any finding.</li>
+      <li><b>Equal access.</b> Both parties see the same job file, receive findings at the same time, and get the same Evidence Document.</li>
+      <li><b>Evidence first.</b> Findings are based on the Unified Agreement, the job file, what the Master Assessor sees and measures on site, and recognised trade standards.</li>
+      <li><b>A true record.</b> Job file entries are time-stamped and can't be edited or deleted, so the record stays a fair account of what happened.</li>
+    </ul>
+    <h2>Conflicts of interest</h2>
+    <p>Before accepting a job, every Master Assessor confirms they have no connection to either party, including family, friendship, past employment, business dealings or competition in the same local trade within the last 5 years. If a conflict comes to light later, the assessor steps aside and another is appointed at no cost.</p>
+    <h2>Gifts and hospitality</h2>
+    <p>Master Assessors must not accept gifts, payments or hospitality from either party. Any offer is recorded in the job file.</p>
+    <h2>Raising a concern</h2>
+    <p>If you believe a Master Assessor or anyone at TradeResolve hasn't acted impartially, tell us through our <a href="#complaints">complaints procedure</a>. Concerns about impartiality are reviewed by a director who was not involved.</p>
+    <p style="margin-top:20px;font:800 1.3rem/1.2 var(--display);color:var(--ink)">&ldquo;You can&rsquo;t be strong if you&rsquo;re wrong.&rdquo;</p>
+
+  </div>
+</main>
+
+<!-- ============ ACCESSIBILITY STATEMENT ============ -->
+<main id="view-accessibility" class="view-page" hidden>
+  <div class="wrap legal">
+    <a href="#home" class="back-link">&larr; Back to TradeResolve</a>
+    <h1>Accessibility statement</h1>
+    <p class="updated">Last updated: 10 November 2026</p>
+
+    <p>We want everyone to be able to use TradeResolve, including people who use screen readers, magnification or keyboard navigation.</p>
+    <h2>What we aim for</h2>
+    <p>We aim to meet the Web Content Accessibility Guidelines (WCAG) 2.2 at level AA. The site supports text resizing and keyboard navigation, respects your device's reduced-motion setting, and the intro video plays only after you choose to start it.</p>
+    <h2>Known issues</h2>
+    <ul>
+      <li>The intro video on the home page has no captions or audio description yet. It contains no spoken information, and everything it shows is also covered in the text of the page.</li>
+      <li>The intro plays a short sound when you choose to start it. You can mute the video sound with the speaker button at any time.</li>
+      <li>In the &ldquo;Protect a job&rdquo; demo, signing needs a mouse, finger or stylus. If you can&rsquo;t sign this way, use our <a href="https://tally.so/r/xVj1gG" target="_blank" rel="noopener">agreement form</a> or contact us and we&rsquo;ll arrange another way to sign.</li>
+      <li>The site has not yet had an independent accessibility audit. We plan one before launch and will update this list.</li>
+    </ul>
+    <h2>Need something in a different format?</h2>
+    <p>If you need any information in another format, such as large print or over the phone, contact <a href="mailto:hello@traderesolve.co.uk">hello@traderesolve.co.uk</a> and we'll help.</p>
+    <p>This statement was prepared on 10 November 2026 and will be reviewed annually.</p>
+
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <span class="word"><b>trade</b>resol<svg class="wtick" viewBox="0 0 56 54" aria-hidden="true"><polyline points="3,27 19,46 54,4"/></svg>e</span>
+        <p>Start every job on the same page. One Unified Agreement for customer and tradesperson, and an impartial way to put things right.</p>
+        <p style="font:800 1.05rem var(--display);color:#fff">&ldquo;It&rsquo;s got to be right.&rdquo;</p>
+      </div>
+      <div><h3>TradeResolve</h3><ul>
+        <li><a href="#how">How it works</a></li><li><a href="#price">Pricing</a></li><li><a href="#assessors">Master Assessors</a></li><li><a href="#faq">Questions</a></li><li><a href="#contact">Contact</a></li></ul></div>
+      <div><h3>Your job</h3><ul>
+        <li><a href="#start">Protect a job</a></li><li><a href="#join">Become a Founding Trade</a></li><li><a href="https://tally.so/r/xVj1gG" target="_blank" rel="noopener">Agreement form</a></li><li><a href="#account">My account</a></li></ul></div>
+      <div><h3>Legal</h3><ul>
+        <li><a href="#terms">Terms of service</a></li><li><a href="#privacy">Privacy policy</a></li><li><a href="#cookies">Cookie policy</a></li><li><a href="#impartiality">Impartiality policy</a></li><li><a href="#complaints">Complaints</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#" data-cookie-reset>Cookie settings</a></li></ul></div>
+    </div>
+    <div class="foot-legal">
+      &copy; <span id="yr">2026</span> TradeResolve. TradeResolve is a trading name of COLCI Ltd, registered in England and Wales, company number 16771539. Registered office: 128 City Road, London, EC1V 2NX.<br>
+      TradeResolve is not an insurer, a court, an ombudsman or a law firm, and does not pay compensation.
+    </div>
+  </div>
+</footer>
+<div class="cookie" id="cookie" role="dialog" aria-live="polite" aria-label="Cookie choices" hidden>
+  <p>We only use essential storage to make this site work. No tracking or advertising cookies. <a href="#cookies">Cookie policy</a></p>
+  <div class="row"><button class="btn btn-ghost btn-sm" type="button" data-cookie="essential">OK</button></div>
+</div>
+
+<script>
+window.TR_AGREEMENT_LIVE=false;
+(function(){
+  const BANDS=[[5000,49],[15000,99],[40000,179],[100000,299]], VISIT=265;
+  const gbp=n=>"£"+(Math.round(n*100)%100?(Math.round(n*100)/100).toLocaleString("en-GB",{minimumFractionDigits:2,maximumFractionDigits:2}):Math.round(n).toLocaleString("en-GB"));
+  const num=s=>parseFloat(String(s).replace(/[^0-9.]/g,""))||0;
+  function fee(v){for(const [max,f] of BANDS){if(v<=max)return f}return 299}
+
+  /* audience tabs */
+  const tabs=[["tab-c","aud-c"],["tab-t","aud-t"]];
+  /* one audience for the whole page: tabs, hero buttons and the account role all set it */
+  function setAud(who,save){
+    who=who==="t"?"t":"c";
+    document.body.dataset.aud=who;
+    tabs.forEach(([tt,pp])=>{const on=tt===(who==="t"?"tab-t":"tab-c");document.getElementById(tt).setAttribute("aria-selected",on);document.getElementById(tt).tabIndex=on?0:-1;document.getElementById(pp).hidden=!on});
+    const pr=document.getElementById("p-"+who); if(pr){pr.checked=true;}
+    const now=document.getElementById("aud-now"); if(now) now.textContent=who==="t"?"Showing the site for tradespeople.":"Showing the site for customers.";
+    if(save!==false){try{localStorage.setItem("tr_aud",who)}catch(e){}}
+    if(typeof calc==="function") calc();
+  }
+  window.setAud=setAud;
+  tabs.forEach(([t])=>document.getElementById(t).addEventListener("click",()=>setAud(t==="tab-t"?"t":"c")));
+  document.querySelector(".switch").addEventListener("keydown",e=>{if(e.key==="ArrowLeft"||e.key==="ArrowRight"){const t=document.body.dataset.aud==="t"?"c":"t";setAud(t);document.getElementById("tab-"+t).focus();e.preventDefault();}});
+
+  /* calculator */
+  const job=document.getElementById("job"), range=document.getElementById("jobRange");
+  function calc(){
+    const v=num(job.value), f=fee(v), p=document.querySelector('input[name="pay"]:checked').value;
+    const big=v>100000;
+    document.getElementById("total").textContent=big?"Quote":gbp(f);
+    const lab=document.getElementById("eachlabel"), each=document.getElementById("each");
+    if(p==="s"){lab.textContent="Each side pays";each.textContent=big?"–":gbp(f/2)}
+    else {lab.textContent=p==="c"?"Customer pays":"Tradesperson pays";each.textContent=big?"–":gbp(f)}
+    document.getElementById("minflag").hidden=!(v>100000);
+    document.querySelectorAll("#bands div").forEach((d,i)=>{const lo=i?BANDS[i-1][0]:0;d.classList.toggle("on",v>lo&&v<=BANDS[i][0])});
+    const vl=document.getElementById("valueline"), mine=p==="s"?f/2:f;
+    if(vl) vl.innerHTML=document.body.dataset.aud==="t"
+      ? `For comparison, tradespeople are owed an average of <b>£2,023</b> in late payments.`
+      : `For comparison, homeowners report paying an average of <b>£8,729</b> to put botched work right.`;
+  }
+  job.addEventListener("input",()=>{const v=num(job.value);if(v<=100000)range.value=v;calc()});
+  job.addEventListener("blur",()=>{const v=num(job.value);job.value=v?v.toLocaleString("en-GB"):""});
+  range.addEventListener("input",()=>{job.value=Number(range.value).toLocaleString("en-GB");calc()});
+  document.querySelectorAll('input[name="pay"]').forEach(r=>r.addEventListener("change",calc));
+  calc();
+  {let a=null;try{a=localStorage.getItem("tr_aud")}catch(e){} setAud(a||"c",false);}
+
+  /* views */
+  const VIEWS=["start","join","account","privacy","cookies","terms","complaints","impartiality","accessibility"];
+  function route(){
+    const h=(location.hash||"").slice(1);
+    let v=VIEWS.includes(h)?h:"home", inner=null;
+    if(v==="home"&&h){const el=document.getElementById(h), pg=el&&el.closest("main[id^='view-']"); if(pg&&pg.id!=="view-home"){v=pg.id.slice(5);inner=el;}}
+    document.getElementById("view-home").hidden=v!=="home";
+    VIEWS.forEach(n=>{const el=document.getElementById("view-"+n); if(el) el.hidden=n!==v;});
+    if(v==="start"){window.scrollTo(0,0);sizePads()}
+    else if(v!=="home"){window.scrollTo(0,0); if(v==="account"&&window.acctRender) window.acctRender(); if(inner) setTimeout(()=>inner.scrollIntoView({behavior:"smooth",block:"start"}),30);}
+    else if(h&&h!=="home"){const el=document.getElementById(h);if(el)setTimeout(()=>el.scrollIntoView({behavior:"smooth",block:"start"}),30)}
+  }
+  window.addEventListener("hashchange",route);
+  document.querySelectorAll("a[data-scroll]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();const t=document.querySelector(a.getAttribute("href"));if(t)t.scrollIntoView({behavior:"smooth",block:"start"});}));
+
+  /* wizard */
+  let step=1;
+  const labels={1:"The job",2:"The parties",3:"Agree and sign",4:"Protected"};
+  function show(n){
+    step=n;
+    document.querySelectorAll(".step").forEach(el=>el.hidden=Number(el.dataset.step)!==n);
+    document.querySelectorAll(".steps-bar i").forEach((b,i)=>b.classList.toggle("on",i<n));
+    document.getElementById("stepLabel").textContent=`Step ${n} of 4 · ${labels[n]}`;
+    if(n===3){document.getElementById("sigc-name").textContent=val("c-name")||"Customer";document.getElementById("sigt-name").textContent=val("t-name")||"Tradesperson";sizePads()}
+    window.scrollTo(0,0);
+  }
+  const val=id=>document.getElementById(id).value.trim();
+  document.querySelectorAll("[data-back]").forEach(b=>b.addEventListener("click",()=>show(step-1)));
+  document.querySelector('[data-step="1"]').addEventListener("submit",e=>{e.preventDefault();show(2)});
+  document.querySelector('[data-step="2"]').addEventListener("submit",e=>{
+    e.preventDefault();
+    const err=document.getElementById("err2"), re=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!val("c-name")||!val("t-name")){err.textContent="Add a name for both the customer and the tradesperson.";err.hidden=false;return}
+    if(!re.test(val("c-email"))||!re.test(val("t-email"))){err.textContent="Check both email addresses. The signed agreement is sent to each.";err.hidden=false;return}
+    err.hidden=true;show(3);
+  });
+
+  /* signature pads */
+  const pads={};
+  function sizePads(){
+    ["sig-c","sig-t"].forEach(id=>{
+      const c=document.getElementById(id); if(!c.offsetWidth)return;
+      const r=window.devicePixelRatio||1, w=c.offsetWidth, h=c.offsetHeight;
+      if(c.width===Math.round(w*r))return;
+      c.width=Math.round(w*r); c.height=Math.round(h*r);
+      const x=c.getContext("2d"); x.scale(r,r); x.lineWidth=2.4; x.lineCap="round"; x.lineJoin="round";
+      x.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue("--ink").trim()||"#18232e";
+      pads[id]={signed:false};
+    });
+  }
+  ["sig-c","sig-t"].forEach(id=>{
+    const c=document.getElementById(id); let drawing=false,last=null;
+    const pt=e=>{const b=c.getBoundingClientRect();return{x:e.clientX-b.left,y:e.clientY-b.top}};
+    c.addEventListener("pointerdown",e=>{drawing=true;last=pt(e);c.setPointerCapture(e.pointerId)});
+    c.addEventListener("pointermove",e=>{if(!drawing)return;const p=pt(e),x=c.getContext("2d");x.beginPath();x.moveTo(last.x,last.y);x.lineTo(p.x,p.y);x.stroke();last=p;if(pads[id])pads[id].signed=true});
+    ["pointerup","pointercancel","pointerleave"].forEach(ev=>c.addEventListener(ev,()=>drawing=false));
+  });
+  document.querySelectorAll("[data-clear]").forEach(b=>b.addEventListener("click",()=>{
+    const c=document.getElementById(b.dataset.clear);c.getContext("2d").clearRect(0,0,c.width,c.height);if(pads[b.dataset.clear])pads[b.dataset.clear].signed=false;
+  }));
+  window.addEventListener("resize",()=>{if(step===3)sizePads()});
+
+  document.querySelector('[data-step="3"]').addEventListener("submit",e=>{
+    e.preventDefault();
+    const err=document.getElementById("err3");
+    if(!pads["sig-c"]?.signed||!pads["sig-t"]?.signed){err.textContent="Both parties need to sign in the boxes above.";err.hidden=false;return}
+    if(!document.getElementById("agree").checked){err.textContent="Tick the box to confirm both parties agree to the terms.";err.hidden=false;return}
+    err.hidden=true; buildCert(); show(4);
+  });
+
+  function buildCert(){
+    const now=new Date(), v=num(val("j-val")), f=fee(v), p=document.querySelector('input[name="pay2"]:checked').value;
+    const ref="TR-"+now.getFullYear()+"-"+String(Math.floor(1000+Math.random()*9000));
+    document.getElementById("ref").textContent=ref;
+    const payTxt=p==="s"?`${gbp(f)} split · ${gbp(f/2)} each`:`${gbp(f)} paid by ${p==="c"?"customer":"tradesperson"}`;
+    const rows=[["Job",val("j-desc")],["Address",val("j-addr")],["Price",gbp(v)],["Starts",new Date(val("j-date")).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})],["Customer",val("c-name")],["Trade",val("t-name")],["Protection",payTxt]];
+    const dl=document.getElementById("certdl"); dl.innerHTML="";
+    rows.forEach(([k,v])=>{const dt=document.createElement("dt"),dd=document.createElement("dd");dt.textContent=k;dd.textContent=v;dl.append(dt,dd)});
+    document.getElementById("img-c").src=document.getElementById("sig-c").toDataURL();
+    document.getElementById("img-t").src=document.getElementById("sig-t").toDataURL();
+    document.getElementById("cap-c").textContent=val("c-name")+" · "+val("c-email");
+    document.getElementById("cap-t").textContent=val("t-name")+" · "+val("t-email");
+    document.getElementById("signedAt").textContent=now.toLocaleString("en-GB",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});
+  }
+  /* stage 2 demo: log an issue, show the guided steps with a response deadline */
+  const RESPOND_DAYS=7, issue=document.getElementById("issue"), guided=document.getElementById("guided"), rep=document.getElementById("report");
+  rep.addEventListener("click",()=>{issue.hidden=false;rep.hidden=true;issue.scrollIntoView({behavior:"smooth",block:"start"})});
+  document.getElementById("i-cancel").addEventListener("click",()=>{issue.hidden=true;rep.hidden=false});
+  issue.addEventListener("submit",e=>{
+    e.preventDefault();
+    const err=document.getElementById("i-err"), note=val("i-note");
+    if(!note){err.textContent="Describe the problem so the other side knows what to look at.";err.hidden=false;return}
+    err.hidden=true;
+    const by=document.querySelector('input[name="iby"]:checked').value, other=by==="c"?(val("t-name")||"The tradesperson"):(val("c-name")||"The customer");
+    const now=new Date(), due=new Date(now.getTime()+RESPOND_DAYS*864e5), n=document.getElementById("i-photo").files.length;
+    const d=x=>x.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"});
+    document.getElementById("g-logged").textContent=`${document.getElementById("i-what").value}, reported by the ${by==="c"?"customer":"tradesperson"} on ${d(now)}${n?` with ${n} photo${n>1?"s":""}`:""}.`;
+    document.getElementById("g-due").textContent=`${other} has until ${d(due)} to respond in the job file.`;
+    const tl=document.querySelector("#view-start .timeline"), rows=tl.querySelectorAll("div");
+    rows[1].innerHTML=`<span class="dot on" style="background:var(--warn);border-color:var(--warn)"></span><span>Issue reported: ${document.getElementById("i-what").value.toLowerCase()} <span class="mono">${now.toLocaleString("en-GB",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"})}</span></span>`;
+    issue.hidden=true; guided.hidden=false; guided.scrollIntoView({behavior:"smooth",block:"start"});
+  });
+  document.getElementById("done").addEventListener("click",()=>{setTimeout(()=>{show(1);issue.hidden=true;guided.hidden=true;rep.hidden=false;
+    const r=document.querySelectorAll("#view-start .timeline div")[1]; if(r) r.innerHTML='<span class="dot"></span><span>No issues reported</span>';},0)});
+
+  route();
+})();
+
+  /* ---------- share popup ---------- */
+  (function(){
+    const SHARE_URL="https://traderesolve.co.uk";   /* set to the live address (e.g. https://traderesolve.co.uk) once the site has its domain */
+    const dlg=document.getElementById("share-dlg"), openBtn=document.getElementById("share-open");
+    if(!dlg||!openBtn) return;
+    const url=()=>SHARE_URL||location.href.split("#")[0];
+    const text="TradeResolve: start every building job on the same page. One Unified Agreement for customer and tradesperson, backed by the TradeResolve Standard. \u201cIt\u2019s got to be right.\u201d";
+    const subject="Have you seen TradeResolve?";
+    const e=encodeURIComponent;
+    const links={
+      whatsapp:()=>"https://wa.me/?text="+e(text+" "+url()),
+      facebook:()=>"https://www.facebook.com/sharer/sharer.php?u="+e(url()),
+      x:()=>"https://twitter.com/intent/tweet?text="+e(text)+"&url="+e(url()),
+      linkedin:()=>"https://www.linkedin.com/sharing/share-offsite/?url="+e(url()),
+      email:()=>"mailto:?subject="+e(subject)+"&body="+e(text+"\n\n"+url()),
+      sms:()=>"sms:?&body="+e(text+" "+url())
+    };
+    dlg.querySelectorAll("a.share-opt").forEach(a=>{ a.addEventListener("click",()=>{ a.href=links[a.dataset.net](); setTimeout(()=>dlg.close(),300); }); });
+    const lab=dlg.querySelector(".copy-lab");
+    dlg.querySelector('[data-net="copy"]').addEventListener("click",async()=>{
+      let ok=false;
+      try{ await navigator.clipboard.writeText(url()); ok=true; }catch(err){
+        const t=document.createElement("textarea"); t.value=url(); t.style.position="fixed"; t.style.opacity="0"; dlg.appendChild(t); t.select();
+        try{ ok=document.execCommand("copy"); }catch(_){ } t.remove();
+      }
+      lab.textContent=ok?"Link copied":"Copy failed"; setTimeout(()=>{lab.textContent="Copy link";},2200);
+    });
+    /* Instagram: phones get the system share sheet (Instagram is listed there); otherwise copy the link and open Instagram */
+    const ig=dlg.querySelector('[data-net="instagram"]'), igLab=dlg.querySelector(".ig-lab");
+    const mobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    ig.addEventListener("click",async()=>{
+      if(mobile&&navigator.share){ try{ await navigator.share({title:"TradeResolve",text,url:url()}); dlg.close(); return; }catch(err){ if(err&&err.name==="AbortError") return; } }
+      try{ await navigator.clipboard.writeText(url()); igLab.textContent="Link copied"; }catch(err){ igLab.textContent="Copy the link"; }
+      setTimeout(()=>{ window.open("https://www.instagram.com/","_blank","noopener"); },450);
+      setTimeout(()=>{ igLab.textContent="Instagram"; },2600);
+    });
+    const more=dlg.querySelector('[data-net="more"]');
+    if(navigator.share){ more.hidden=false; more.addEventListener("click",()=>{ navigator.share({title:"TradeResolve",text,url:url()}).then(()=>dlg.close()).catch(()=>{}); }); }
+    openBtn.addEventListener("click",()=>{ if(dlg.showModal) dlg.showModal(); else dlg.setAttribute("open",""); });
+    document.getElementById("share-close").addEventListener("click",()=>dlg.close());
+    dlg.addEventListener("click",ev=>{ if(ev.target===dlg) dlg.close(); });   /* tap outside to close */
+  })();
+
+  /* ---------- cookie banner ---------- */
+  (function(){
+    const box=document.getElementById("cookie"); if(!box) return;
+    const KEY="tr_cookie_choice";
+    let saved=null; try{ saved=localStorage.getItem(KEY); }catch(e){}
+    if(!saved) setTimeout(()=>{ box.hidden=false; },1200);
+    box.querySelectorAll("[data-cookie]").forEach(b=>b.addEventListener("click",()=>{
+      try{ localStorage.setItem(KEY,b.dataset.cookie); }catch(e){}
+      box.hidden=true;
+      /* load analytics here only when b.dataset.cookie==="all" */
+    }));
+    document.querySelectorAll("[data-cookie-reset]").forEach(a=>a.addEventListener("click",ev=>{ ev.preventDefault(); box.hidden=false; }));
+    const yr=document.getElementById("yr"); if(yr) yr.textContent=new Date().getFullYear();
+  })();
+
+  /* ---------- My account (demo): role detection, shared job file, locked entries, archive ---------- */
+  (function(){
+    const $=id=>document.getElementById(id);
+    if(!$("view-account")) return;
+    const JOBS={
+      "TR-2026-0142":{ref:"TR-2026-0142",title:"Kitchen fit",address:"14 Elm Road, [Town], [Postcode]",trade:"Kitchens / bathrooms",price:"£8,500",
+        stages:"£1,500 deposit · £4,000 units fitted · £3,000 completion",status:"active",
+        customer:{name:"Sam Carter",email:"sam.customer@example.com"},trade_p:{name:"Alex Morgan, Morgan Joinery",email:"alex.builder@example.com"}},
+      "TR-2025-0087":{ref:"TR-2025-0087",title:"Block-paved driveway",address:"14 Elm Road, [Town], [Postcode]",trade:"Landscaping / driveways",price:"£6,200",
+        stages:"£1,000 deposit · £5,200 completion",status:"archived",
+        customer:{name:"Sam Carter",email:"sam.customer@example.com"},trade_p:{name:"Jordan Hale Landscapes",email:"jordan.hale@example.com"}}
+    };
+    const SEED={
+      "TR-2026-0142":[
+        {by:"system",at:"2026-10-02T09:14:00",note:"Unified Agreement signed by both parties. Copies emailed to both."},
+        {by:"t",at:"2026-10-20T16:40:00",note:"Units fitted. Worktops arrive Thursday. Stage 2 payment now due as agreed."},
+        {by:"c",at:"2026-10-24T18:05:00",note:"Gap between the worktop and the wall unit on the left is wider than the other side. Photo attached. Can we look at this before the final payment?"}],
+      "TR-2025-0087":[
+        {by:"system",at:"2025-05-11T10:00:00",note:"Unified Agreement signed by both parties."},
+        {by:"system",at:"2025-06-30T12:00:00",note:"Job completed and signed off by both parties. File archived."}]
+    };
+    const KEY="tr_demo_files";
+    let store={}, session=null, current=null;
+    try{ store=JSON.parse(localStorage.getItem(KEY)||"{}")||{}; }catch(e){ store={}; }
+    const entries=ref=>(SEED[ref]||[]).concat(store[ref]||[]);
+    const save=()=>{ try{ localStorage.setItem(KEY,JSON.stringify(store)); return true; }catch(e){ return false; } };
+    const fmt=iso=>new Date(iso).toLocaleString("en-GB",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
+    const roleName=r=>r==="c"?"Customer":r==="t"?"Tradesperson":"TradeResolve";
+    const roleCls=r=>r==="c"?"role-c":r==="t"?"role-t":"role-s";
+    const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+    function signIn(email,ref){
+      email=(email||"").trim().toLowerCase(); ref=(ref||"").trim().toUpperCase();
+      const job=JOBS[ref];
+      if(!job) return "We couldn't find an agreement with that reference.";
+      let role=null;
+      if(email===job.customer.email) role="c"; else if(email===job.trade_p.email) role="t";
+      if(!role) return "That email address isn't on this agreement.";
+      const mine=Object.values(JOBS).filter(j=>(role==="c"?j.customer.email:j.trade_p.email)===email);
+      session={email,role,name:role==="c"?job.customer.name:job.trade_p.name,jobs:mine.map(j=>j.ref)};
+      current=ref; if(window.setAud) window.setAud(role); render(); return null;
+    }
+    function render(){
+      $("acct-signin").hidden=!!session; $("acct-dash").hidden=!session;
+      if(!session) return;
+      $("acct-who").textContent=session.name+" · "+session.email;
+      const rb=$("acct-role"); rb.className="role-badge "+roleCls(session.role); rb.textContent=roleName(session.role);
+      $("acct-jobs").innerHTML=session.jobs.map(r=>{const j=JOBS[r];return `<button class="job" type="button" data-ref="${r}" aria-pressed="${r===current}"><span><b>${esc(j.title)}</b><br><small>${r} · ${esc(j.trade)}</small></span><span class="status ${j.status==="archived"?"arch":""}">${j.status==="archived"?"Archived":"Active"}</span></button>`}).join("");
+      $("acct-jobs").querySelectorAll(".job").forEach(b=>b.addEventListener("click",()=>{current=b.dataset.ref;render();}));
+      const j=JOBS[current];
+      $("file-title").textContent=j.title+" · "+j.ref;
+      const st=$("file-status"); st.className="status "+(j.status==="archived"?"arch":""); st.textContent=j.status==="archived"?"Archived":"Active";
+      $("file-meta").innerHTML=`<dt>Address</dt><dd>${esc(j.address)}</dd><dt>Price</dt><dd>${esc(j.price)}</dd><dt>Stages</dt><dd>${esc(j.stages)}</dd><dt>Customer</dt><dd>${esc(j.customer.name)}</dd><dt>Tradesperson</dt><dd>${esc(j.trade_p.name)}</dd>`;
+      const arch=j.status==="archived"; $("file-add").hidden=arch; $("file-archived").hidden=!arch;
+      const list=entries(current).slice().sort((a,b)=>b.at.localeCompare(a.at));
+      $("file-timeline").innerHTML=list.map(e=>`<li class="entry"><div class="entry-head"><span class="role-badge ${roleCls(e.by)}">${roleName(e.by)}</span><span>${fmt(e.at)}</span><span aria-label="Locked entry">&#128274; locked</span></div>${e.note?`<p>${esc(e.note)}</p>`:""}${(e.photos||[]).length?`<div class="thumbs">${e.photos.map(p=>`<img src="${p}" alt="Photo added by the ${roleName(e.by).toLowerCase()}">`).join("")}</div>`:""}</li>`).join("");
+      $("file-timeline").querySelectorAll(".thumbs img").forEach(im=>im.addEventListener("click",()=>{const lb=$("lightbox");lb.querySelector("img").src=im.src;lb.hidden=false;}));
+    }
+    window.acctRender=render;
+    $("lightbox").addEventListener("click",()=>{$("lightbox").hidden=true;});
+    $("acct-form").addEventListener("submit",ev=>{ev.preventDefault();const err=signIn($("acct-email").value,$("acct-ref").value);const p=$("acct-err");p.hidden=!err;p.textContent=err||"";});
+    document.querySelectorAll("[data-demo]").forEach(b=>b.addEventListener("click",()=>{
+      const c=b.dataset.demo==="c"; $("acct-email").value=c?"sam.customer@example.com":"alex.builder@example.com"; $("acct-ref").value="TR-2026-0142"; signIn($("acct-email").value,"TR-2026-0142");
+    }));
+    $("acct-out").addEventListener("click",()=>{session=null;current=null;render();});
+
+    function shrink(file){ return new Promise(res=>{ const r=new FileReader(); r.onload=()=>{ const im=new Image(); im.onload=()=>{
+      const m=1280, k=Math.min(1,m/Math.max(im.width,im.height)), c=document.createElement("canvas"); c.width=Math.round(im.width*k); c.height=Math.round(im.height*k);
+      c.getContext("2d").drawImage(im,0,0,c.width,c.height); res(c.toDataURL("image/jpeg",.78)); }; im.onerror=()=>res(null); im.src=r.result; }; r.onerror=()=>res(null); r.readAsDataURL(file); }); }
+    $("file-add").addEventListener("submit",async ev=>{
+      ev.preventDefault(); if(!session||!current) return;
+      const note=$("file-note").value.trim(), files=[...$("file-photos").files].slice(0,8);
+      if(!note&&!files.length) return;
+      const photos=(await Promise.all(files.map(shrink))).filter(Boolean);
+      (store[current]=store[current]||[]).push({by:session.role,at:new Date().toISOString(),note,photos});
+      if(!save()) alertNote("Saved for this visit only. Your browser's storage is full or turned off.");
+      $("file-note").value=""; $("file-photos").value=""; render();
+    });
+    function alertNote(t){ const p=document.createElement("p"); p.className="lock-note"; p.textContent=t; $("file-add").appendChild(p); }
+  })();
+</script>
+
+<script>
+/* splash: the ebony square is the open button; tapping it plays the intro with the 80s sonic logo, then reveals the site */
+(function(){
+  const splash=document.getElementById("splash"); if(!splash) return;
+  const $=id=>document.getElementById("sp-"+id);
+  document.body.classList.add("sp-on");
+  let anims=[];
+  const E="cubic-bezier(.2,.7,.2,1)";
+  /* the timeline below is authored at ~4.13s; S stretches it to run 6 seconds */
+  const S=6000/5850;
+  function A(el,kf,dur,delay,ease){anims.push(el.animate(kf,{duration:dur*S,delay:delay*S,fill:"both",easing:ease||E}))}
+  /* ---------- sonic logo: 80s synth sting, synthesised in the browser and timed to the animation ---------- */
+  let AC=null, soundOn=false, voices=[];
+  function sonicLogo(){
+    if(!AC) return;
+    voices.forEach(v=>{try{v.stop()}catch(e){}}); voices=[];
+    const ac=AC, T0=ac.currentTime+0.06, at=ms=>T0+ms*S/1000, END=at(5900)+1.6;
+    const mtof=m=>440*Math.pow(2,(m-69)/12);
+
+    // ---- master: bus -> chorus -> compressor -> out, plus a lush hall reverb send
+    const comp=ac.createDynamicsCompressor(); comp.threshold.value=-16; comp.ratio.value=3.5; comp.attack.value=.004; comp.release.value=.25;
+    const master=ac.createGain(); master.gain.value=.55; master.connect(comp); comp.connect(ac.destination);
+    const bus=ac.createGain(); bus.connect(master);
+    // stereo chorus (the 80s shimmer): two modulated delays panned apart
+    [-0.7,0.7].forEach((pan,i)=>{
+      const d=ac.createDelay(.05); d.delayTime.value=.012+i*.005;
+      const lfo=ac.createOscillator(), lg=ac.createGain(); lfo.frequency.value=.6+i*.25; lg.gain.value=.0035; lfo.connect(lg); lg.connect(d.delayTime);
+      const p=ac.createStereoPanner(), g=ac.createGain(); p.pan.value=pan; g.gain.value=.45;
+      bus.connect(d); d.connect(g); g.connect(p); p.connect(master); lfo.start(T0); lfo.stop(END); voices.push(lfo);
+    });
+    const makeVerb=(secs,decay)=>{const len=ac.sampleRate*secs, ir=ac.createBuffer(2,len,ac.sampleRate);
+      for(let c=0;c<2;c++){const d=ir.getChannelData(c);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,decay)}
+      const v=ac.createConvolver(); v.buffer=ir; return v};
+    const hall=makeVerb(2.8,2.6), hallWet=ac.createGain(); hallWet.gain.value=.32; hall.connect(hallWet); hallWet.connect(master);
+    const send=(node,amt)=>{const s=ac.createGain(); s.gain.value=amt; node.connect(s); s.connect(hall)};
+    const noiseBuf=(()=>{const b=ac.createBuffer(1,ac.sampleRate*2,ac.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;return b})();
+    const track=n=>{voices.push(n);return n};
+
+    // ---- 1. supersaw pad: Dsus4 (D3 A3 D4 G4 A4), low-pass sweeping open as the logo builds
+    const padF=ac.createBiquadFilter(); padF.type="lowpass"; padF.Q.value=5;
+    padF.frequency.setValueAtTime(260,at(100)); padF.frequency.exponentialRampToValueAtTime(900,at(2000));
+    padF.frequency.exponentialRampToValueAtTime(2600,at(4250)); padF.frequency.exponentialRampToValueAtTime(5200,at(4400));
+    padF.frequency.exponentialRampToValueAtTime(1500,END);
+    const padG=ac.createGain(); padG.gain.setValueAtTime(0,at(100)); padG.gain.linearRampToValueAtTime(.055,at(1500));
+    padG.gain.linearRampToValueAtTime(.06,at(4250)); padG.gain.linearRampToValueAtTime(.1,at(4380)); padG.gain.setValueAtTime(.1,at(5300)); padG.gain.exponentialRampToValueAtTime(.0001,END);
+    padF.connect(padG); padG.connect(bus); send(padG,.6);
+    const padNotes=[50,57,62,67,69], susVoices=[];
+    padNotes.forEach(m=>[-9,0,9].forEach(cents=>{
+      const o=track(ac.createOscillator()); o.type="sawtooth"; o.frequency.value=mtof(m); o.detune.value=cents;
+      o.connect(padF); o.start(at(100)); o.stop(END); if(m===67) susVoices.push(o);
+    }));
+    // the resolution: G4 falls to F#4 (sus4 -> D major) as the ticks draw
+    susVoices.forEach(o=>o.frequency.setTargetAtTime(mtof(66),at(4280),.05));
+
+    // ---- 2. square-wave arpeggio pulse, 16ths, building drive under the shield
+    const arpF=ac.createBiquadFilter(); arpF.type="lowpass"; arpF.Q.value=8;
+    arpF.frequency.setValueAtTime(700,at(1300)); arpF.frequency.exponentialRampToValueAtTime(3200,at(4200));
+    const arpG=ac.createGain(); arpG.gain.value=1; arpF.connect(arpG); arpG.connect(bus); send(arpG,.35);
+    const arp=[62,69,74,79, 62,69,74,81]; const step=130;
+    // while the shield outline draws (8 steps from 1300ms) the arpeggio climbs, one note per surge of the outline
+    const trace=[62,67,69,74,79,81,86,91];
+    for(let t=1300,i=0;t<4200;t+=step,i++){
+      const tracing=i<8;
+      const o=track(ac.createOscillator()), g=ac.createGain(); o.type="square"; o.frequency.value=mtof(tracing?trace[i]:arp[i%arp.length]);
+      const s=at(t), lvl=tracing?.03:.012+.014*((t-1300)/2900);
+      if(tracing) fm(trace[i]+12, s, .25, .035, 1, 1.4, -0.5+i*.14);
+      g.gain.setValueAtTime(0,s); g.gain.linearRampToValueAtTime(lvl,s+.004); g.gain.exponentialRampToValueAtTime(.0001,s+.11);
+      o.connect(g); g.connect(arpF); o.start(s); o.stop(s+.13);
+    }
+
+    // ---- 3. synth bass: pulsing D octaves, then a big low hit on the resolution
+    const bassF=ac.createBiquadFilter(); bassF.type="lowpass"; bassF.frequency.value=520; bassF.Q.value=6; bassF.connect(bus);
+    // shield closes at 2340ms: a synth chord stab and a low hit, then the bass drives in on that beat
+    { const s=at(2340), sf=ac.createBiquadFilter(), sg=ac.createGain(); sf.type="lowpass"; sf.Q.value=4;
+      sf.frequency.setValueAtTime(5000,s); sf.frequency.exponentialRampToValueAtTime(600,s+.4);
+      sg.gain.setValueAtTime(0,s); sg.gain.linearRampToValueAtTime(.16,s+.006); sg.gain.exponentialRampToValueAtTime(.0001,s+.5);
+      sf.connect(sg); sg.connect(bus); send(sg,.5);
+      [50,57,62,67,69].forEach(m=>[-8,8].forEach(c=>{const o=track(ac.createOscillator()); o.type="sawtooth"; o.frequency.value=mtof(m); o.detune.value=c; o.connect(sf); o.start(s); o.stop(s+.55);}));
+      const k=track(ac.createOscillator()), kg=ac.createGain(); k.type="sine"; k.frequency.setValueAtTime(120,s); k.frequency.exponentialRampToValueAtTime(48,s+.18);
+      kg.gain.setValueAtTime(0,s); kg.gain.linearRampToValueAtTime(.55,s+.004); kg.gain.exponentialRampToValueAtTime(.0001,s+.4);
+      k.connect(kg); kg.connect(bus); k.start(s); k.stop(s+.45); }
+    for(let t=2340,i=0;t<4200;t+=260,i++){
+      const o=track(ac.createOscillator()), g=ac.createGain(); o.type="sawtooth"; o.frequency.value=mtof(i%2?50:38);
+      const s=at(t); g.gain.setValueAtTime(0,s); g.gain.linearRampToValueAtTime(.1,s+.008); g.gain.exponentialRampToValueAtTime(.0001,s+.24);
+      o.connect(g); g.connect(bassF); o.start(s); o.stop(s+.26);
+    }
+    { const s=at(4300); [26,38].forEach(m=>{const o=track(ac.createOscillator()), g=ac.createGain(); o.type=m===26?"sine":"sawtooth"; o.frequency.value=mtof(m);
+        g.gain.setValueAtTime(0,s); g.gain.linearRampToValueAtTime(m===26?.5:.16,s+.01); g.gain.exponentialRampToValueAtTime(.0001,s+1.8);
+        o.connect(g); g.connect(m===26?bus:bassF); o.start(s); o.stop(s+1.9);}); }
+
+    // ---- 4. the square: a soft riser as the blade slides in, a deep wooden tock as the stock lands
+    { const s=at(120), src=track(ac.createBufferSource()), bp=ac.createBiquadFilter(), g=ac.createGain(); src.buffer=noiseBuf;
+      bp.type="bandpass"; bp.Q.value=1.4; bp.frequency.setValueAtTime(400,s); bp.frequency.exponentialRampToValueAtTime(3500,s+.65);
+      g.gain.setValueAtTime(0,s); g.gain.linearRampToValueAtTime(.12,s+.45); g.gain.exponentialRampToValueAtTime(.0001,s+.75);
+      src.connect(bp); bp.connect(g); g.connect(bus); send(g,.5); src.start(s); src.stop(s+.8); }
+    { const s=at(1020), o=track(ac.createOscillator()), g=ac.createGain(); o.type="sine";
+      o.frequency.setValueAtTime(190,s); o.frequency.exponentialRampToValueAtTime(95,s+.09);
+      g.gain.setValueAtTime(0,s); g.gain.linearRampToValueAtTime(.42,s+.004); g.gain.exponentialRampToValueAtTime(.0001,s+.22);
+      o.connect(g); g.connect(bus); send(g,.25); o.start(s); o.stop(s+.25); }
+
+    // ---- 5. FM bell / electric piano, the classic 80s keyboard tone
+    function fm(m,t,dur,peak,ratio,index,pan){
+      const f=mtof(m), c=track(ac.createOscillator()), mod=track(ac.createOscillator()), mg=ac.createGain(), g=ac.createGain(), p=ac.createStereoPanner();
+      c.frequency.value=f; mod.frequency.value=f*ratio;
+      mg.gain.setValueAtTime(f*index,t); mg.gain.exponentialRampToValueAtTime(f*index*.08,t+dur*.6);
+      mod.connect(mg); mg.connect(c.frequency);
+      g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(peak,t+.006); g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+      p.pan.value=pan||0; c.connect(g); g.connect(p); p.connect(bus); send(g,.55);
+      c.start(t); mod.start(t); c.stop(t+dur+.05); mod.stop(t+dur+.05);
+    }
+    // measure marks: tiny glassy FM ticks
+    for(let i=0;i<7;i++) fm(91+[0,2,4,7,9,12,14][i], at(950+i*70), .22, .085, 3.5, 1.6, i%2?.45:-.45);
+
+    // ---- 6. gated-reverb drum hit on the resolution (the big 80s snare)
+    { const s=at(4300);
+      const src=track(ac.createBufferSource()), bp=ac.createBiquadFilter(), g=ac.createGain(); src.buffer=noiseBuf;
+      bp.type="bandpass"; bp.frequency.value=1900; bp.Q.value=.8;
+      g.gain.setValueAtTime(0,s); g.gain.linearRampToValueAtTime(.75,s+.003); g.gain.exponentialRampToValueAtTime(.0001,s+.2);
+      const body=track(ac.createOscillator()), bg=ac.createGain(); body.type="triangle"; body.frequency.setValueAtTime(210,s); body.frequency.exponentialRampToValueAtTime(150,s+.08);
+      bg.gain.setValueAtTime(0,s); bg.gain.linearRampToValueAtTime(.35,s+.003); bg.gain.exponentialRampToValueAtTime(.0001,s+.14);
+      const gateVerb=makeVerb(1.4,1.2), gate=ac.createGain();
+      gate.gain.setValueAtTime(1.1,s); gate.gain.setValueAtTime(1.1,s+.30); gate.gain.linearRampToValueAtTime(0,s+.36);
+      src.connect(bp); bp.connect(g); body.connect(bg);
+      [g,bg].forEach(n=>{n.connect(bus); n.connect(gateVerb);}); gateVerb.connect(gate); gate.connect(master);
+      src.start(s); src.stop(s+.4); body.start(s); body.stop(s+.2); }
+
+    // ---- 7. the signature: "re-SOLVE" on the FM bell, A4 rising to D5, with the resolved chord ringing
+    fm(69, at(4050), .7, .22, 1, 2.2, -.15);          // "re"
+    fm(74, at(4300), 3.0, .32, 1, 2.6, .1);           // "SOLVE"
+    fm(78, at(4300), 2.4, .08, 1, 1.8, .35); fm(81, at(4300), 2.2, .06, 1, 1.8, -.35);
+    fm(86, at(4300), 1.6, .05, 3.5, 1.4, 0);          // bright bell top
+
+    // ---- 8. letters brighten left to right: a rising FM sparkle, one note per letter
+    const sparkle=[74,76,78,81,83,86,88,90,93,95,98];
+    sparkle.forEach((m,i)=>fm(m, at(4950+i*60), .6, .09, 3.5, 1.5, -0.6+i*.12));
+  }
+
+  function play(){
+    anims.forEach(a=>a.cancel()); anims=[];
+    if(soundOn) sonicLogo();
+    const lock=$("lock"), mw=$("mw"), word=$("word");
+    const column=getComputedStyle(lock).flexDirection==="column";
+    const gap=parseFloat(getComputedStyle(lock).columnGap||getComputedStyle(lock).gap)||30;
+    const dx=column?0:(word.offsetWidth+gap)/2, dy=column?(word.offsetHeight+gap)/2:0;
+
+    A($("blade"),[{transform:"scaleX(0)"},{transform:"scaleX(1)"}],550,150);
+    A($("stock"),[{transform:"scaleY(0)"},{transform:"scaleY(1)"}],450,600);
+    [...$("notches").children].forEach((n,i)=>A(n,[{opacity:0},{opacity:1}],140,950+i*70,"linear"));
+    /* the shield outline draws in 8 surges, each landing on a note of the climbing arpeggio (130ms apart) */
+    const surge="cubic-bezier(.2,.85,.25,1)", outlineKF=[];
+    for(let k=0;k<=8;k++) outlineKF.push({strokeDashoffset:1-k/8,opacity:k?1:0,easing:surge});
+    anims.push($("outline").animate(outlineKF,{duration:1040*S,delay:1300*S,fill:"both",easing:"linear"}));
+    /* it closes at 2340ms on the chord stab: the colours fill on that beat */
+    A($("topf"),[{opacity:0},{opacity:1}],260,2340);
+    A($("botf"),[{opacity:0},{opacity:1}],260,2470);
+    anims.push($("outline").animate([{opacity:1},{opacity:0}],{duration:300*S,delay:2700*S,fill:"forwards",easing:E}));
+    A($("sq"),[{opacity:1},{opacity:0}],450,2800,"ease-in");
+    A(mw,[{transform:`translate(${dx}px,${dy}px)`},{transform:"translate(0,0)"}],750,3150);
+    [...word.children].forEach((c,i)=>{
+      if(c.tagName.toLowerCase()==="svg"){A(c,[{opacity:0},{opacity:1}],10,3330+i*30);return}
+      A(c,[{opacity:0,transform:"translateY(14px)"},{opacity:1,transform:"translateY(0)"}],400,3300+i*30);
+    });
+    /* finale: the v in the word and a matching v in the shield's square cut draw at the same moment,
+       in the same on-screen stroke thickness, to show they are the same tick */
+    const fs=parseFloat(getComputedStyle(word).fontSize)||80, mwpx=mw.getBoundingClientRect().width||160;
+    let wordUnits=9, px=wordUnits*fs/100, shieldUnits=px/(mwpx/100);
+    if(shieldUnits>5.4){shieldUnits=5.4;px=shieldUnits*mwpx/100;wordUnits=px*100/fs}
+    $("tickline").style.strokeWidth=wordUnits; $("stick").style.strokeWidth=shieldUnits;
+    A($("tickline"),[{strokeDashoffset:1},{strokeDashoffset:0}],480,4050,"cubic-bezier(.5,0,.2,1)");
+    A($("stick"),[{strokeDashoffset:1},{strokeDashoffset:0}],480,4050,"cubic-bezier(.5,0,.2,1)");
+    /* spotlight: the shield and every letter dip while the two ticks draw and hold together;
+       then the shield returns and the letters brighten one by one, left to right */
+    const LOW=.26, dimStart=4050, dimIn=260, up=260;
+    function spot(el,backAt){
+      const dur=backAt+up-dimStart;
+      anims.push(el.animate([{opacity:1},{opacity:LOW,offset:dimIn/dur},{opacity:LOW,offset:(backAt-dimStart)/dur},{opacity:1}],
+        {duration:dur*S,delay:dimStart*S,fill:"none",easing:"ease-in-out"}));
+    }
+    spot($("topf"),4850); spot($("botf"),4850);
+    [...word.children].forEach((c,i)=>{ if(c.tagName.toLowerCase()!=="svg") spot(c,4950+i*60); });
+    A($("stick"),[{opacity:1},{opacity:0}],450,5000,"ease-in");
+
+    if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches) anims.forEach(a=>a.finish());
+  }
+
+  function centreIdle(){
+    if(!splash.classList.contains("sp-idle")) return;
+    const lock=$("lock"), mw=$("mw"), word=$("word");
+    const column=getComputedStyle(lock).flexDirection==="column";
+    const gap=parseFloat(getComputedStyle(lock).columnGap||getComputedStyle(lock).gap)||30;
+    mw.style.transform=column?`translateY(${(word.offsetHeight+gap)/2}px)`:`translateX(${(word.offsetWidth+gap)/2}px)`;
+  }
+  /* sequence: tap -> shield logo + sonic logo over a darkened still -> 7.5s: video plays once, bright, with sound
+     -> last frame freezes and darkens, logo returns in the middle with the two audience buttons -> logo docks into the header on scroll */
+  const hero=document.querySelector(".hero-video"), hlogo=document.querySelector("header .logo"), hdr=document.querySelector("header");
+  const vid=document.querySelector(".hv-media"), sbtn=document.getElementById("hv-sound");
+  const stage=c=>{ if(hero){ hero.classList.remove("hv-idle","hv-logo","hv-play","hv-end"); if(c) hero.classList.add(c); } };
+  stage("hv-idle");
+  function fitToHero(){
+    if(!floating||!hero) return;
+    const top=hdr?hdr.offsetHeight:0;
+    Object.assign(splash.style,{position:"fixed",top:top+"px",left:"0",right:"0",bottom:"auto",height:hero.offsetHeight+"px"});
+  }
+  let base=null, floating=false;
+  function measure(){ const l=$("lock"); l.style.transform="none"; base=l.getBoundingClientRect(); dock(); }
+  function dock(){
+    if(!floating||!base||!hlogo) return;
+    const l=$("lock"), t=hlogo.getBoundingClientRect(), hv=hero?hero.offsetHeight:innerHeight;
+    const p=Math.min(1,Math.max(0,scrollY/(hv*.5))), e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+    const s=Math.min(t.width/base.width,t.height/base.height), sc=1+(s-1)*e;
+    const dx=(t.left-base.left)*e, dy=(t.top+(t.height-base.height*s)/2-base.top)*e;
+    l.style.transform=`translate(${dx}px,${dy}px) scale(${sc})`;
+    /* the floating logo slides up under the header bar while the header logo fades in */
+    const f=Math.min(1,Math.max(0,(p-.55)/.4)); hlogo.style.opacity=f; l.style.opacity=p>=1?0:1;
+  }
+  /* the video's own sound, routed through the same audio context so it can be faded and muted */
+  let amb=null, ambOn=true, ambVis=true, ambLevel=0;
+  function ambTo(secs){ if(!amb||!AC) return; const t=AC.currentTime, v=(ambOn&&ambVis)?ambLevel:0;
+    amb.gain.cancelScheduledValues(t); amb.gain.setValueAtTime(amb.gain.value,t); amb.gain.linearRampToValueAtTime(v,t+secs); }
+  function prepVideo(){            /* called inside the tap so phones allow the video's sound later */
+    if(!vid) return;
+    try{
+      if(AC){ const src=AC.createMediaElementSource(vid); amb=AC.createGain(); amb.gain.value=0; src.connect(amb); amb.connect(AC.destination); }
+      vid.muted=!AC; const pr=vid.play();
+      if(pr&&pr.then) pr.then(()=>{vid.pause();vid.currentTime=0;}).catch(()=>{}); else {vid.pause();vid.currentTime=0;}
+    }catch(e){ vid.muted=true; }
+    if(hero&&"IntersectionObserver" in window){
+      new IntersectionObserver(es=>{es.forEach(e=>{ambVis=e.intersectionRatio>.3; ambTo(.8);});},{threshold:[0,.3,.6,1]}).observe(hero);
+    }
+  }
+  if(sbtn) sbtn.addEventListener("click",()=>{
+    ambOn=!ambOn; sbtn.setAttribute("aria-pressed",ambOn);
+    sbtn.setAttribute("aria-label",ambOn?"Video sound on. Tap to mute":"Video sound off. Tap to turn on");
+    if(AC&&AC.state==="suspended") AC.resume(); ambTo(.4);
+  });
+  let ended=false;
+  function finale(){
+    if(ended) return; ended=true;
+    ambLevel=0; ambTo(.6);
+    stage("hv-end");
+    const l=$("lock"); l.style.opacity="1"; setTimeout(()=>{l.style.transition="none";},900);
+    floating=true; if(hlogo) hlogo.style.opacity=0;
+    splash.style.zIndex="8";   /* below the sticky header (z 9) so the logo tucks under it on scroll */
+    fitToHero(); measure();
+    addEventListener("scroll",dock,{passive:true});
+  }
+  function playVideo(){
+    splash.classList.add("sp-done"); document.body.classList.remove("sp-on");
+    if(hlogo) hlogo.style.opacity=0;
+    $("lock").style.opacity="0";
+    stage("hv-play");
+    if(!vid){ finale(); return; }
+    vid.addEventListener("ended",finale,{once:true});
+    try{ vid.currentTime=0; }catch(e){}
+    ambLevel=1; ambTo(.25);
+    const pr=vid.play();
+    if(pr&&pr.catch) pr.catch(()=>{ vid.muted=true; vid.play().catch(()=>finale()); });
+    setTimeout(finale, ((vid.duration&&isFinite(vid.duration))?vid.duration:10.5)*1000+1500);   /* safety net */
+  }
+  addEventListener("resize",()=>{ if(floating){ fitToHero(); measure(); } });
+  function close(){ playVideo(); }
+  let started=false;
+  function open(){
+    if(started) return; started=true;
+    try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();AC.resume();soundOn=true}catch(e){AC=null;soundOn=false}
+    splash.classList.remove("sp-idle"); $("mw").style.transform="";
+    prepVideo(); stage("hv-logo");
+    play();
+    const reduced=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setTimeout(close, reduced?1400:7500);
+  }
+  $("open").addEventListener("click",open);
+  /* always start the intro at the top of the page */
+  try{ history.scrollRestoration="manual"; }catch(e){}
+  scrollTo(0,0);
+  document.querySelectorAll(".hv-side[data-aud]").forEach(a=>a.addEventListener("click",ev=>{
+    const tab=document.getElementById(a.dataset.aud); if(tab) tab.click();
+    const who=document.getElementById("who"); if(who){ev.preventDefault();who.scrollIntoView({behavior:"smooth",block:"start"});}
+  }));
+  window.addEventListener("resize",centreIdle);
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(centreIdle)}else{centreIdle()}
+  centreIdle();
+})();
+</script>
+
+
+<script>
+/* until card payments are switched on, send agreement-form links to email instead */
+(function(){
+  if(window.TR_AGREEMENT_LIVE) return;
+  document.querySelectorAll('a[href*="tally.so/r/xVj1gG"]').forEach(function(a){
+    a.href="mailto:hello@traderesolve.co.uk?subject=Protect%20a%20job&body=Job%20type%3A%0AJob%20value%3A%0AStart%20date%3A%0AYour%20name%20and%20phone%3A";
+    a.removeAttribute("target");
+    if(/form/i.test(a.textContent)) a.textContent="Email us to protect a job";
+  });
+  var t=document.querySelector(".tally-opt div");
+  if(t) t.innerHTML="<b>Online agreements open in the next few days.</b><p>Want to protect a job now? Email <a href=\"mailto:hello@traderesolve.co.uk?subject=Protect%20a%20job\">hello@traderesolve.co.uk</a> and we&rsquo;ll set your agreement up with you. The steps below show how it works.</p>";
+})();
+</script>
+</body></html>
