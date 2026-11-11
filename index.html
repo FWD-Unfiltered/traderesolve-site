@@ -1,4 +1,22 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}.dir{position:relative;border-radius:18px;overflow:hidden;background:#012169 url(img/form-cover-trade.jpg) center 30%/cover;color:#fff;margin-top:34px}
+.dir::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(1,33,105,.97) 0%,rgba(1,33,105,.88) 55%,rgba(1,33,105,.5) 100%)}
+.dir-in{position:relative;display:grid;gap:22px;padding:34px 28px}
+@media (min-width:860px){.dir-in{grid-template-columns:1.25fr .75fr;align-items:end;padding:44px 40px}}
+.dir h2{color:#fff;font-size:clamp(1.7rem,3.6vw,2.4rem);margin-top:12px}
+.dir p{color:#e3e8f4;margin-top:10px;max-width:36em}
+.dir-soon{display:inline-flex;align-items:center;gap:8px;background:#C8102E;color:#fff;font-weight:800;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;padding:6px 13px;border-radius:99px}
+.dir-soon i{width:8px;height:8px;border-radius:50%;background:#fff;animation:dirp 1.6s infinite}
+@media (max-width:420px){.dir-soon{font-size:.66rem;padding:6px 11px}}
+@keyframes dirp{0%,100%{opacity:1}50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.dir-soon i{animation:none}}
+.dir ul{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:8px}
+.dir li{display:flex;gap:10px;align-items:flex-start;color:#fff;font-weight:600}
+.dir li::before{content:"";flex:none;width:18px;height:18px;margin-top:3px;border-radius:50%;background:#C8102E url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 54'%3E%3Cpolyline points='12,28 23,40 44,14' fill='none' stroke='%23fff' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat}
+.dir-cta{display:grid;gap:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:20px}
+.dir-cta b{font:800 1.15rem var(--display,Barlow,sans-serif)}
+.dir-cta span{color:#cfd7ea;font-size:.92rem}
+.dir-cta .btn{text-align:center}
+</style></head><body>
 <title>TradeResolve</title>
 <meta name="description" content="TradeResolve: one Unified Agreement for customer and tradesperson before work starts, and an impartial Master Assessor if anything needs sorting. Fair to the customer. Fair to the tradesperson.">
 <meta name="theme-color" content="#012169">
@@ -950,6 +968,28 @@ header .wrap{transition:opacity .7s ease}
     </section>
   </div>
   <div class="wrap">
+    <section id="directory" aria-labelledby="dir-h">
+      <div class="dir"><div class="dir-in">
+        <div>
+          <span class="dir-soon"><i></i>Launching soon · Registration open</span>
+          <h2 id="dir-h">The TradeResolve Directory</h2>
+          <p>A directory of tradespeople who have openly said yes to working fairly. Everyone listed has confirmed they support working under TradeResolve, with every job agreed in writing and nothing to hide.</p>
+          <ul>
+            <li>Fair and ethical by choice, not by chance</li>
+            <li>Happy to agree every job in writing</li>
+            <li>Committed to sorting out problems fairly</li>
+          </ul>
+        </div>
+        <div class="dir-cta">
+          <b data-for="t">Get listed from day one</b><b data-for="c">Know a good tradesperson?</b>
+          <span data-for="t">Free to register. Early registrations are listed first in their area.</span>
+          <span data-for="c">Send them this page. Registration is free, and the directory opens to customers soon.</span>
+          <a class="btn btn-amber" href="/directory">Register your business</a>
+        </div>
+      </div></div>
+    </section>
+  </div>
+  <div class="wrap">
     <section id="faq" aria-labelledby="faq-h">
       <h2 id="faq-h">Questions</h2>
       <div style="margin-top:12px">
@@ -1506,7 +1546,7 @@ header .wrap{transition:opacity .7s ease}
       <div><h3>TradeResolve</h3><ul>
         <li><a href="#how">How it works</a></li><li><a href="#price">Pricing</a></li><li><a href="#assessors">Master Assessors</a></li><li><a href="#faq">Questions</a></li><li><a href="#contact">Contact</a></li></ul></div>
       <div><h3>Your job</h3><ul>
-        <li><a href="#start">Protect a job</a></li><li><a href="#join">Become a Founding Trade</a></li><li><a href="https://agree.traderesolve.co.uk/protect" target="_blank" rel="noopener">Agreement form</a></li><li><a href="/job">My job file</a></li><li><a href="/job">Lost your job file link?</a></li></ul></div>
+        <li><a href="#start">Protect a job</a></li><li><a href="#join">Become a Founding Trade</a></li><li><a href="/directory">TradeResolve Directory</a></li><li><a href="https://agree.traderesolve.co.uk/protect" target="_blank" rel="noopener">Agreement form</a></li><li><a href="/job">My job file</a></li><li><a href="/job">Lost your job file link?</a></li></ul></div>
       <div><h3>Legal</h3><ul>
         <li><a href="#terms">Terms of service</a></li><li><a href="#privacy">Privacy policy</a></li><li><a href="#cookies">Cookie policy</a></li><li><a href="#impartiality">Impartiality policy</a></li><li><a href="#complaints">Complaints</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#" data-cookie-reset>Cookie settings</a></li></ul></div>
     </div>
