@@ -2141,18 +2141,4 @@ window.TR_AGREEMENT_LIVE=true;
 })();
 </script>
 
-
-<script>
-/* until card payments are switched on, send agreement-form links to email instead */
-(function(){
-  if(window.TR_AGREEMENT_LIVE) return;
-  document.querySelectorAll('a[href*="agree.traderesolve.co.uk/protect"]').forEach(function(a){
-    a.href="mailto:hello@traderesolve.co.uk?subject=Protect%20a%20job&body=Job%20type%3A%0AJob%20value%3A%0AStart%20date%3A%0AYour%20name%20and%20phone%3A";
-    a.removeAttribute("target");
-    if(/form/i.test(a.textContent)) a.textContent="Email us to protect a job";
-  });
-  var t=document.querySelector(".tally-opt div");
-  if(t) t.innerHTML="<b>Online agreements open in the next few days.</b><p>Want to protect a job now? Email <a href=\"mailto:hello@traderesolve.co.uk?subject=Protect%20a%20job\">hello@traderesolve.co.uk</a> and we&rsquo;ll set your agreement up with you. The steps below show how it works.</p>";
-})();
-</script>
 </body></html>
