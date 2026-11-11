@@ -186,7 +186,7 @@ body{--aud:#012169;--aud-tint:#eef2fb;--aud-line:#c9d4ef}
 body[data-aud="t"]{--aud:#C8102E;--aud-tint:#fcf0f2;--aud-line:#f2c6cf}
 body[data-aud="c"] [data-for="t"],body[data-aud="t"] [data-for="c"]{display:none!important}
 .aud-band{background:var(--aud-tint);border-block:1px solid var(--aud-line);transition:background .4s ease,border-color .4s ease}
-.aud-band #who{border-top:6px solid var(--aud);margin-top:-1px}
+.aud-band #who-panels{border-top:6px solid var(--aud);margin-top:-1px}
 .switch button{display:inline-flex;align-items:center;justify-content:center;gap:8px}
 .switch button svg{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 #tab-c[aria-selected="true"]{background:#012169!important;color:#fff!important}
@@ -197,6 +197,7 @@ body[data-aud="c"] [data-for="t"],body[data-aud="t"] [data-for="c"]{display:none
 .aud-photo img{animation:aud-in .45s ease both}
 @keyframes aud-in{from{opacity:0}to{opacity:1}}
 @media (prefers-reduced-motion:reduce){.aud-photo img{animation:none}}
+.who-pick{margin:26px 0 4px;max-width:620px}.who-pick h2{font-size:clamp(1.5rem,3.2vw,2rem)}.who-pick .switch{margin-top:14px}
 .aud-viewing{font-size:.88rem;color:var(--muted);margin:10px 0 0}
 .aud-viewing span{font-weight:700;color:var(--aud)}
 @media (prefers-reduced-motion:reduce){.aud-band{transition:none}}
@@ -674,6 +675,15 @@ header .wrap{transition:opacity .7s ease}
       <p class="eyebrow">Fair to the customer. Fair to the tradesperson.</p>
       <h1 style="margin-top:10px">Start every job on <span>the same page</span>.</h1>
       <p class="lede">One Unified Agreement before any work begins, so everyone knows where they stand from day one in the event of a dispute.</p>
+      <div class="who-pick" id="who">
+      <h2 id="who-h">Which applies to you?</h2>
+      <p style="margin-top:8px;color:var(--muted)">One agreement, two sides. Both get the same protection.</p>
+      <div class="switch" role="tablist" aria-label="Show information for">
+        <button id="tab-c" role="tab" aria-selected="true" aria-controls="aud-c"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.5L12 4.5l8.5 7M6 10v9.5h12V10"/><path d="M10 19.5v-5h4v5"/></svg>I'm the customer</button>
+        <button id="tab-t" role="tab" aria-selected="false" aria-controls="aud-t"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6.5a4 4 0 0 0-5.3 5.3L4 17l3 3 5.2-5.2a4 4 0 0 0 5.3-5.3l-2.6 2.6-2.4-.6-.6-2.4z"/></svg>I'm the tradesperson</button>
+      </div>
+      <p class="aud-viewing" aria-live="polite"><span id="aud-now">Showing the site for customers.</span> The rest of the page follows your choice.</p>
+      </div>
       <div class="hv-explainer" data-for="t">
         <p class="ex-k"><span class="ex-dot"></span>Watch: why tradespeople use TradeResolve (3 minutes)</p>
         <div class="ex-frame">
@@ -697,15 +707,9 @@ header .wrap{transition:opacity .7s ease}
   </div>
 
   <div class="aud-band"><div class="wrap">
-    <section id="who" aria-labelledby="who-h">
-      <h2 id="who-h">Which applies to you?</h2>
-      <p style="margin-top:8px;color:var(--muted)">One agreement, two sides. Both get the same protection.</p>
+    <section id="who-panels" aria-label="What TradeResolve means for you">
       <div class="duo" style="margin-top:18px"><div>
-      <div class="switch" role="tablist" aria-label="Show information for">
-        <button id="tab-c" role="tab" aria-selected="true" aria-controls="aud-c"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.5L12 4.5l8.5 7M6 10v9.5h12V10"/><path d="M10 19.5v-5h4v5"/></svg>I'm the customer</button>
-        <button id="tab-t" role="tab" aria-selected="false" aria-controls="aud-t"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6.5a4 4 0 0 0-5.3 5.3L4 17l3 3 5.2-5.2a4 4 0 0 0 5.3-5.3l-2.6 2.6-2.4-.6-.6-2.4z"/></svg>I'm the tradesperson</button>
-      </div>
-      <p class="aud-viewing" aria-live="polite"><span id="aud-now">Showing the site for customers.</span> The rest of the page follows your choice.</p>
+
 
       <div id="aud-c" class="aud" role="tabpanel" aria-labelledby="tab-c">
         <h3>Having work done on your home</h3>
