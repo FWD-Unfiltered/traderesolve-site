@@ -983,6 +983,17 @@ header .wrap{transition:opacity .7s ease}
         <p class="note" id="jobhelp">One fee per job, paid once when you both sign. Card payments are taken securely by Stripe.</p>
       </div>
       <div class="visit-fee"><b>Master Assessor visit, if it&rsquo;s ever needed: £265 per visit.</b> An additional cost that covers a comprehensive on-site assessment of the work and a written Findings Report for you both. Paid by whoever asks for the visit, and repaid by the other party if the findings go against them. Most jobs never need one.</div>
+      <div class="recruit" id="refer">
+        <div>
+          <p class="eyebrow">Refer and earn</p>
+          <h3>Share TradeResolve. Get your next job protected free.</h3>
+          <p>You don&rsquo;t need to be a customer yet. Get your own link in 30 seconds and share it with friends, family, customers or other trades. Every new person who protects a job through your link earns you a free protection worth up to &pound;49. Up to 5 a year, and each lasts 12 months.</p>
+        </div>
+        <div class="recruit-cta">
+          <a class="btn btn-amber" href="/refer">Get my referral link</a>
+          <small>Free to join</small>
+        </div>
+      </div>
     </section>
   </div>
 
@@ -1543,6 +1554,7 @@ header .wrap{transition:opacity .7s ease}
     <h2>5. Fees and payment</h2>
     <p>Our fee is a single flat fee per job, based on the agreed job price: £49 for jobs up to £5,000; £99 for £5,001 to £15,000; £179 for £15,001 to £40,000; and £299 for £40,001 to £100,000. Jobs over £100,000 are priced individually. The prices shown are the total you pay. The parties choose who pays the fee when they sign (the customer, the tradesperson, or split 50/50), and it is payable on signing. The agreement becomes active once the fee has been paid in full.</p>
     <p>The fee covers the Unified Agreement, the shared job file (including changes agreed by both parties), the Certificate of Protection and our guidance through the resolution pathway. A Master Assessor visit is an additional cost of £265 per visit, covering a comprehensive on-site assessment and a written Findings Report, paid by the party who requests it. If the Master Assessor's findings go against the other party, the other party must repay the £265 to the party who paid within 14 days. Payments are processed securely by Stripe.</p>
+    <p><b>Referral scheme.</b> Anyone aged 18 or over can join at traderesolve.co.uk/refer, whether or not they have used TradeResolve. You earn one free protection when someone you refer, who is new to TradeResolve, starts a protected job through your link and their fee is paid. You can't earn a reward from a job you are a party to. A free protection covers the TradeResolve fee up to £49 on a job you protect later: the fee is refunded to your card, up to £49, once your agreement is active, and it only applies when you pay some or all of the fee yourself. You can earn up to 5 free protections in any 12 months, and each expires 12 months after it is earned. Rewards have no cash value and can't be transferred. We may withhold rewards where we reasonably suspect misuse, and we may change or end the scheme with notice; rewards already earned will still be honoured.</p>
     <h2>6. Your right to cancel (customers)</h2>
     <p>If you're a consumer, you can cancel within 14 days of signing without giving a reason, under the Consumer Contracts Regulations 2013. If you ask us to start providing the service within those 14 days, for example by arranging a visit, you'll pay for what we've provided up to the point you cancel. To cancel, email <a href="mailto:hello@traderesolve.co.uk">hello@traderesolve.co.uk</a> or use the <a href="#cancel-form">model cancellation form</a>. You don&rsquo;t have to use the form; any clear statement that you&rsquo;re cancelling is enough.</p>
     <h2>7. Your responsibilities</h2>
@@ -1661,7 +1673,7 @@ header .wrap{transition:opacity .7s ease}
       <div><h3>TradeResolve</h3><ul>
         <li><a href="#how">How it works</a></li><li><a href="#price">Pricing</a></li><li><a href="#assessors">Master Assessors</a></li><li><a href="#faq">Questions</a></li><li><a href="#contact">Contact</a></li></ul></div>
       <div><h3>Your job</h3><ul>
-        <li><a href="#start">Protect a job</a></li><li><a href="#join">Become a Founding Trade</a></li><li><a href="https://agree.traderesolve.co.uk/assessor" target="_blank" rel="noopener">Become a Master Assessor</a></li><li><a href="/directory">TradeResolve Directory</a></li><li><a href="https://agree.traderesolve.co.uk/protect" target="_blank" rel="noopener">Agreement form</a></li><li><a href="/job">My job file</a></li><li><a href="/job">Lost your job file link?</a></li></ul></div>
+        <li><a href="#start">Protect a job</a></li><li><a href="#join">Become a Founding Trade</a></li><li><a href="https://agree.traderesolve.co.uk/assessor" target="_blank" rel="noopener">Become a Master Assessor</a></li><li><a href="/directory">TradeResolve Directory</a></li><li><a href="/refer">Refer and earn</a></li><li><a href="https://agree.traderesolve.co.uk/protect" target="_blank" rel="noopener">Agreement form</a></li><li><a href="/job">My job file</a></li><li><a href="/job">Lost your job file link?</a></li></ul></div>
       <div><h3>Legal</h3><ul>
         <li><a href="#terms">Terms of service</a></li><li><a href="#privacy">Privacy policy</a></li><li><a href="#cookies">Cookie policy</a></li><li><a href="#impartiality">Impartiality policy</a></li><li><a href="#complaints">Complaints</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#" data-cookie-reset>Cookie settings</a></li></ul></div>
     </div>
@@ -2274,5 +2286,12 @@ document.querySelectorAll('.ex-frame').forEach(function(f){var v=f.querySelector
 b.addEventListener('click',function(){f.classList.add('playing');v.controls=true;v.muted=false;var p=v.play();if(p&&p.catch)p.catch(function(){});});
 v.addEventListener('ended',function(){f.classList.remove('playing');v.controls=false;v.currentTime=0;});
 var h=document.querySelector('.hero-video video');v.addEventListener('play',function(){if(h&&!h.muted){h.muted=true;}});});
+</script>
+<script>
+(function(){try{var q=new URLSearchParams(location.search).get('ref');var r=null;
+if(q&&/^TR[A-Z0-9]{6}$/i.test(q)){r=q.toUpperCase();try{localStorage.setItem('tr_ref',JSON.stringify({c:r,t:Date.now()}))}catch(e){}}
+else{try{var o=JSON.parse(localStorage.getItem('tr_ref')||'null');if(o&&o.c&&Date.now()-o.t<2592e6)r=o.c}catch(e){}}
+if(!r)return;function tag(){document.querySelectorAll('a[href^="https://agree.traderesolve.co.uk/protect"]').forEach(function(a){try{var u=new URL(a.href);u.searchParams.set('ref',r);a.href=u.toString()}catch(e){}})}
+tag();document.addEventListener('DOMContentLoaded',tag);}catch(e){}})();
 </script>
 </body></html>
