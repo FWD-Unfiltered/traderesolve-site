@@ -1513,6 +1513,7 @@ header .wrap{transition:opacity .7s ease}
       <li><b>The other party to your agreement:</b> the job file, findings and any Evidence Document are shared equally with both of you. That's central to our impartial process.</li>
       <li><b>Master Assessors:</b> the assessor assigned to your job sees the job file and contact details they need to arrange and carry out the visit. They're bound by confidentiality.</li>
       <li><b>Service providers acting for us:</b> website hosting (Cloudflare), forms and e-signature (Tally), payments (Stripe), email (Zoho Mail), and secure database and file storage (Supabase, UK region). Each processes data only on our instructions under a written contract.</li>
+      <li><b>Advertising platforms (Meta and Google):</b> only if you accept advertising cookies, these companies receive details of your visit to our website (such as the pages you viewed and whether you clicked to start a job or sign up) so we can measure our adverts. They use this under their own privacy policies. We don&rsquo;t send them your job details, job file or payment information.</li>
       <li><b>Courts, legal advisers and authorities:</b> when either party uses an Evidence Document in proceedings, when we're legally required to, or to establish or defend legal claims.</li>
       <li><b>A buyer of our business</b>, if TradeResolve is ever sold, under the same protections.</li>
     </ul>
@@ -1539,20 +1540,23 @@ header .wrap{transition:opacity .7s ease}
   <div class="wrap legal">
     <a href="#home" class="back-link">&larr; Back to TradeResolve</a>
     <h1>Cookie policy</h1>
-    <p class="updated">Last updated: 10 November 2026</p>
+    <p class="updated">Last updated: 11 November 2026</p>
 
     <h2>What cookies and similar technologies are</h2>
-    <p>Cookies are small files stored on your device. We also use similar browser storage. Some are essential to make the site work. We don&rsquo;t use analytics, tracking or advertising cookies.</p>
+    <p>Cookies are small files stored on your device. We also use similar browser storage. Some are essential to make the site work. Others are advertising cookies from Meta (Facebook and Instagram) and Google, which we only set if you choose &ldquo;Accept&rdquo;. They tell us which of our adverts brought you here and whether you went on to start a job or sign up, so we can stop paying for adverts that don&rsquo;t work.</p>
     <h2>The ones we use</h2>
     <table>
       <tr><th>Name</th><th>Type</th><th>Purpose</th><th>How long</th></tr>
-      <tr><td>tr_cookie_choice</td><td>Essential (browser storage)</td><td>Remembers your cookie choice so we don't ask on every visit</td><td>12 months</td></tr>
+      <tr><td>tr_consent_v2</td><td>Essential (browser storage)</td><td>Remembers your cookie choice so we don't ask on every visit</td><td>12 months</td></tr>
+      <tr><td>tr_utm</td><td>Essential (browser storage)</td><td>Remembers which advert or link brought you here (campaign name only, nothing about you) so it can be noted on any form you send</td><td>30 days</td></tr>
       <tr><td>tr_aud</td><td>Essential (browser storage)</td><td>Remembers whether you chose to see the site as a customer or a tradesperson</td><td>Until you clear it</td></tr>
       <tr><td>tr_demo_files</td><td>Essential (browser storage)</td><td>Holds demo job file entries on your own device in the account demo</td><td>Until you clear it</td></tr>
       <tr><td>Stripe cookies</td><td>Essential, set by Stripe at checkout</td><td>Fraud prevention and secure payment</td><td>set by provider</td></tr>
+      <tr><td>_fbp, _fbc</td><td>Advertising (Meta), only if you accept</td><td>Measures visits and sign-ups that came from our Facebook and Instagram adverts</td><td>Up to 90 days</td></tr>
+      <tr><td>_gcl_au, _gcl_aw</td><td>Advertising (Google), only if you accept</td><td>Measures visits and sign-ups that came from our Google adverts</td><td>Up to 90 days</td></tr>
     </table>
     <h2>Your choices</h2>
-    <p>We only use essential storage, which the site needs to work, so there is nothing to opt in to. You can block or delete cookies in your browser settings.</p>
+    <p>Essential storage is always on because the site needs it. Advertising cookies are off unless you choose &ldquo;Accept&rdquo; on the cookie banner. You can change your mind at any time with <a href="#" data-cookie-reset>Cookie settings</a> at the bottom of every page, and you can also block or delete cookies in your browser settings.</p>
 
   </div>
 </main>
@@ -1711,8 +1715,8 @@ header .wrap{transition:opacity .7s ease}
   </div>
 </footer>
 <div class="cookie" id="cookie" role="dialog" aria-live="polite" aria-label="Cookie choices" hidden>
-  <p>We only use essential storage to make this site work. No tracking or advertising cookies. <a href="#cookies">Cookie policy</a></p>
-  <div class="row"><button class="btn btn-ghost btn-sm" type="button" data-cookie="essential">OK</button></div>
+  <p>We use essential storage to make this site work. With your OK, we&rsquo;d also use advertising cookies from Meta and Google to see which of our adverts bring people here. <a href="#cookies">Cookie policy</a></p>
+  <div class="row"><button class="btn btn-amber btn-sm" type="button" data-cookie="all">Accept</button><button class="btn btn-ghost btn-sm" type="button" data-cookie="essential">Essential only</button></div>
 </div>
 
 <script>
@@ -1927,13 +1931,15 @@ window.TR_AGREEMENT_LIVE=true;
   /* ---------- cookie banner ---------- */
   (function(){
     const box=document.getElementById("cookie"); if(!box) return;
-    const KEY="tr_cookie_choice";
-    let saved=null; try{ saved=localStorage.getItem(KEY); }catch(e){}
+    const KEY="tr_consent_v2";
+    let saved=null; try{ saved=localStorage.getItem(KEY); localStorage.removeItem("tr_cookie_choice"); }catch(e){}
+    if(saved){ try{ const o=JSON.parse(saved); if(!o||Date.now()-o.t>31536e6) saved=null; }catch(e){ saved=null; } }
     if(!saved) setTimeout(()=>{ box.hidden=false; },1200);
     box.querySelectorAll("[data-cookie]").forEach(b=>b.addEventListener("click",()=>{
-      try{ localStorage.setItem(KEY,b.dataset.cookie); }catch(e){}
+      try{ localStorage.setItem(KEY,JSON.stringify({c:b.dataset.cookie,t:Date.now()})); }catch(e){}
       box.hidden=true;
-      /* load analytics here only when b.dataset.cookie==="all" */
+      if(b.dataset.cookie==="all"){ window.TR_ADS&&window.TR_ADS.start(); }
+      else if(window.TR_ADS&&window.TR_ADS.on){ location.reload(); } /* consent withdrawn: drop loaded tags */
     }));
     document.querySelectorAll("[data-cookie-reset]").forEach(a=>a.addEventListener("click",ev=>{ ev.preventDefault(); box.hidden=false; }));
     const yr=document.getElementById("yr"); if(yr) yr.textContent=new Date().getFullYear();
@@ -2319,5 +2325,64 @@ if(q&&/^TR[A-Z0-9]{6}$/i.test(q)){r=q.toUpperCase();try{localStorage.setItem('tr
 else{try{var o=JSON.parse(localStorage.getItem('tr_ref')||'null');if(o&&o.c&&Date.now()-o.t<2592e6)r=o.c}catch(e){}}
 if(!r)return;function tag(){document.querySelectorAll('a[href^="https://agree.traderesolve.co.uk/protect"]').forEach(function(a){try{var u=new URL(a.href);u.searchParams.set('ref',r);a.href=u.toString()}catch(e){}})}
 tag();document.addEventListener('DOMContentLoaded',tag);}catch(e){}})();
+</script>
+<script>
+/* ===== TradeResolve ads: consent-gated Meta Pixel + Google tag, UTM pass-through ===== */
+(function(){
+var CFG={meta:"",google:"",gconv:{protect:"",join:"",directory:""}};
+var A=window.TR_ADS={on:false,start:start,track:track};
+function consented(){try{var o=JSON.parse(localStorage.getItem("tr_consent_v2")||"null");return !!(o&&o.c==="all"&&Date.now()-o.t<31536e6)}catch(e){return false}}
+function load(src){var s=document.createElement("script");s.async=true;s.src=src;document.head.appendChild(s)}
+function start(){
+  if(A.on||!consented())return; A.on=true;
+  if(CFG.meta){!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[]}(window,document);
+    load("https://connect.facebook.net/en_US/fbevents.js");fbq("init",CFG.meta);fbq("track","PageView");}
+  if(CFG.google){window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};
+    load("https://www.googletagmanager.com/gtag/js?id="+encodeURIComponent(CFG.google));gtag("js",new Date());gtag("config",CFG.google);}
+  view();addClickIds();
+}
+function track(meta,params,gkey){
+  if(!A.on)return;
+  try{if(window.fbq&&CFG.meta)fbq("track",meta,params||{})}catch(e){}
+  try{if(window.gtag&&CFG.google){var lbl=gkey&&CFG.gconv[gkey];
+    if(lbl)gtag("event","conversion",{send_to:CFG.google+"/"+lbl});
+    gtag("event",meta==="Lead"?"generate_lead":meta==="InitiateCheckout"?"begin_checkout":"view_item",params||{});}}catch(e){}
+}
+/* page views of the main sections (hash routes) */
+var lastView="";
+function view(){var h=(location.hash||"#home").slice(1).split(/[?&]/)[0]||"home";
+  if(h===lastView)return;lastView=h;
+  if(h==="start")track("ViewContent",{content_name:"protect_a_job"});
+  else if(h==="join")track("ViewContent",{content_name:"founding_trade"});
+  else if(h==="directory")track("ViewContent",{content_name:"directory_section"});}
+window.addEventListener("hashchange",view);
+/* clicks that matter */
+document.addEventListener("click",function(ev){
+  var a=ev.target.closest&&ev.target.closest("a[href]");if(!a)return;var u=a.href;
+  if(/agree\.traderesolve\.co\.uk\/protect/.test(u))track("InitiateCheckout",{content_name:"agreement_form"},"protect");
+  else if(/agree\.traderesolve\.co\.uk\/join/.test(u))track("Lead",{content_name:"founding_trade_form"},"join");
+  else if(/traderesolve\.co\.uk\/directory(\/|$|\?)/.test(u)&&!/\/find|\/admin/.test(u))track("Lead",{content_name:"directory_registration"},"directory");
+  else if(/traderesolve\.co\.uk\/refer/.test(u))track("Lead",{content_name:"referral_signup"});
+  else if(/agree\.traderesolve\.co\.uk\/assessor/.test(u))track("Lead",{content_name:"assessor_application"});
+},true);
+
+/* ---- UTM pass-through (campaign names only; click IDs only with consent) ---- */
+var KEYS=["utm_source","utm_medium","utm_campaign","utm_content","utm_term"],utm=null;
+try{var q=new URLSearchParams(location.search),got={},any=false;
+  KEYS.forEach(function(k){var v=q.get(k);if(v){got[k]=v.slice(0,100);any=true}});
+  ["fbclid","gclid"].forEach(function(k){var v=q.get(k);if(v){got[k]=v.slice(0,200)}});
+  if(any||got.fbclid||got.gclid){got.t=Date.now();localStorage.setItem("tr_utm",JSON.stringify(got));utm=got}
+  else{var o=JSON.parse(localStorage.getItem("tr_utm")||"null");if(o&&Date.now()-o.t<2592e6)utm=o}
+}catch(e){}
+var TARGET=/^https:\/\/(agree\.traderesolve\.co\.uk\/(protect|join|assessor)|traderesolve\.co\.uk\/(directory|refer))/;
+function tagLinks(withIds){if(!utm)return;
+  document.querySelectorAll("a[href]").forEach(function(a){if(!TARGET.test(a.href)||/directory\/(find|admin)/.test(a.href))return;
+    try{var u=new URL(a.href);KEYS.forEach(function(k){if(utm[k])u.searchParams.set(k,utm[k])});
+      if(withIds){if(utm.fbclid)u.searchParams.set("fbclid",utm.fbclid);if(utm.gclid)u.searchParams.set("gclid",utm.gclid)}
+      a.href=u.toString()}catch(e){}});}
+function addClickIds(){tagLinks(true)}
+tagLinks(false);document.addEventListener("DOMContentLoaded",function(){tagLinks(A.on)});
+start();
+})();
 </script>
 </body></html>
