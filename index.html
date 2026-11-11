@@ -203,6 +203,10 @@ body[data-aud="c"] [data-for="t"],body[data-aud="t"] [data-for="c"]{display:none
 .aud-photo img{animation:aud-in .45s ease both}
 @keyframes aud-in{from{opacity:0}to{opacity:1}}
 @media (prefers-reduced-motion:reduce){.aud-photo img{animation:none}}
+.idcheck{padding-top:48px}.idc-grid{display:grid;gap:28px;align-items:center}.idc-grid>*{min-width:0}@media (min-width:900px){.idc-grid{grid-template-columns:.95fr 1.05fr}}
+.idc-copy .btn{margin-top:6px}.idc-form{margin-top:22px;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--aud,#C8102E);border-radius:12px;padding:16px 18px}
+.idc-form label{display:block;font-weight:800;margin-bottom:8px}.idc-form div{display:flex;gap:8px}.idc-form input{flex:1;min-width:0;height:48px;border:1.5px solid var(--line);border-radius:10px;padding:0 14px;font:inherit;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.idc-form small{display:block;margin-top:8px;color:var(--muted)}
 .who-vids{max-width:860px}.who-vids .hv-explainer{margin:6px 0 4px}
 .who-pick{margin:0 0 18px;max-width:620px}.who-pick h2{font-size:clamp(1.5rem,3.2vw,2rem)}.who-pick .switch{margin-top:14px}
 .aud-viewing{font-size:.88rem;color:var(--muted);margin:10px 0 0}
@@ -752,6 +756,43 @@ header .wrap{transition:opacity .7s ease}
       </div>
     </section>
   </div></div>
+
+  <div class="wrap">
+    <section id="idcheck" class="idcheck" aria-labelledby="idc-h-c idc-h-t">
+      <div class="idc-grid">
+        <div class="idc-copy">
+          <div data-for="c">
+            <p class="eyebrow">Know who&rsquo;s at your door</p>
+            <h2 id="idc-h-c">Check any TradeResolve trade in seconds.</h2>
+            <ul class="pain">
+              <li><span><b>Scan their ID card, van sticker or quote.</b> Or type their code below. No app needed.</span></li>
+              <li><span><b>See who should be standing there.</b> Their photo, business, logo and how many jobs they&rsquo;ve protected with TradeResolve.</span></li>
+              <li><span><b>Same face, same logo, same van?</b> If anything doesn&rsquo;t match, don&rsquo;t let them start, and tell us.</span></li>
+            </ul>
+          </div>
+          <div data-for="t">
+            <p class="eyebrow">Your face. Your logo. Verified.</p>
+            <h2 id="idc-h-t">Show customers exactly who&rsquo;s coming.</h2>
+            <ul class="pain">
+              <li><span><b>Add your headshot and logo.</b> They appear on your Directory listing and your public check page.</span></li>
+              <li><span><b>Earn your TradeResolve ID card.</b> After 5 protected jobs, we print and post you a photo ID card with your own QR code.</span></li>
+              <li><span><b>Trusted before you say hello.</b> Customers scan it at the door and see your profile and protected jobs, so you start every job on the right foot.</span></li>
+            </ul>
+            <a class="btn btn-amber" href="/directory">Add my photo and logo</a>
+          </div>
+          <form class="idc-form" action="/r/" onsubmit="var c=this.code.value.trim().toUpperCase().replace(/[^A-Z0-9-]/g,'');if(c){location.href='/r/'+encodeURIComponent(c)};return false">
+            <label for="idc-code">Check a trade&rsquo;s code</label>
+            <div><input id="idc-code" name="code" placeholder="e.g. DH4827" autocomplete="off" autocapitalize="characters" maxlength="16"><button class="btn btn-amber" type="submit">Check</button></div>
+            <small>The code is on their ID card, van sticker, quotes and emails.</small>
+          </form>
+        </div>
+        <div class="ex-frame idc-vid">
+          <video playsinline preload="none" poster="img/id-check-poster.jpg" width="1920" height="1080"><source src="img/id-check.mp4" type="video/mp4"></video>
+          <button class="ex-play" type="button" aria-label="Play the TradeResolve ID check video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg><span>Watch: checking who&rsquo;s at the door</span></button>
+        </div>
+      </div>
+    </section>
+  </div>
 
   <div class="wrap">
     <section id="problem" class="problem" aria-labelledby="pb-h-c pb-h-t">
