@@ -19,6 +19,17 @@
 .tally-opt .demo-note{font-size:.9rem;color:var(--muted);margin-top:12px}
 .tally-opt p+p{margin-top:10px}.tally-opt a.btn{color:#fff}
 .tally-opt .explainer{margin-top:18px}.tally-opt .ex-h{font-weight:800;color:var(--ink);margin-bottom:8px}.tally-opt video{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:12px;background:#012169;box-shadow:0 10px 26px rgba(1,33,105,.18)}
+.hv-explainer{margin:22px 0 6px}
+.hv-explainer .ex-k{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--ink);margin-bottom:10px}
+.hv-explainer .ex-dot{width:10px;height:10px;border-radius:50%;background:var(--brand-red);box-shadow:0 0 0 4px rgba(200,16,46,.18)}
+.ex-frame{position:relative;border-radius:16px;overflow:hidden;background:#012169;box-shadow:0 18px 40px rgba(1,33,105,.22);aspect-ratio:16/9}
+.ex-frame video{display:block;width:100%;height:100%;object-fit:cover}
+.ex-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:12px;border:0;cursor:pointer;background:transparent;color:#fff;font:800 1.05rem var(--display,Barlow,sans-serif)}
+.ex-play svg{width:84px;height:84px;padding:22px;border:4px solid #fff;border-radius:50%;background:var(--brand-red);fill:#fff;box-shadow:0 10px 30px rgba(200,16,46,.45);transition:transform .2s}
+.ex-play:hover svg,.ex-play:focus-visible svg{transform:scale(1.08)}
+.ex-play span{background:rgba(1,33,105,.85);padding:8px 14px;border-radius:99px}
+.ex-frame.playing .ex-play{display:none}
+@media (max-width:480px){.ex-play svg{width:54px;height:54px;padding:14px}.ex-play span{display:none}}
 </style></head><body>
 <title>TradeResolve</title>
 <meta name="description" content="TradeResolve: one Unified Agreement for customer and tradesperson before work starts, and an impartial Master Assessor if anything needs sorting. Fair to the customer. Fair to the tradesperson.">
@@ -662,6 +673,13 @@ header .wrap{transition:opacity .7s ease}
       <p class="eyebrow">Fair to the customer. Fair to the tradesperson.</p>
       <h1 style="margin-top:10px">Start every job on <span>the same page</span>.</h1>
       <p class="lede">One Unified Agreement before any work begins, so everyone knows where they stand from day one in the event of a dispute.</p>
+      <div class="hv-explainer">
+        <p class="ex-k"><span class="ex-dot"></span>Watch: how TradeResolve works in 90 seconds</p>
+        <div class="ex-frame">
+          <video id="homeExplainer" playsinline preload="none" poster="img/explainer-home-poster.jpg" width="1920" height="1080"><source src="img/explainer-v2.mp4" type="video/mp4"><track kind="captions" src="img/explainer-v2.vtt" srclang="en" label="English" default></video>
+          <button class="ex-play" type="button" aria-label="Play the 90 second TradeResolve explainer video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></button>
+        </div>
+      </div>
       <p class="lede lede-strong">We don&rsquo;t take sides.</p>
       <p class="lede">TradeResolve is here for the customer and the tradesperson equally; we work for what&rsquo;s right in the event of a dispute. We offer a clear, unbiased resolution pathway that both parties agree to follow. Where required, this can include an impartial TradeResolve Master Assessor who visits to inspect the work and/or resolve any dispute over payments owed.</p>
       <p class="lede lede-end">No more worry of poor workmanship for customers, and no more worry of late or non-payment for tradespeople.</p>
@@ -2142,4 +2160,11 @@ window.TR_AGREEMENT_LIVE=true;
 })();
 </script>
 
+
+<script>
+(function(){var f=document.querySelector('.ex-frame');if(!f)return;var v=f.querySelector('video'),b=f.querySelector('.ex-play');
+b.addEventListener('click',function(){f.classList.add('playing');v.controls=true;v.muted=false;var p=v.play();if(p&&p.catch)p.catch(function(){});});
+v.addEventListener('ended',function(){f.classList.remove('playing');v.controls=false;v.currentTime=0;});
+var h=document.querySelector('.hero-video video');v.addEventListener('play',function(){if(h&&!h.muted){h.muted=true;}});})();
+</script>
 </body></html>
