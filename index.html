@@ -1669,6 +1669,16 @@ header .wrap{transition:opacity .7s ease}
 </main>
 
 <!-- ============ ACCESSIBILITY STATEMENT ============ -->
+<main id="view-thanks-join" class="view-page" hidden>
+  <div class="wrap legal" style="text-align:center;padding-top:48px;padding-bottom:64px">
+    <p class="eyebrow">Founding Trade</p>
+    <h1>You&rsquo;re on the list</h1>
+    <p>Thanks for signing up as a TradeResolve Founding Trade.<br>We&rsquo;ll be in touch within 2 working days to talk you through it and answer any questions.</p>
+    <p><b>Fair to the customer.<br>Fair to the tradesperson.<br>&ldquo;It&rsquo;s got to be right.&rdquo;</b></p>
+    <p style="margin-top:28px"><a class="btn btn-amber" href="#join">Back to Founding Trade</a> <a class="btn btn-ghost" href="#home">TradeResolve home</a></p>
+  </div>
+</main>
+
 <main id="view-accessibility" class="view-page" hidden>
   <div class="wrap legal">
     <a href="#home" class="back-link">&larr; Back to TradeResolve</a>
@@ -1768,7 +1778,7 @@ window.TR_AGREEMENT_LIVE=true;
   {let a=null;try{a=localStorage.getItem("tr_aud")}catch(e){} setAud(a||"c",false);}
 
   /* views */
-  const VIEWS=["start","join","account","privacy","cookies","terms","complaints","impartiality","accessibility"];
+  const VIEWS=["start","join","thanks-join","account","privacy","cookies","terms","complaints","impartiality","accessibility"];
   function route(){
     const h=(location.hash||"").slice(1);
     let v=VIEWS.includes(h)?h:"home", inner=null;
@@ -2354,16 +2364,18 @@ function view(){var h=(location.hash||"#home").slice(1).split(/[?&]/)[0]||"home"
   if(h===lastView)return;lastView=h;
   if(h==="start")track("ViewContent",{content_name:"protect_a_job"});
   else if(h==="join")track("ViewContent",{content_name:"founding_trade"});
-  else if(h==="directory")track("ViewContent",{content_name:"directory_section"});}
+  else if(h==="directory")track("ViewContent",{content_name:"directory_section"});
+  else if(h==="thanks-join"){var k="tr_lead_join";try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1")}catch(e){}
+    track("Lead",{content_name:"founding_trade_signup"},"join");}}
 window.addEventListener("hashchange",view);
 /* clicks that matter */
 document.addEventListener("click",function(ev){
   var a=ev.target.closest&&ev.target.closest("a[href]");if(!a)return;var u=a.href;
   if(/agree\.traderesolve\.co\.uk\/protect/.test(u))track("InitiateCheckout",{content_name:"agreement_form"},"protect");
-  else if(/agree\.traderesolve\.co\.uk\/join/.test(u))track("Lead",{content_name:"founding_trade_form"},"join");
-  else if(/traderesolve\.co\.uk\/directory(\/|$|\?)/.test(u)&&!/\/find|\/admin/.test(u))track("Lead",{content_name:"directory_registration"},"directory");
-  else if(/traderesolve\.co\.uk\/refer/.test(u))track("Lead",{content_name:"referral_signup"});
-  else if(/agree\.traderesolve\.co\.uk\/assessor/.test(u))track("Lead",{content_name:"assessor_application"});
+  else if(/agree\.traderesolve\.co\.uk\/join/.test(u))track("ViewContent",{content_name:"founding_trade_form_open"});
+  else if(/traderesolve\.co\.uk\/directory(\/|$|\?)/.test(u)&&!/\/find|\/admin/.test(u))track("ViewContent",{content_name:"directory_registration_open"},"directory");
+  else if(/traderesolve\.co\.uk\/refer/.test(u))track("ViewContent",{content_name:"referral_open"});
+  else if(/agree\.traderesolve\.co\.uk\/assessor/.test(u))track("ViewContent",{content_name:"assessor_application_open"});
 },true);
 
 /* ---- UTM pass-through (campaign names only; click IDs only with consent) ---- */
