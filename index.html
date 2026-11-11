@@ -674,7 +674,14 @@ header .wrap{transition:opacity .7s ease}
       <p class="eyebrow">Fair to the customer. Fair to the tradesperson.</p>
       <h1 style="margin-top:10px">Start every job on <span>the same page</span>.</h1>
       <p class="lede">One Unified Agreement before any work begins, so everyone knows where they stand from day one in the event of a dispute.</p>
-      <div class="hv-explainer">
+      <div class="hv-explainer" data-for="t">
+        <p class="ex-k"><span class="ex-dot"></span>Watch: why tradespeople use TradeResolve (3 minutes)</p>
+        <div class="ex-frame">
+          <video playsinline preload="none" poster="img/trades-explainer-poster.jpg" width="1920" height="1080"><source src="img/trades-explainer-v4.mp4" type="video/mp4"></video>
+          <button class="ex-play" type="button" aria-label="Play the 3 minute TradeResolve video for tradespeople"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></button>
+        </div>
+      </div>
+      <div class="hv-explainer" data-for="c">
         <p class="ex-k"><span class="ex-dot"></span>Watch: how TradeResolve works in 90 seconds</p>
         <div class="ex-frame">
           <video id="homeExplainer" playsinline preload="none" poster="img/explainer-home-poster.jpg" width="1920" height="1080"><source src="img/explainer-v2.mp4" type="video/mp4"></video>
@@ -1600,6 +1607,7 @@ window.TR_AGREEMENT_LIVE=true;
   const tabs=[["tab-c","aud-c"],["tab-t","aud-t"]];
   /* one audience for the whole page: tabs, hero buttons and the account role all set it */
   function setAud(who,save){
+    document.querySelectorAll(".ex-frame video").forEach(function(v){if(!v.paused)v.pause();});
     who=who==="t"?"t":"c";
     document.body.dataset.aud=who;
     tabs.forEach(([tt,pp])=>{const on=tt===(who==="t"?"tab-t":"tab-c");document.getElementById(tt).setAttribute("aria-selected",on);document.getElementById(tt).tabIndex=on?0:-1;document.getElementById(pp).hidden=!on});
