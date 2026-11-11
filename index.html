@@ -381,6 +381,13 @@ mark.ph{background:#fff3b0;color:#4a3b00;padding:0 .2em;border-radius:3px;font-s
   background:linear-gradient(to top,rgba(1,14,48,.82),rgba(1,14,48,0))}
 .trade figcaption span{display:block;font:500 .8rem/1.3 var(--body);opacity:.9;margin-top:2px}
 /* master assessors */
+.recruit{margin-top:34px;display:grid;gap:18px;align-items:center;background:#fff;border:1px solid var(--line,#d8dce6);border-left:6px solid var(--red,#C8102E);border-radius:16px;padding:24px 26px;box-shadow:0 10px 30px rgba(1,33,105,.08)}
+.recruit h3{font-family:'Barlow',sans-serif;font-weight:800;font-size:1.45rem;line-height:1.2;color:var(--ink,#012169);margin:4px 0 8px}
+.recruit p{margin:0;color:var(--muted,#4a5878)}
+.recruit .eyebrow{color:var(--red,#C8102E)}
+.recruit-cta{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.recruit-cta small{color:var(--muted,#4a5878)}
+@media (min-width:860px){.recruit{grid-template-columns:1fr auto}.recruit-cta{align-items:center}}
 .assessors{display:grid;gap:26px;align-items:center}
 @media (min-width:900px){.assessors{grid-template-columns:1.05fr 1fr}}
 .kit{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
@@ -1010,12 +1017,23 @@ header .wrap{transition:opacity .7s ease}
           <p class="lead-muted foryou-a" data-for="c">For you, that means a straight, expert answer about your job, from someone with nothing to gain either way.</p>
           <p class="lead-muted foryou-a" data-for="t">For you, that means being judged by a peer who knows the trade, how long things take and what a fair snag is.</p>
           <ul class="sq vet">
-            <li><b>Proven careers</b> of at least 20 years in their trade, checked before they join</li>
-            <li><b>Background checked</b> basic DBS and carrying TradeResolve photo ID</li>
+            <li><b>Proven careers</b> of at least 10 years in their trade, checked before they join</li>
+            <li><b>Identity checked</b> and carrying TradeResolve photo ID</li>
             <li><b>No conflicts of interest:</b> never assigned to a job involving anyone they know or have worked with</li>
             <li><b>Trained in the TradeResolve Standard</b> and our impartiality policy, and insured for the work they do</li>
           </ul>
           <p style="margin-top:16px"><a href="#impartiality" style="font-weight:700;color:var(--ink)">Read our impartiality policy</a></p>
+        </div>
+      </div>
+      <div class="recruit" id="become-assessor">
+        <div>
+          <p class="eyebrow">We&rsquo;re recruiting</p>
+          <h3>Decades on the tools? Become a Master Assessor.</h3>
+          <p>We&rsquo;re looking for experienced tradespeople, many retired or semi-retired, to inspect disputed work fairly and write a clear Findings Report for both sides. Paid per assessment visit, plus mileage, and you choose the jobs you take. You&rsquo;ll need at least 10 years in your trade. We&rsquo;re recruiting anywhere in England.</p>
+        </div>
+        <div class="recruit-cta">
+          <a class="btn btn-amber" href="https://agree.traderesolve.co.uk/assessor" target="_blank" rel="noopener">Apply to be a Master Assessor</a>
+          <small>Takes about 5 minutes</small>
         </div>
       </div>
     </section>
@@ -1085,7 +1103,7 @@ header .wrap{transition:opacity .7s ease}
     <section id="faq" aria-labelledby="faq-h">
       <h2 id="faq-h">Questions</h2>
       <div style="margin-top:12px">
-        <details><summary>Who are the Master Assessors?</summary><p>Experienced tradespeople, many retired or semi-retired, with long, provable careers in their trade. They're impartial and independent of both parties, and judge the work against what was agreed and recognised trade standards.</p></details>
+        <details><summary>Who are the Master Assessors?</summary><p>Experienced tradespeople, many retired or semi-retired, with long, provable careers in their trade. They're impartial and independent of both parties, and judge the work against what was agreed and recognised trade standards. Experienced in a trade yourself? <a href="#become-assessor">Find out about becoming a Master Assessor</a>.</p></details>
         <details><summary>Do we have to accept the Master Assessor's findings?</summary><p>You both agree at the start to follow the process. If a dispute still can't be settled, we prepare a TradeResolve Evidence Document, an unbiased and factual record of the agreement, both parties' conduct and all relevant communications, for use in a small claims application or other legal proceedings.</p></details>
         <details data-for="c"><summary>What if my tradesperson won't use it?</summary><p>That's up to you. Many customers ask for it before choosing who to hire. A tradesperson who's confident in their work has nothing to lose by agreeing.</p></details>
         <details data-for="c"><summary>Can I get my money back if the work is poor?</summary><p>TradeResolve doesn't hold or refund money. What you get is an expert, impartial view of the work against what you agreed, guidance on putting it right, and, if needed, an Evidence Document to support a small claims application.</p></details>
@@ -1643,7 +1661,7 @@ header .wrap{transition:opacity .7s ease}
       <div><h3>TradeResolve</h3><ul>
         <li><a href="#how">How it works</a></li><li><a href="#price">Pricing</a></li><li><a href="#assessors">Master Assessors</a></li><li><a href="#faq">Questions</a></li><li><a href="#contact">Contact</a></li></ul></div>
       <div><h3>Your job</h3><ul>
-        <li><a href="#start">Protect a job</a></li><li><a href="#join">Become a Founding Trade</a></li><li><a href="/directory">TradeResolve Directory</a></li><li><a href="https://agree.traderesolve.co.uk/protect" target="_blank" rel="noopener">Agreement form</a></li><li><a href="/job">My job file</a></li><li><a href="/job">Lost your job file link?</a></li></ul></div>
+        <li><a href="#start">Protect a job</a></li><li><a href="#join">Become a Founding Trade</a></li><li><a href="https://agree.traderesolve.co.uk/assessor" target="_blank" rel="noopener">Become a Master Assessor</a></li><li><a href="/directory">TradeResolve Directory</a></li><li><a href="https://agree.traderesolve.co.uk/protect" target="_blank" rel="noopener">Agreement form</a></li><li><a href="/job">My job file</a></li><li><a href="/job">Lost your job file link?</a></li></ul></div>
       <div><h3>Legal</h3><ul>
         <li><a href="#terms">Terms of service</a></li><li><a href="#privacy">Privacy policy</a></li><li><a href="#cookies">Cookie policy</a></li><li><a href="#impartiality">Impartiality policy</a></li><li><a href="#complaints">Complaints</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#" data-cookie-reset>Cookie settings</a></li></ul></div>
     </div>
