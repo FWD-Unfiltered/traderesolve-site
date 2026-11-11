@@ -30,6 +30,7 @@
 .ex-play span{background:rgba(1,33,105,.85);padding:8px 14px;border-radius:99px}
 .ex-frame.playing .ex-play{display:none}
 @media (max-width:480px){.ex-play svg{width:54px;height:54px;padding:14px}.ex-play span{display:none}}
+.trades-ex{margin:26px 0 8px;max-width:980px}
 </style></head><body>
 <title>TradeResolve</title>
 <meta name="description" content="TradeResolve: one Unified Agreement for customer and tradesperson before work starts, and an impartial Master Assessor if anything needs sorting. Fair to the customer. Fair to the tradesperson.">
@@ -1079,7 +1080,14 @@ header .wrap{transition:opacity .7s ease}
       </div>
     </div>
 
-    <section class="join-sec" aria-labelledby="gain-h">
+        <div class="hv-explainer trades-ex">
+      <p class="ex-k"><span class="ex-dot"></span>Watch: why tradespeople use TradeResolve (3 minutes)</p>
+      <div class="ex-frame">
+        <video playsinline preload="none" poster="img/trades-explainer-poster.jpg" width="1920" height="1080"><source src="img/trades-explainer.mp4" type="video/mp4"></video>
+        <button class="ex-play" type="button" aria-label="Play the 3 minute TradeResolve video for tradespeople"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></button>
+      </div>
+    </div>
+<section class="join-sec" aria-labelledby="gain-h">
       <p class="eyebrow">What's in it for you</p>
       <h2 id="gain-h">Get paid for what you agreed, and judged fairly</h2>
       <div class="gain">
@@ -2162,9 +2170,9 @@ window.TR_AGREEMENT_LIVE=true;
 
 
 <script>
-(function(){var f=document.querySelector('.ex-frame');if(!f)return;var v=f.querySelector('video'),b=f.querySelector('.ex-play');
+document.querySelectorAll('.ex-frame').forEach(function(f){var v=f.querySelector('video'),b=f.querySelector('.ex-play');
 b.addEventListener('click',function(){f.classList.add('playing');v.controls=true;v.muted=false;var p=v.play();if(p&&p.catch)p.catch(function(){});});
 v.addEventListener('ended',function(){f.classList.remove('playing');v.controls=false;v.currentTime=0;});
-var h=document.querySelector('.hero-video video');v.addEventListener('play',function(){if(h&&!h.muted){h.muted=true;}});})();
+var h=document.querySelector('.hero-video video');v.addEventListener('play',function(){if(h&&!h.muted){h.muted=true;}});});
 </script>
 </body></html>
