@@ -2379,7 +2379,7 @@ document.addEventListener("click",function(ev){
 },true);
 
 /* ---- UTM pass-through (campaign names only; click IDs only with consent) ---- */
-var KEYS=["utm_source","utm_medium","utm_campaign","utm_content","utm_term"],utm=null;
+var KEYS=["utm_source","utm_medium","utm_campaign","utm_content","utm_term","promo"],utm=null;
 try{var q=new URLSearchParams(location.search),got={},any=false;
   KEYS.forEach(function(k){var v=q.get(k);if(v){got[k]=v.slice(0,100);any=true}});
   ["fbclid","gclid"].forEach(function(k){var v=q.get(k);if(v){got[k]=v.slice(0,200)}});
@@ -2393,7 +2393,14 @@ function tagLinks(withIds){if(!utm)return;
       if(withIds){if(utm.fbclid)u.searchParams.set("fbclid",utm.fbclid);if(utm.gclid)u.searchParams.set("gclid",utm.gclid)}
       a.href=u.toString()}catch(e){}});}
 function addClickIds(){tagLinks(true)}
-tagLinks(false);document.addEventListener("DOMContentLoaded",function(){tagLinks(A.on)});
+/* ---- Offer code banner (e.g. ?promo=FIRSTFREE from the business card) ---- */
+function promoBanner(){var c=utm&&utm.promo&&String(utm.promo).toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0,20);
+  if(!c||c.length<4||document.getElementById("tr-promo"))return;
+  var d=document.createElement("div");d.id="tr-promo";d.setAttribute("role","status");
+  d.style.cssText="background:#C8102E;color:#fff;font:600 15px/1.4 Manrope,Arial,sans-serif;text-align:center;padding:10px 16px";
+  d.textContent=c==="FIRSTFREE"?"Offer code FIRSTFREE applied: your first protected job is free (fee refunded up to \u00a349 once your agreement is active).":"Offer code "+c+" will be applied to your agreement.";
+  document.body.insertBefore(d,document.body.firstChild);}
+tagLinks(false);document.addEventListener("DOMContentLoaded",function(){tagLinks(A.on);promoBanner()});if(document.readyState!=="loading")promoBanner();
 start();
 })();
 </script>
